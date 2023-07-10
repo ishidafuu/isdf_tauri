@@ -1,24 +1,25 @@
 <template>
   <div>
     <div class="container">
-      <div :style="backgroundStyle" class="character"></div>
+      <div :style="styleData" class="character"></div>
+      <div class="crosshair crosshair-vertical"></div>
+      <div class="crosshair crosshair-horizontal"></div>
     </div>
     <div>
-      <button @click="DECREMENT">-</button>
+      <button @click="changeCharacter(-1)">-</button>
       <span>Current character index: {{ charIndex }}</span>
-      <button @click="INCREMENT">+</button>
+      <button @click="changeCharacter(1)">+</button>
 
       <div>
-        <button @click="incrementX">Move Right</button>
-        <button @click="decrementX">Move Left</button>
-        <span>Current X offset: {{ offsetX }}</span>
+        <button @click="changeOffset('X', 1)">Move Right</button>
+        <button @click="changeOffset('X', -1)">Move Left</button>
+        <div>Current X offset: {{ offsetX }}</div>
       </div>
       <div>
-        <button @click="incrementY">Move Down</button>
-        <button @click="decrementY">Move Up</button>
-        <span>Current Y offset: {{ offsetY }}</span>
+        <button @click="changeOffset('Y', 1)">Move Down</button>
+        <button @click="changeOffset('Y', -1)">Move Up</button>
+        <div>Current Y offset: {{ offsetY }}</div>
       </div>
-
     </div>
   </div>
 </template>
@@ -29,65 +30,89 @@ import {mapMutations, mapState} from 'vuex'
 export default {
   data() {
     return {
-      // Image path
       imagePath: '/nm2body.png',
-      // Grid size
       gridSize: 40
     }
   },
   computed: {
     ...mapState(['charIndex', 'offsetX', 'offsetY']),
     backgroundStyle() {
-      // Calculate the row number
       const col = Math.floor(this.charIndex / this.gridSize);
-      // Calculate the column number
       const row = this.charIndex % this.gridSize;
-      // Calculate the background position
-      const bgPosX = -col * this.gridSize + this.offsetX;
-      const bgPosY = -row * this.gridSize + this.offsetY;
-      // Return the CSS style
+      const bgPosX = -col * this.gridSize;
+      const bgPosY = -row * this.gridSize;
       return {
         backgroundImage: `url(${this.imagePath})`,
         backgroundPosition: `${bgPosX}px ${bgPosY}px`
       };
+    },
+    styleData() {
+      const scale = 4;
+      const translateX = -this.offsetX * scale;
+      const translateY = -this.offsetY * scale;
+      return {
+        ...this.backgroundStyle,
+        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
+      }
     }
   },
   methods: {
     ...mapMutations(['INCREMENT', 'DECREMENT', 'SET_OFFSET_X', 'SET_OFFSET_Y']),
-    incrementX() {
-      this.SET_OFFSET_X(this.offsetX + 1);
+    changeCharacter(amount) {
+      if (amount > 0) {
+        this.INCREMENT()
+      } else {
+        this.DECREMENT()
+      }
     },
-    decrementX() {
-      this.SET_OFFSET_X(this.offsetX - 1);
-    },
-    incrementY() {
-      this.SET_OFFSET_Y(this.offsetY + 1);
-    },
-    decrementY() {
-      this.SET_OFFSET_Y(this.offsetY - 1);
-    },
+    changeOffset(axis, amount) {
+      if (axis === 'X') {
+        this.SET_OFFSET_X(this.offsetX + amount);
+      } else if (axis === 'Y') {
+        this.SET_OFFSET_Y(this.offsetY + amount);
+      }
+    }
   }
 }
+
 </script>
 
 <style scoped>
 .container {
-  /* Set the div size as needed */
-  width: 160px; /* or whatever size you want */
-  height: 160px; /* or whatever size you want */
+  width: 320px;
+  height: 320px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
 }
 
 .character {
-  /* Set the div size to the grid size */
   width: 40px;
   height: 40px;
-  /* Do not repeat the background image */
   background-repeat: no-repeat;
-  /* Scale the div size by 4 times */
-  transform: scale(4);
-  /* Ensure the transform origin is top left */
-  transform-origin: top left;
-  /* Disable smoothing */
+  transform-origin: center;
   image-rendering: pixelated;
+  position: relative;
+}
+
+.crosshair {
+  position: absolute;
+  border-style: dashed;
+  border-color: #ff0000;
+}
+
+.crosshair-vertical {
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  border-left-width: 0px;
+}
+
+.crosshair-horizontal {
+  left: 0;
+  right: 0;
+  top: 75%;
+  border-top-width: 0px;
 }
 </style>
