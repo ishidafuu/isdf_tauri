@@ -1,11 +1,11 @@
 <script setup>
-import { ref } from 'vue';
-import { invoke } from '@tauri-apps/api/tauri';
+import {ref} from 'vue';
+import {invoke} from '@tauri-apps/api/tauri';
 
 const counter = ref(0);
 
 const increment = async () => {
-  const result = await invoke('increment_counter', { counter: counter.value });
+  const result = await invoke('increment_counter', {counter: counter.value});
   counter.value = result.value;
 };
 </script>
@@ -33,7 +33,7 @@ export default {
   <p>
     Check out
     <a href="https://vuejs.org/guide/quick-start.html#local" target="_blank"
-      >create-vue</a
+    >create-vue</a
     >, the official Vue + Vite starter
   </p>
   <p>
