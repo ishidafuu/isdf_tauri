@@ -16,6 +16,6 @@ exts = ['.rs', '.vue', '.css', '.html']  # 拡張子をリストで指定しま�
 # 現在のディレクトリ名を取得
 current_dir = os.path.basename(os.getcwd())
 zip_name = f'{current_dir}.zip'  # 作成するzipファイルの名前を指定します
-include_dirs = ['src', 'src-tauri']  # 圧縮対象のディレクトリのリストを指定します
+include_dirs = ['src', 'src-tauri', 'components']  # 圧縮対象のディレクトリのリストを指定します
 
 zip_files_with_extensions(start_dir, exts, zip_name, include_dirs)
