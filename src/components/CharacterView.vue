@@ -20,12 +20,14 @@
         <button @click="changeOffset('Y', -1)">Move Up</button>
         <div>Current Y offset: {{ offsetY }}</div>
       </div>
+      <button @click="$store.commit('undo')">Undo</button>
+      <button @click="$store.commit('redo')">Redo</button>
     </div>
   </div>
 </template>
 
 <script>
-import {mapMutations, mapState} from 'vuex'
+import {mapState} from 'vuex'
 
 export default {
   data() {
@@ -33,6 +35,12 @@ export default {
       imagePath: '/nm2body.png',
       gridSize: 40
     }
+  },
+  created() {
+    window.addEventListener('keydown', this.handleKeydown);
+  },
+  beforeDestroy() {
+    window.removeEventListener('keydown', this.handleKeydown);
   },
   computed: {
     ...mapState(['charIndex', 'offsetX', 'offsetY']),
@@ -57,24 +65,34 @@ export default {
     }
   },
   methods: {
-    ...mapMutations(['INCREMENT', 'DECREMENT', 'SET_OFFSET_X', 'SET_OFFSET_Y']),
     changeCharacter(amount) {
       if (amount > 0) {
-        this.INCREMENT()
+        this.$store.commit('increment')
       } else {
-        this.DECREMENT()
+        this.$store.commit('decrement')
       }
     },
     changeOffset(axis, amount) {
       if (axis === 'X') {
-        this.SET_OFFSET_X(this.offsetX + amount);
+        this.$store.commit('setOffsetX', this.offsetX + amount);
       } else if (axis === 'Y') {
-        this.SET_OFFSET_Y(this.offsetY + amount);
+        this.$store.commit('setOffsetY', this.offsetY + amount);
+      }
+    },
+    handleKeydown(event) {
+      if (event.ctrlKey) {
+        if (event.key.toLowerCase() === 'z') {
+          if (event.shiftKey) {
+            this.$store.commit('redo');
+          } else {
+            this.$store.commit('undo');
+          }
+          event.preventDefault();
+        }
       }
     }
   }
 }
-
 </script>
 
 <style scoped>

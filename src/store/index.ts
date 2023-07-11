@@ -2,47 +2,62 @@ import { createStore } from 'vuex'
 
 interface State {
     charIndex: number;
-    offsetX: number; // add new state properties for offsets
+    offsetX: number;
     offsetY: number;
+    past: Array<{charIndex: number, offsetX: number, offsetY: number}>;
+    future: Array<{charIndex: number, offsetX: number, offsetY: number}>;
 }
 
-// mutation types
-enum MutationTypes {
-    INCREMENT = 'INCREMENT',
-    DECREMENT = 'DECREMENT',
-    SET_OFFSET_X = 'SET_OFFSET_X',
-    SET_OFFSET_Y = 'SET_OFFSET_Y',
-}
-
-// mutations
-type Mutations<S = State> = {
-    [MutationTypes.INCREMENT](state: S): void
-    [MutationTypes.DECREMENT](state: S): void
-    [MutationTypes.SET_OFFSET_X](state: S, value: number): void // add new mutations for offsets
-    [MutationTypes.SET_OFFSET_Y](state: S, value: number): void
-}
-
-// store
 export const store = createStore<State>({
     state: {
         charIndex: 0,
-        offsetX: 0, // initialize offsets to 0
+        offsetX: 0,
         offsetY: 0,
+        past: [],
+        future: []
     },
     mutations: {
-        [MutationTypes.INCREMENT](state) {
-            state.charIndex++
+        increment(state) {
+            state.past = [...state.past, { charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }];
+            state.future = [];
+            state.charIndex++;
         },
-        [MutationTypes.DECREMENT](state) {
+        decrement(state) {
             if (state.charIndex > 0) {
-                state.charIndex--
+                state.past = [...state.past, { charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }];
+                state.future = [];
+                state.charIndex--;
             }
         },
-        [MutationTypes.SET_OFFSET_X](state, value) { // set offsets to the passed value
-            state.offsetX = value
+        setOffsetX(state, value) {
+            state.past = [...state.past, { charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }];
+            state.future = [];
+            state.offsetX = value;
         },
-        [MutationTypes.SET_OFFSET_Y](state, value) {
-            state.offsetY = value
-        }
+        setOffsetY(state, value) {
+            state.past = [...state.past, { charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }];
+            state.future = [];
+            state.offsetY = value;
+        },
+        undo(state) {
+            if (state.past.length > 0) {
+                const previousState = state.past[state.past.length - 1];
+                state.past = state.past.slice(0, state.past.length - 1);
+                state.future = [{ charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }, ...state.future];
+                state.charIndex = previousState.charIndex;
+                state.offsetX = previousState.offsetX;
+                state.offsetY = previousState.offsetY;
+            }
+        },
+        redo(state) {
+            if (state.future.length > 0) {
+                const nextState = state.future[0];
+                state.future = state.future.slice(1);
+                state.past = [...state.past, { charIndex: state.charIndex, offsetX: state.offsetX, offsetY: state.offsetY }];
+                state.charIndex = nextState.charIndex;
+                state.offsetX = nextState.offsetX;
+                state.offsetY = nextState.offsetY;
+            }
+        },
     }
 })
