@@ -1,23 +1,27 @@
 <template>
   <div>
     <CharacterView/>
-    <CharIndexControl/>
-    <OffsetControl/>
+    <BodyIndexControl/>
+    <BodyOffsetControl/>
     <UndoRedoControl/>
   </div>
 </template>
 
 <script>
-import CharacterView from './components/CharacterView.vue'
-import CharIndexControl from './components/CharIndexControl.vue'
-import OffsetControl from './components/OffsetControl.vue'
+import BodyView from './components/BodyView.vue'
+import BodyIndexControl from './components/BodyIndexControl.vue'
+import BodyOffsetControl from './components/BodyOffsetControl.vue'
 import UndoRedoControl from './components/UndoRedoControl.vue'
+import CharacterContainer from "./components/CharacterContainer.vue";
+import CharacterView from "./components/CharacterView.vue";
 
 export default {
   components: {
     CharacterView,
-    CharIndexControl,
-    OffsetControl,
+    CharacterContainer,
+    BodyView,
+    BodyIndexControl,
+    BodyOffsetControl,
     UndoRedoControl
   },
 }

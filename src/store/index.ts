@@ -1,43 +1,71 @@
-import { createStore } from 'vuex'
+import {createStore} from 'vuex'
 
 interface State {
-    charIndex: number;
-    offsetX: number;
-    offsetY: number;
+    bodyIndex: number;
+    offsetBodyX: number;
+    offsetBodyY: number;
+    faceIndex: number;
+    offsetFaceX: number;
+    offsetFaceY: number;
     past: Array<any>;
     future: Array<any>;
 }
 
 export const store = createStore<State>({
     state: {
-        charIndex: 0,
-        offsetX: 0,
-        offsetY: 0,
+        bodyIndex: 0,
+        offsetBodyX: 0,
+        offsetBodyY: 0,
+        faceIndex: 0,
+        offsetFaceX: 0,
+        offsetFaceY: 0,
         past: [],
         future: []
     },
     mutations: {
-        increment(state) {
-            state.past.push({ ...state });
+        incrementBodyIndex(state) {
+            state.past.push({...state});
             state.future = [];
-            state.charIndex++;
+            state.bodyIndex++;
         },
-        decrement(state) {
-            if (state.charIndex > 0) {
-                state.past.push({ ...state });
+        decrementBodyIndex(state) {
+            if (state.bodyIndex > 0) {
+                state.past.push({...state});
                 state.future = [];
-                state.charIndex--;
+                state.bodyIndex--;
             }
         },
-        setOffsetX(state, value) {
-            state.past.push({ ...state });
+        setOffsetBodyX(state, value) {
+            state.past.push({...state});
             state.future = [];
-            state.offsetX = value;
+            state.offsetBodyX = value;
         },
-        setOffsetY(state, value) {
-            state.past.push({ ...state });
+        setOffsetBodyY(state, value) {
+            state.past.push({...state});
             state.future = [];
-            state.offsetY = value;
+            state.offsetBodyY = value;
+        },
+        incrementFaceIndex(state) {
+            state.past.push({...state});
+            state.future = [];
+            state.faceIndex++;
+        },
+        decrementFaceIndex(state) {
+            if (state.faceIndex > 0) {
+                state.past.push({...state});
+                state.future = [];
+                state.faceIndex--;
+            }
+        },
+        setOffsetFaceX(state, value) {
+            state.past.push({...state});
+            state.future = [];
+            state.offsetFaceX = value;
+        },
+        setOffsetFaceY(state, value) {
+            state.past.push({...state});
+            state.future = [];
+            state.offsetFaceY = value;
         },
         undo(state) {
             if (state.past.length > 0) {
