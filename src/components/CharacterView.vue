@@ -1,28 +1,8 @@
 <template>
-  <div>
-    <div class="container">
-      <div :style="styleData" class="character"></div>
-      <div class="crosshair crosshair-vertical"></div>
-      <div class="crosshair crosshair-horizontal"></div>
-    </div>
-    <div>
-      <button @click="changeCharacter(-1)">-</button>
-      <span>Current character index: {{ charIndex }}</span>
-      <button @click="changeCharacter(1)">+</button>
-
-      <div>
-        <button @click="changeOffset('X', 1)">Move Right</button>
-        <button @click="changeOffset('X', -1)">Move Left</button>
-        <div>Current X offset: {{ offsetX }}</div>
-      </div>
-      <div>
-        <button @click="changeOffset('Y', 1)">Move Down</button>
-        <button @click="changeOffset('Y', -1)">Move Up</button>
-        <div>Current Y offset: {{ offsetY }}</div>
-      </div>
-      <button @click="$store.commit('undo')">Undo</button>
-      <button @click="$store.commit('redo')">Redo</button>
-    </div>
+  <div class="container">
+    <div :style="styleData" class="character"></div>
+    <div class="crosshair crosshair-vertical"></div>
+    <div class="crosshair crosshair-horizontal"></div>
   </div>
 </template>
 
@@ -35,12 +15,6 @@ export default {
       imagePath: '/nm2body.png',
       gridSize: 40
     }
-  },
-  created() {
-    window.addEventListener('keydown', this.handleKeydown);
-  },
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.handleKeydown);
   },
   computed: {
     ...mapState(['charIndex', 'offsetX', 'offsetY']),
@@ -64,34 +38,6 @@ export default {
       }
     }
   },
-  methods: {
-    changeCharacter(amount) {
-      if (amount > 0) {
-        this.$store.commit('increment')
-      } else {
-        this.$store.commit('decrement')
-      }
-    },
-    changeOffset(axis, amount) {
-      if (axis === 'X') {
-        this.$store.commit('setOffsetX', this.offsetX + amount);
-      } else if (axis === 'Y') {
-        this.$store.commit('setOffsetY', this.offsetY + amount);
-      }
-    },
-    handleKeydown(event) {
-      if (event.ctrlKey) {
-        if (event.key.toLowerCase() === 'z') {
-          if (event.shiftKey) {
-            this.$store.commit('redo');
-          } else {
-            this.$store.commit('undo');
-          }
-          event.preventDefault();
-        }
-      }
-    }
-  }
 }
 </script>
 

@@ -1,13 +1,27 @@
 <template>
-  <CharacterView/>
-  <HelloWorld msg="Vite + Vue"/>
+  <div>
+    <CharacterView/>
+    <CharIndexControl/>
+    <OffsetControl/>
+    <UndoRedoControl/>
+  </div>
 </template>
 
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
+<script>
 import CharacterView from './components/CharacterView.vue'
-</script>
+import CharIndexControl from './components/CharIndexControl.vue'
+import OffsetControl from './components/OffsetControl.vue'
+import UndoRedoControl from './components/UndoRedoControl.vue'
 
+export default {
+  components: {
+    CharacterView,
+    CharIndexControl,
+    OffsetControl,
+    UndoRedoControl
+  },
+}
+</script>
 
 <style scoped>
 .logo {
