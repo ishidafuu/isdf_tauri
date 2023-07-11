@@ -1,17 +1,17 @@
 <template>
-  <CharacterContainer>
+  <CrossLineView>
     <BodyView />
-  </CharacterContainer>
+  </CrossLineView>
 </template>
 
 <script>
-import CharacterContainer from './CharacterContainer.vue'
-import BodyView from './BodyView.vue'
+import CrossLineView from './CharacterView/CrossLineView.vue'
+import BodyView from './CharacterView/BodyView.vue'
 
 export default {
   name: 'CharacterView',
   components: {
-    CharacterContainer,
+    CrossLineView,
     BodyView
   }
 }

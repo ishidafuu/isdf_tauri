@@ -8,7 +8,7 @@
 
 <script>
 export default {
-  name: 'CharacterContainer',
+  name: 'CharacterContainer2',
 }
 </script>
 
