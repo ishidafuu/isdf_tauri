@@ -4,8 +4,8 @@ import zipfile
 def zip_files_with_extensions(start_dir, exts, zip_name, include_dirs):
     with zipfile.ZipFile(zip_name, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(start_dir):
-            # Include only directories in include_dirs
-            dirs[:] = [d for d in dirs if d in include_dirs]
+            # Ignore directories not in include_dirs
+            dirs[:] = [d for d in dirs if any(os.path.join(root, d).startswith(os.path.join(start_dir, dir)) for dir in include_dirs)]
             for file in files:
                 if any(file.endswith(ext) for ext in exts):
                     zipf.write(os.path.join(root, file))
@@ -16,6 +16,10 @@ exts = ['.rs', '.vue', '.css', '.ts', '.html']  # 拡張子をリストで指定
 # 現在のディレクトリ名を取得
 current_dir = os.path.basename(os.getcwd())
 zip_name = f'{current_dir}.zip'  # 作成するzipファイルの名前を指定します
-include_dirs = ['src', 'src-tauri', 'components', 'store']  # 圧縮対象のディレクトリのリストを指定します
+include_dirs = ['src', 'src-tauri']  # 圧縮対象のディレクトリのリストを指定します
+
+# zipファイルが存在する場合は削除します
+if os.path.exists(zip_name):
+    os.remove(zip_name)
 
 zip_files_with_extensions(start_dir, exts, zip_name, include_dirs)

@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Current Body index: {{ bodyIndex }}</span>
+    <span>Current Face index: {{ faceIndex }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>
@@ -11,15 +11,15 @@ import {mapState, mapMutations} from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['bodyIndex']),
+    ...mapState(['faceIndex']),
   },
   methods: {
-    ...mapMutations(['incrementBodyIndex', 'decrementBodyIndex']),
+    ...mapMutations(['incrementFaceIndex', 'decrementFaceIndex']),
     changeCharacter(amount) {
       if (amount > 0) {
-        this.incrementBodyIndex()
+        this.incrementFaceIndex()
       } else {
-        this.decrementBodyIndex()
+        this.decrementFaceIndex()
       }
     },
   }

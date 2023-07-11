@@ -13,10 +13,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['faceIndex', 'offsetXFace', 'offsetYFace']),  // change here
+    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY']),
     backgroundStyle() {
-      const col = Math.floor(this.faceIndex / this.gridSize);  // change here
-      const row = this.faceIndex % this.gridSize;              // change here
+      const col = Math.floor(this.faceIndex / this.gridSize);
+      const row = this.faceIndex % this.gridSize;
       const bgPosX = -col * this.gridSize;
       const bgPosY = -row * this.gridSize;
       return {
@@ -26,8 +26,9 @@ export default {
     },
     styleData() {
       const scale = 4;
-      const translateX = -this.offsetXFace * scale;  // change here
-      const translateY = -this.offsetYFace * scale;  // change here
+      const halfSize = 16 / 2;
+      const translateX = -this.offsetFaceX * scale - halfSize;
+      const translateY = -this.offsetFaceY * scale - halfSize;
       return {
         ...this.backgroundStyle,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
