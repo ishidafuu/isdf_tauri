@@ -2,13 +2,13 @@
   <div>
     <div>
       <button @click="changeOffset('X', 1)">Move Right</button>
+      <span>Current FaceX offset: {{ offsetFaceX }}</span>
       <button @click="changeOffset('X', -1)">Move Left</button>
-      <div>Current FaceX offset: {{ offsetFaceX }}</div>
     </div>
     <div>
       <button @click="changeOffset('Y', 1)">Move Down</button>
+      <span>Current FaceY offset: {{ offsetFaceY }}</span>
       <button @click="changeOffset('Y', -1)">Move Up</button>
-      <div>Current FaceY offset: {{ offsetFaceY }}</div>
     </div>
   </div>
 </template>
