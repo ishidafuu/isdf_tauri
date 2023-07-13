@@ -13,7 +13,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY', 'facePriority']), // Add 'facePriority' to the state mapping
+    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY', 'facePriority']),
     backgroundStyle() {
       const col = Math.floor(this.faceIndex / this.gridSize);
       const row = this.faceIndex % this.gridSize;
@@ -32,7 +32,7 @@ export default {
       return {
         ...this.backgroundStyle,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: this.facePriority  // Add this line to set the z-index dynamically
+        zIndex: this.facePriority
       }
     }
   },

@@ -1,8 +1,8 @@
 <template>
   <div>
     <label>Face Priority: {{ facePriority }}</label>
-    <button @click="increasePriority">UP</button>  <!-- Add this line -->
-    <button @click="decreasePriority">DOWN</button>  <!-- Add this line -->
+    <button @click="increasePriority">UP</button>
+    <button @click="decreasePriority">DOWN</button>
   </div>
 </template>
 
