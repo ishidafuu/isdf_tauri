@@ -13,10 +13,10 @@ export default {
     }
   },
   computed: {
-    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY', 'facePriority']),
+    ...mapState(['faceIndex', 'faceAngle', 'offsetFaceX', 'offsetFaceY', 'facePriority']),
     backgroundStyle() {
-      const col = Math.floor(this.faceIndex / this.gridSize);
-      const row = this.faceIndex % this.gridSize;
+      const col = this.faceIndex;
+      const row = this.faceAngle;
       const bgPosX = -col * this.gridSize;
       const bgPosY = -row * this.gridSize;
       return {
