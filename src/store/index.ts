@@ -19,6 +19,7 @@ export const store = createStore<State>({
         faceIndex: 0,
         offsetFaceX: 0,
         offsetFaceY: 0,
+        facePriority: 0,
         past: [],
         future: []
     },
@@ -66,6 +67,9 @@ export const store = createStore<State>({
             state.past.push({...state});
             state.future = [];
             state.offsetFaceY = value;
+        },
+        toggleFacePriority(state) {
+            state.facePriority = state.facePriority === 0 ? -1 : 0;
         },
         undo(state) {
             if (state.past.length > 0) {

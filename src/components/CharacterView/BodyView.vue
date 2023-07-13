@@ -1,5 +1,7 @@
 <template>
-  <div :style="styleData" class="character"></div>
+  <div style="z-index: 0">
+    <div :style="styleData" class="character"></div>
+  </div>
 </template>
 
 <script>

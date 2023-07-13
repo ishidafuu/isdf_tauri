@@ -4,7 +4,6 @@
 
 <script>
 import {mapState} from 'vuex'
-
 export default {
   data() {
     return {
@@ -14,7 +13,7 @@ export default {
     }
   },
   computed: {
-    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY']),
+    ...mapState(['faceIndex', 'offsetFaceX', 'offsetFaceY', 'facePriority']), // Add 'facePriority' to the state mapping
     backgroundStyle() {
       const col = Math.floor(this.faceIndex / this.gridSize);
       const row = this.faceIndex % this.gridSize;
@@ -32,7 +31,8 @@ export default {
       const translateY = -this.offsetFaceY * scale - halfSize;
       return {
         ...this.backgroundStyle,
-        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
+        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+        zIndex: this.facePriority  // Add this line to set the z-index dynamically
       }
     }
   },
