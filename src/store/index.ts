@@ -1,4 +1,7 @@
 import {createStore} from 'vuex'
+import { invoke } from '@tauri-apps/api/tauri';
+import { writeFile, readTextFile } from '@tauri-apps/api/fs';
+import { documentDir } from '@tauri-apps/api/path';
 
 interface State {
     bodyIndex: number;
@@ -93,6 +96,28 @@ export const store = createStore<State>({
                 const nextState = state.future.pop();
                 state.past.push({...state});
                 Object.assign(state, nextState);
+            }
+        },
+        loadState(state, newState) {
+            Object.assign(state, newState);
+        },
+    },
+    actions: {
+        async saveState({ state }) {
+            try {
+                const path = `${await documentDir()}/save.json`;
+                await writeFile({ path, contents: JSON.stringify(state) });
+            } catch (error) {
+                console.error('Failed to save state:', error);
+            }
+        },
+        async loadState({ commit }) {
+            try {
+                const path = `${await documentDir()}/save.json`;
+                const loadedState = JSON.parse(await readTextFile(path));
+                commit('loadState', loadedState);
+            } catch (error) {
+                console.error('Failed to load state:', error);
             }
         },
     }

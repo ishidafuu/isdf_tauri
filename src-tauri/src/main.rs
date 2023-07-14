@@ -9,17 +9,7 @@ fn main() {
         let _window = app.get_window("main").unwrap();
         Ok(())
       })
-      .invoke_handler(tauri::generate_handler![increment_counter])
+//       .invoke_handler(tauri::generate_handler![])
       .run(tauri::generate_context!())
       .expect("error while running tauri application");
-}
-
-#[derive(serde::Serialize)]
-struct Counter {
-  value: i32,
-}
-
-#[tauri::command]
-async fn increment_counter(counter: i32) -> tauri::Result<Counter> {
-  Ok(Counter { value: counter + 1 })
 }

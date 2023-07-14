@@ -6,6 +6,7 @@
   <FaceOffsetControl/>
   <FacePriorityControl/>
   <UndoRedoControl/>
+  <SaveLoadControl/>
 </template>
 
 <script>
@@ -14,8 +15,9 @@ import BodyIndexControl from "./ControlView/BodyIndexControl.vue";
 import FaceIndexControl from "./ControlView/FaceIndexControl.vue";
 import FaceAngleControl from "./ControlView/FaceAngleControl.vue";
 import FaceOffsetControl from "./ControlView/FaceOffsetControl.vue";
-import UndoRedoControl from "./ControlView/UndoRedoControl.vue";
 import FacePriorityControl from "./ControlView/FacePriorityControl.vue";
+import UndoRedoControl from "./ControlView/UndoRedoControl.vue";
+import SaveLoadControl from "./ControlView/SaveLoadControl.vue";
 
 export default {
   name: 'ControlView',
@@ -27,6 +29,7 @@ export default {
     FaceOffsetControl,
     FacePriorityControl,
     UndoRedoControl,
+    SaveLoadControl,
   }
 }
 </script>
