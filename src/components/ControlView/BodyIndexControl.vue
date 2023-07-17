@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Current Body index: {{ bodyIndex }}</span>
+    <span>Current Body index: {{ activeBodyIndex }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>
@@ -11,7 +11,7 @@ import {mapState, mapMutations} from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['bodyIndex']),
+    ...mapState(['activeBodyIndex']),
   },
   methods: {
     ...mapMutations(['incrementBodyIndex', 'decrementBodyIndex']),

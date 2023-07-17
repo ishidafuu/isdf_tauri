@@ -7,24 +7,27 @@
 </template>
 
 <script>
-import { computed } from "vue";
-import { useStore } from "vuex";
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
-  setup() {
-    const store = useStore();
-    const facePriority = computed(() => store.state.facePriority);
-    const increasePriority = () => {
-      if (store.state.facePriority < 0) {
-        store.commit("toggleFacePriority");
-      }
-    };
-    const decreasePriority = () => {
-      if (store.state.facePriority >= 0) {
-        store.commit("toggleFacePriority");
-      }
-    };
-    return { facePriority, increasePriority, decreasePriority };  // Update this line
+  computed: {
+    ...mapGetters(['currentBodyState']),
+    facePriority() {
+      return this.currentBodyState.facePriority;
+    },
   },
-};
+  methods: {
+    ...mapMutations(['toggleFacePriority']),
+    increasePriority() {
+      if (this.facePriority < 0) {
+        this.toggleFacePriority();
+      }
+    },
+    decreasePriority() {
+      if (this.facePriority >= 0) {
+        this.toggleFacePriority();
+      }
+    },
+  }
+}
 </script>

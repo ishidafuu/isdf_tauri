@@ -14,11 +14,17 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['offsetBodyX', 'offsetBodyY']),
+    ...mapGetters(['currentBodyState']),
+    offsetBodyX() {
+      return this.currentBodyState.offsetBodyX;
+    },
+    offsetBodyY() {
+      return this.currentBodyState.offsetBodyY;
+    },
   },
   methods: {
     ...mapMutations(['setOffsetBodyX', 'setOffsetBodyY']),

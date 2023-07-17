@@ -7,11 +7,14 @@
 </template>
 
 <script>
-import {mapState, mapMutations} from 'vuex'
+import {mapGetters, mapMutations} from 'vuex'
 
 export default {
   computed: {
-    ...mapState(['faceIndex']),
+    ...mapGetters(['currentBodyState']),
+    faceIndex() {
+      return this.currentBodyState.faceIndex;
+    },
   },
   methods: {
     ...mapMutations(['incrementFaceIndex', 'decrementFaceIndex']),

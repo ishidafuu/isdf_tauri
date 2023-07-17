@@ -13,7 +13,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['faceIndex', 'faceAngle', 'offsetFaceX', 'offsetFaceY', 'facePriority']),
+    ...mapState({
+      faceIndex: state => state.bodyStates[state.activeBodyIndex].faceIndex,
+      faceAngle: state => state.bodyStates[state.activeBodyIndex].faceAngle,
+      offsetFaceX: state => state.bodyStates[state.activeBodyIndex].offsetFaceX,
+      offsetFaceY: state => state.bodyStates[state.activeBodyIndex].offsetFaceY,
+      facePriority: state => state.bodyStates[state.activeBodyIndex].facePriority
+    }),
     backgroundStyle() {
       const col = this.faceIndex;
       const row = this.faceAngle;

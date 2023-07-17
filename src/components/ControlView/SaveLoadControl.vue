@@ -6,14 +6,11 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
+
 export default {
   methods: {
-    saveState() {
-      this.$store.dispatch('saveState');
-    },
-    loadState() {
-      this.$store.dispatch('loadState');
-    }
+    ...mapActions(['saveState', 'loadState']),
   },
   created() {
     window.addEventListener('keydown', this.handleKeydown);

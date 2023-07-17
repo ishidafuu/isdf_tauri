@@ -17,10 +17,13 @@ export default {
     }
   },
   computed: {
-    ...mapState(['bodyIndex', 'offsetBodyX', 'offsetBodyY']),
+    ...mapState(['bodyStates', 'activeBodyIndex']),
+    currentBodyState() {
+      return this.bodyStates[this.activeBodyIndex];
+    },
     backgroundStyle() {
-      const col = Math.floor(this.bodyIndex / this.gridSize);
-      const row = this.bodyIndex % this.gridSize;
+      const col = Math.floor(this.activeBodyIndex / this.gridSize);
+      const row = this.activeBodyIndex % this.gridSize;
       const bgPosX = -col * this.gridSize;
       const bgPosY = -row * this.gridSize;
       return {
@@ -31,8 +34,8 @@ export default {
     styleData() {
       const scale = 4;
       const halfSize = 40 / 2;
-      const translateX = -this.offsetBodyX * scale - halfSize;
-      const translateY = -this.offsetBodyY * scale - halfSize;
+      const translateX = -this.currentBodyState.offsetBodyX * scale - halfSize;
+      const translateY = -this.currentBodyState.offsetBodyY * scale - halfSize;
       return {
         ...this.backgroundStyle,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
