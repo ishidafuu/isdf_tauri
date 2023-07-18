@@ -1,5 +1,5 @@
 <template>
-  <div :style="styleData" class="character"></div>
+  <div :style="styleData" class="character-face"></div>
 </template>
 
 <script lang="ts">
@@ -59,7 +59,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.character {
+.character-face {
   width: 16px;
   height: 16px;
   background-repeat: no-repeat;

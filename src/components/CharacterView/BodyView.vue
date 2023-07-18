@@ -1,6 +1,6 @@
 <template>
   <div style="z-index: 0">
-    <div :style="styleData" class="character"></div>
+    <div :style="styleData" class="character-body"></div>
   </div>
 </template>
 
@@ -56,7 +56,7 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.character {
+.character-body {
   width: 40px;
   height: 40px;
   background-repeat: no-repeat;
