@@ -1,5 +1,4 @@
 import {createStore} from 'vuex'
-import { invoke } from '@tauri-apps/api/tauri';
 import { writeFile, readTextFile } from '@tauri-apps/api/fs';
 import { documentDir } from '@tauri-apps/api/path';
 
@@ -45,73 +44,72 @@ export const store = createStore<State>({
         future: []
     },
     mutations: {
-        incrementBodyIndex(state) {
-            state.past.push({...state});
+        pushToPast(state) {
+            state.past.push(state.bodyStates.map(bodyState => ({...bodyState})));
+            state.future = []
+        },
+        clearPast(state) {
+            state.past = [];
             state.future = [];
+        },
+        incrementBodyIndex(state) {
+            this.commit('clearPast');
             state.activeBodyIndex++;
         },
         decrementBodyIndex(state) {
             if (state.activeBodyIndex > 0) {
-                state.past.push({...state});
-                state.future = [];
+                this.commit('clearPast');
                 state.activeBodyIndex--;
             }
         },
         setOffsetBodyX(state, value) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].offsetBodyX = value;
         },
         setOffsetBodyY(state, value) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].offsetBodyY = value;
         },
         incrementFaceIndex(state) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 1) % 8;
         },
         decrementFaceIndex(state) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 8 - 1) % 8;
         },
         incrementFaceAngle(state) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 1) % 3;
         },
         decrementFaceAngle(state) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 3 - 1) % 3;
         },
         setOffsetFaceX(state, value) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].offsetFaceX = value;
         },
         setOffsetFaceY(state, value) {
-            state.past.push({...state});
-            state.future = [];
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].offsetFaceY = value;
         },
         toggleFacePriority(state) {
+            this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].facePriority = state.bodyStates[state.activeBodyIndex].facePriority === 0 ? -1 : 0;
         },
         undo(state) {
             if (state.past.length > 0) {
                 const previousState = state.past.pop();
                 state.future.push({...state});
-                Object.assign(state, previousState);
+                Object.assign(state.bodyStates, previousState);
             }
         },
         redo(state) {
             if (state.future.length > 0) {
                 const nextState = state.future.pop();
                 state.past.push({...state});
-                Object.assign(state, nextState);
+                Object.assign(state.bodyStates, nextState);
             }
         },
         loadState(state, newState) {
