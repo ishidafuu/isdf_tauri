@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Current Face angle: {{ faceAngle }}</span>
+    <span>Face angle: {{ faceAngle }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>

@@ -2,12 +2,12 @@
   <div>
     <div>
       <button @click="changeOffset('X', 1)">Move Right</button>
-      <span>Current BodyX offset: {{ offsetBodyX }}</span>
+      <span>BodyX offset: {{ offsetBodyX }}</span>
       <button @click="changeOffset('X', -1)">Move Left</button>
     </div>
     <div>
       <button @click="changeOffset('Y', 1)">Move Down</button>
-      <span>Current BodyY offset: {{ offsetBodyY }}</span>
+      <span>BodyY offset: {{ offsetBodyY }}</span>
       <button @click="changeOffset('Y', -1)">Move Up</button>
     </div>
   </div>

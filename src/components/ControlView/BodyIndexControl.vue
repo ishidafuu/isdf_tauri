@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Current Body index: {{ activeBodyIndex }}</span>
+    <span>Body index: {{ activeBodyIndex }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>
