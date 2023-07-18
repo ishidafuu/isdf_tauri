@@ -1,33 +1,31 @@
 <template>
   <div>
-    <button @click="increasePriority">UP</button>
+    <button @click="changePriority('up')">UP</button>
     <span>Face Priority: {{ facePriority }}</span>
-    <button @click="decreasePriority">DOWN</button>
+    <button @click="changePriority('down')">DOWN</button>
   </div>
 </template>
 
-<script>
-import {mapGetters, mapMutations} from 'vuex'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  computed: {
-    ...mapGetters(['currentBodyState']),
-    facePriority() {
-      return this.currentBodyState.facePriority;
-    },
-  },
-  methods: {
-    ...mapMutations(['toggleFacePriority']),
-    increasePriority() {
-      if (this.facePriority < 0) {
-        this.toggleFacePriority();
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const facePriority = computed(() => store.getters.currentBodyState.facePriority)
+
+    const changePriority = (direction: string) => {
+      if ((direction === 'up' && facePriority.value < 0) || (direction === 'down' && facePriority.value >= 0)) {
+        store.commit('toggleFacePriority')
       }
-    },
-    decreasePriority() {
-      if (this.facePriority >= 0) {
-        this.toggleFacePriority();
-      }
-    },
+    }
+
+    return {
+      facePriority,
+      changePriority
+    }
   }
-}
+})
 </script>

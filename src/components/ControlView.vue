@@ -2,9 +2,9 @@
   <BodyIndexControl/>
   <BodyOffsetControl/>
   <FaceIndexControl/>
+  <FacePriorityControl/>
   <FaceAngleControl/>
   <FaceOffsetControl/>
-  <FacePriorityControl/>
   <UndoRedoControl/>
   <SaveLoadControl/>
 </template>
