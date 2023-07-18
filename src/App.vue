@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parent-component">
     <CharacterView/>
     <ControlView/>
   </div>
@@ -16,3 +16,10 @@ export default {
   },
 }
 </script>
+
+
+<style scoped>
+.parent-component {
+  display: flex;
+}
+</style>

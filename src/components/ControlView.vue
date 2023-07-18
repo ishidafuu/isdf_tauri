@@ -1,12 +1,15 @@
 <template>
-  <BodyIndexControl/>
-  <BodyOffsetControl/>
-  <FaceIndexControl/>
-  <FacePriorityControl/>
-  <FaceAngleControl/>
-  <FaceOffsetControl/>
-  <UndoRedoControl/>
-  <SaveLoadControl/>
+  <div>
+    <BodyIndexControl/>
+    <BodyOffsetControl/>
+    <FaceIndexControl/>
+    <FacePriorityControl/>
+    <FaceAngleControl/>
+    <FaceOffsetControl/>
+    <UndoRedoControl/>
+    <SaveLoadControl/>
+  </div>
+
 </template>
 
 <script>
