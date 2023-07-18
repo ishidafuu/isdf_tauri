@@ -4,80 +4,55 @@
   </div>
 </template>
 
-<script>
-import { mapState } from 'vuex'
+<script lang="ts">
+import { defineComponent, computed, ref, onMounted } from "vue";
+import { useStore } from "vuex";
+import { useImageUtils } from "../../mixins/imageUtils";
 
-export default {
-  name: 'BodyView',
-  data() {
-    return {
-      imagePath: '/nm2body.png',
-      transparentImagePath: null,
-      gridSize: 40
-    }
-  },
-  computed: {
-    ...mapState(['bodyStates', 'activeBodyIndex']),
-    currentBodyState() {
-      return this.bodyStates[this.activeBodyIndex];
-    },
-    backgroundStyle() {
-      const col = Math.floor(this.activeBodyIndex / this.gridSize);
-      const row = this.activeBodyIndex % this.gridSize;
-      const bgPosX = -col * this.gridSize;
-      const bgPosY = -row * this.gridSize;
+export default defineComponent({
+  name: "BodyView",
+  setup() {
+    const store = useStore();
+    const imagePath = '/nm2body.png';
+    const transparentImagePath = ref<string | null>(null);
+    const gridSize = 40;
+    const { makeColorTransparent } = useImageUtils();
+
+    const currentBodyState = computed(() => store.getters.currentBodyState);
+
+    const backgroundStyle = computed(() => {
+      const col = Math.floor(store.state.activeBodyIndex / gridSize);
+      const row = store.state.activeBodyIndex % gridSize;
+      const bgPosX = -col * gridSize;
+      const bgPosY = -row * gridSize;
       return {
-        backgroundImage: `url(${this.transparentImagePath || this.imagePath})`,
+        backgroundImage: `url(${transparentImagePath.value || imagePath})`,
         backgroundPosition: `${bgPosX}px ${bgPosY}px`
       };
-    },
-    styleData() {
+    });
+
+    const styleData = computed(() => {
       const scale = 4;
       const halfSize = 40 / 2;
-      const translateX = -this.currentBodyState.offsetBodyX * scale - halfSize;
-      const translateY = -this.currentBodyState.offsetBodyY * scale - halfSize;
+      const translateX = -currentBodyState.value.offsetBodyX * scale - halfSize;
+      const translateY = -currentBodyState.value.offsetBodyY * scale - halfSize;
       return {
-        ...this.backgroundStyle,
+        ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
-      }
-    }
-  },
-  mounted() {
-    this.makeColorTransparent(this.imagePath, [255, 0, 255], (transparentImg) => {
-      this.transparentImagePath = transparentImg;
-    });
-  },
-  methods: {
-    makeColorTransparent(image, color, callback) {
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-
-      const img = new Image();
-      img.onload = () => {
-        canvas.width = img.width;
-        canvas.height = img.height;
-
-        context.drawImage(img, 0, 0, img.width, img.height);
-
-        const imageData = context.getImageData(0, 0, img.width, img.height);
-        const data = imageData.data;
-
-        for (let i = 0; i < data.length; i += 4) {
-          if (data[i] === color[0] && data[i + 1] === color[1] && data[i + 2] === color[2]) {
-            // Make the pixel transparent
-            data[i + 3] = 0;
-          }
-        }
-
-        context.putImageData(imageData, 0, 0);
-
-        callback(canvas.toDataURL());
       };
+    });
 
-      img.src = image;
-    }
+    onMounted(() => {
+      makeColorTransparent(imagePath, [255, 0, 255], (transparentImg) => {
+        transparentImagePath.value = transparentImg;
+      });
+    });
+
+    return {
+      styleData
+    };
   },
-}
+});
 </script>
 
 <style scoped>
