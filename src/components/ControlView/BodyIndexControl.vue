@@ -6,22 +6,28 @@
   </div>
 </template>
 
-<script>
-import {mapState, mapMutations} from 'vuex'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  computed: {
-    ...mapState(['activeBodyIndex']),
-  },
-  methods: {
-    ...mapMutations(['incrementBodyIndex', 'decrementBodyIndex']),
-    changeCharacter(amount) {
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const activeBodyIndex = computed(() => store.state.activeBodyIndex)
+
+    const changeCharacter = (amount: number) => {
       if (amount > 0) {
-        this.incrementBodyIndex()
+        store.commit('incrementBodyIndex')
       } else {
-        this.decrementBodyIndex()
+        store.commit('decrementBodyIndex')
       }
-    },
+    }
+
+    return {
+      activeBodyIndex,
+      changeCharacter
+    }
   }
-}
+})
 </script>
