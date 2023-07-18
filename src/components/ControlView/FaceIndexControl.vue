@@ -6,25 +6,28 @@
   </div>
 </template>
 
-<script>
-import {mapGetters, mapMutations} from 'vuex'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  computed: {
-    ...mapGetters(['currentBodyState']),
-    faceIndex() {
-      return this.currentBodyState.faceIndex;
-    },
-  },
-  methods: {
-    ...mapMutations(['incrementFaceIndex', 'decrementFaceIndex']),
-    changeCharacter(amount) {
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const faceIndex = computed(() => store.getters.currentBodyState.faceIndex)
+
+    const changeCharacter = (amount: number) => {
       if (amount > 0) {
-        this.incrementFaceIndex()
+        store.commit('incrementFaceIndex')
       } else {
-        this.decrementFaceIndex()
+        store.commit('decrementFaceIndex')
       }
-    },
+    }
+
+    return {
+      faceIndex,
+      changeCharacter
+    }
   }
-}
+})
 </script>

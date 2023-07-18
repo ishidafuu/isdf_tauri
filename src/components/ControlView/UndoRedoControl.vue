@@ -1,31 +1,48 @@
 <template>
   <div>
-    <button @click="$store.commit('undo')">Undo</button>
-    <button @click="$store.commit('redo')">Redo</button>
+    <button @click="undo">Undo</button>
+    <button @click="redo">Redo</button>
   </div>
 </template>
 
-<script>
-export default {
-  methods: {
-    handleKeydown(event) {
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
+
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const undo = () => {
+      store.commit('undo')
+    }
+
+    const redo = () => {
+      store.commit('redo')
+    }
+
+    const handleKeydown = (event: KeyboardEvent) => {
       if (event.ctrlKey) {
         if (event.key.toLowerCase() === 'z') {
           if (event.shiftKey) {
-            this.$store.commit('redo');
+            redo()
           } else {
-            this.$store.commit('undo');
+            undo()
           }
-          event.preventDefault();
+          event.preventDefault()
         }
       }
     }
+
+    window.addEventListener('keydown', handleKeydown)
+
+    return {
+      undo,
+      redo
+    }
   },
-  created() {
-    window.addEventListener('keydown', this.handleKeydown);
+  beforeUnmount() {
+    window.removeEventListener('keydown', handleKeydown)
   },
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  },
-}
+})
 </script>

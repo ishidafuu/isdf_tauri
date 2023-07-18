@@ -5,18 +5,39 @@
   </div>
 </template>
 
-<script>
-import { mapActions } from 'vuex';
+<script lang="ts">
+import { defineComponent } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  methods: {
-    ...mapActions(['saveState', 'loadState']),
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const saveState = () => {
+      store.dispatch('saveState')
+    }
+
+    const loadState = () => {
+      store.dispatch('loadState')
+    }
+
+    const handleKeydown = (event: KeyboardEvent) => {
+      if (event.key === 's') {
+        saveState()
+      } else if (event.key === 'l') {
+        loadState()
+      }
+    }
+
+    window.addEventListener('keydown', handleKeydown)
+
+    return {
+      saveState,
+      loadState
+    }
   },
-  created() {
-    window.addEventListener('keydown', this.handleKeydown);
+  beforeUnmount() {
+    window.removeEventListener('keydown', handleKeydown)
   },
-  beforeDestroy() {
-    window.removeEventListener('keydown', this.handleKeydown);
-  },
-}
+})
 </script>
