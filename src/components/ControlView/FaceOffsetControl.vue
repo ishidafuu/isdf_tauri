@@ -13,28 +13,30 @@
   </div>
 </template>
 
-<script>
-import {mapGetters, mapMutations} from 'vuex'
+<script lang="ts">
+import { defineComponent, computed } from 'vue'
+import { useStore } from 'vuex'
 
-export default {
-  computed: {
-    ...mapGetters(['currentBodyState']),
-    offsetFaceX() {
-      return this.currentBodyState.offsetFaceX;
-    },
-    offsetFaceY() {
-      return this.currentBodyState.offsetFaceY;
-    },
-  },
-  methods: {
-    ...mapMutations(['setOffsetFaceX', 'setOffsetFaceY']),
-    changeOffset(axis, amount) {
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const offsetFaceX = computed(() => store.getters.currentBodyState.offsetFaceX)
+    const offsetFaceY = computed(() => store.getters.currentBodyState.offsetFaceY)
+
+    const changeOffset = (axis: string, amount: number) => {
       if (axis === 'X') {
-        this.setOffsetFaceX(this.offsetFaceX + amount);
+        store.commit('setOffsetFaceX', offsetFaceX.value + amount)
       } else if (axis === 'Y') {
-        this.setOffsetFaceY(this.offsetFaceY + amount);
+        store.commit('setOffsetFaceY', offsetFaceY.value + amount)
       }
-    },
+    }
+
+    return {
+      offsetFaceX,
+      offsetFaceY,
+      changeOffset
+    }
   }
-}
+})
 </script>
