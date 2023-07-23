@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="saveState">Save State</button>
+    <button @click="saveState">Save State (Ctrl+S)</button>
     <div v-if="fileStatus === 'SaveComplete'">Save Complete</div>
     <button @click="loadState">Load State</button>
     <div v-if="fileStatus === 'LoadComplete'">Load Complete</div>
@@ -18,7 +18,7 @@ export default defineComponent({
     const store = useStore()
     const fileStatus = ref('')
 
-    const saveState = async () => {  // add 'async' here
+    const saveState = async () => {
       await store.dispatch('saveState')
       fileStatus.value = 'SaveComplete'
       setTimeout(() => fileStatus.value = '', 1000)
@@ -36,10 +36,8 @@ export default defineComponent({
     }
 
     const handleKeydown = (event: KeyboardEvent) => {
-      if (event.key === 's') {
+      if (event.ctrlKey && event.key === 's') {
         saveState()
-      } else if (event.key === 'l') {
-        loadState()
       }
     }
 

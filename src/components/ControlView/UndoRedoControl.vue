@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="undo">Undo</button>
-    <button @click="redo">Redo</button>
+    <button @click="undo">Undo (Ctrl+Z)</button>
+    <button @click="redo">Redo (Ctrl+Shift+Z)</button>
   </div>
 </template>
 
