@@ -45,6 +45,7 @@ const initialBodyState: BodyState = {
     itemAngle: 0,
     itemX: 0,
     itemY: 0,
+    itemPriority: 0,
 }
 
 export const store = createStore<State>({
@@ -100,6 +101,23 @@ export const store = createStore<State>({
             this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].facePriority = state.bodyStates[state.activeBodyIndex].facePriority === 0 ? -1 : 0;
         },
+        changeItemAngle(state, amount) {
+            this.commit('pushToPast');
+            state.bodyStates[state.activeBodyIndex].itemAngle = (state.bodyStates[state.activeBodyIndex].itemAngle + 8 + amount) % 8;
+        },
+        changeItemX(state, amount) {
+            this.commit('pushToPast');
+            state.bodyStates[state.activeBodyIndex].itemX = state.bodyStates[state.activeBodyIndex].itemX + amount;
+        },
+        changeItemY(state, amount) {
+            this.commit('pushToPast');
+            state.bodyStates[state.activeBodyIndex].itemY = state.bodyStates[state.activeBodyIndex].itemY + amount;
+        },
+        toggleItemPriority(state) {
+            this.commit('pushToPast');
+            state.bodyStates[state.activeBodyIndex].itemPriority = state.bodyStates[state.activeBodyIndex].itemPriority === 0 ? -1 : 0;
+        },
+
         undo(state) {
             if (state.past.length > 0) {
                 const previousState = state.past.pop();
@@ -119,18 +137,18 @@ export const store = createStore<State>({
         },
     },
     actions: {
-        async saveState({ state, dispatch }) {
+        async saveState({state, dispatch}) {
             try {
                 const dataToSave = {
                     bodyStates: state.bodyStates,
                 };
                 const path = await dispatch('getSavePath');
-                await writeFile({ path, contents: JSON.stringify(dataToSave) });
+                await writeFile({path, contents: JSON.stringify(dataToSave)});
             } catch (error) {
                 console.error('Failed to save state:', error);
             }
         },
-        async loadState({ commit, dispatch }) {
+        async loadState({commit, dispatch}) {
             try {
                 const path = await dispatch('getSavePath');
                 const loadedState = JSON.parse(await readTextFile(path));

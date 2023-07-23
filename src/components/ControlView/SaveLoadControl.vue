@@ -1,17 +1,17 @@
 <template>
   <div>
     <button @click="saveState">Save State (Ctrl+S)</button>
-    <div v-if="fileStatus === 'SaveComplete'">Save Complete</div>
     <button @click="loadState">Load State</button>
-    <div v-if="fileStatus === 'LoadComplete'">Load Complete</div>
     <button @click="openSaveDirectory">Open Save Directory</button>
+    <div v-if="fileStatus === 'SaveComplete'">Save Complete</div>
+    <div v-if="fileStatus === 'LoadComplete'">Load Complete</div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
-import { useStore } from 'vuex'
-import { invoke } from '@tauri-apps/api/tauri'
+import {defineComponent, ref} from 'vue'
+import {useStore} from 'vuex'
+import {invoke} from '@tauri-apps/api/tauri'
 
 export default defineComponent({
   setup() {
@@ -32,7 +32,7 @@ export default defineComponent({
 
     const openSaveDirectory = async () => {
       const savePath = await store.dispatch('getSavePath')
-      await invoke('open_save_directory', { path: savePath })  // modify this line
+      await invoke('open_save_directory', {path: savePath})  // modify this line
     }
 
     const handleKeydown = (event: KeyboardEvent) => {
