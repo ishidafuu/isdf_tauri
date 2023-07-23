@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Body index (カーソルキー): {{ activeBodyIndex }}</span>
+    <span>Body index (Cursor): {{ activeBodyIndex }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>
@@ -21,6 +21,10 @@ export default defineComponent({
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.shiftKey) {
+        return;
+      }
+
       if (event.code === 'ArrowLeft') {
         changeCharacter(-1);
       } else if (event.code === 'ArrowRight') {

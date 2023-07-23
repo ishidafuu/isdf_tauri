@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div :class="{ highlight: editMode === 'Face' }">
     <button @click="changeCharacter(-1)">-</button>
-    <span>Face angle: {{ faceAngle }}</span>
+    <span>Face angle (R): {{ faceAngle }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -15,6 +15,7 @@ export default defineComponent({
     const store = useStore()
 
     const faceAngle = computed(() => store.getters.currentBodyState.faceAngle)
+    const editMode = computed(() => store.state.editMode)
 
     const changeCharacter = (amount: number) => {
       if (amount > 0) {
@@ -24,11 +25,39 @@ export default defineComponent({
       }
     }
 
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.ctrlKey) {
+        return;
+      }
+
+      if (editMode.value !== 'Face') {
+        return;
+      }
+
+      if (event.code === 'KeyR') {
+        changeCharacter(1);
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeyDown);
+    });
+
     return {
       faceAngle,
-      changeCharacter
+      changeCharacter,
+      editMode
     }
   }
 })
 </script>
 
+<style scoped>
+.highlight {
+  color: yellow;
+}
+</style>

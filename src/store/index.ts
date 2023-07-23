@@ -40,10 +40,14 @@ export const store = createStore<State>({
     state: {
         bodyStates: Array.from({length: 100}, () => ({...initialBodyState})),  // Initialize bodyStates with 100 independent body parts
         activeBodyIndex: 0,
+        editMode: 'Body',
         past: [],
         future: []
     },
     mutations: {
+        setEditMode(state, mode) {
+            state.editMode = mode;
+        },
         pushToPast(state) {
             state.past.push(state.bodyStates.map(bodyState => ({...bodyState})));
             state.future = []
@@ -75,11 +79,11 @@ export const store = createStore<State>({
         },
         incrementFaceAngle(state) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 1) % 3;
+            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 1) % 4;
         },
         decrementFaceAngle(state) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 3 - 1) % 3;
+            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 4 - 1) % 4;
         },
         changeOffsetFaceX(state, amount) {
             this.commit('pushToPast');

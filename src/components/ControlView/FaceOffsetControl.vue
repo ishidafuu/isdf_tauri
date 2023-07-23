@@ -1,13 +1,13 @@
 <template>
-  <div>
+  <div :class="{ highlight: editMode === 'Face' }">
     <div>
       <button @click="changeOffsetX(-1)">Move Left</button>
-      <span>FaceX offset: {{ offsetFaceX }}</span>
+      <span>FaceX offset (A,D): {{ offsetFaceX }}</span>
       <button @click="changeOffsetX(1)">Move Right</button>
     </div>
     <div>
       <button @click="changeOffsetY(-1)">Move Down</button>
-      <span>FaceY offset: {{ offsetFaceY }}</span>
+      <span>FaceY offset (W,S): {{ offsetFaceY }}</span>
       <button @click="changeOffsetY(1)">Move Up</button>
     </div>
   </div>
@@ -23,6 +23,7 @@ export default defineComponent({
 
     const offsetFaceX = computed(() => store.getters.currentBodyState.offsetFaceX)
     const offsetFaceY = computed(() => store.getters.currentBodyState.offsetFaceY)
+    const editMode = computed(() => store.state.editMode)
 
     const changeOffsetX = (amount: number) => {
       store.commit('changeOffsetFaceX', amount)
@@ -33,11 +34,11 @@ export default defineComponent({
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (!event.shiftKey) {
+      if (event.ctrlKey) {
         return;
       }
 
-      if (event.ctrlKey) {
+      if (editMode.value !== 'Face') {
         return;
       }
 
@@ -65,7 +66,14 @@ export default defineComponent({
       offsetFaceY,
       changeOffsetX,
       changeOffsetY,
+      editMode
     }
   }
 })
 </script>
+
+<style scoped>
+.highlight {
+  color: yellow;
+}
+</style>

@@ -1,21 +1,21 @@
 <template>
-  <div>
+  <div :class="{ highlight: editMode === 'Body' }">
     <div>
       <button @click="changeOffsetX(-1)">Move Left</button>
-      <span>BodyX offset: {{ offsetBodyX }}</span>
+      <span>BodyX offset (A,D): {{ offsetBodyX }}</span>
       <button @click="changeOffsetX(1)">Move Right</button>
     </div>
     <div>
       <button @click="changeOffsetY(-1)">Move Down</button>
-      <span>BodyY offset: {{ offsetBodyY }}</span>
+      <span>BodyY offset (W,S): {{ offsetBodyY }}</span>
       <button @click="changeOffsetY(1)">Move Up</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
+import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   setup() {
@@ -23,6 +23,7 @@ export default defineComponent({
 
     const offsetBodyX = computed(() => store.getters.currentBodyState.offsetBodyX)
     const offsetBodyY = computed(() => store.getters.currentBodyState.offsetBodyY)
+    const editMode = computed(() => store.state.editMode)
 
     const changeOffsetX = (amount: number) => {
       store.commit('changeOffsetBodyX', amount)
@@ -33,11 +34,11 @@ export default defineComponent({
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.shiftKey) {
+      if (event.ctrlKey) {
         return;
       }
 
-      if (event.ctrlKey) {
+      if (editMode.value !== 'Body') {
         return;
       }
 
@@ -65,7 +66,14 @@ export default defineComponent({
       offsetBodyY,
       changeOffsetX,
       changeOffsetY,
+      editMode,
     }
   }
 })
 </script>
+
+<style scoped>
+.highlight {
+  color: yellow;
+}
+</style>
