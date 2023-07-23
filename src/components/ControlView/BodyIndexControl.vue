@@ -1,7 +1,7 @@
 <template>
   <div>
     <button @click="changeCharacter(-1)">-</button>
-    <span>Body index: {{ activeBodyIndex }}</span>
+    <span>Body index (カーソルキー): {{ activeBodyIndex }}</span>
     <button @click="changeCharacter(1)">+</button>
   </div>
 </template>

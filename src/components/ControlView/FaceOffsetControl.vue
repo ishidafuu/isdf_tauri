@@ -1,20 +1,20 @@
 <template>
   <div>
     <div>
-      <button @click="changeOffset('X', 1)">Move Right</button>
+      <button @click="changeOffsetX(-1)">Move Left</button>
       <span>FaceX offset: {{ offsetFaceX }}</span>
-      <button @click="changeOffset('X', -1)">Move Left</button>
+      <button @click="changeOffsetX(1)">Move Right</button>
     </div>
     <div>
-      <button @click="changeOffset('Y', 1)">Move Down</button>
+      <button @click="changeOffsetY(-1)">Move Down</button>
       <span>FaceY offset: {{ offsetFaceY }}</span>
-      <button @click="changeOffset('Y', -1)">Move Up</button>
+      <button @click="changeOffsetY(1)">Move Up</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -24,18 +24,47 @@ export default defineComponent({
     const offsetFaceX = computed(() => store.getters.currentBodyState.offsetFaceX)
     const offsetFaceY = computed(() => store.getters.currentBodyState.offsetFaceY)
 
-    const changeOffset = (axis: string, amount: number) => {
-      if (axis === 'X') {
-        store.commit('setOffsetFaceX', offsetFaceX.value + amount)
-      } else if (axis === 'Y') {
-        store.commit('setOffsetFaceY', offsetFaceY.value + amount)
+    const changeOffsetX = (amount: number) => {
+      store.commit('changeOffsetFaceX', amount)
+    }
+
+    const changeOffsetY = (amount: number) => {
+      store.commit('changeOffsetFaceY', amount)
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (!event.shiftKey) {
+        return;
+      }
+
+      if (event.ctrlKey) {
+        return;
+      }
+
+      if (event.code === 'KeyA') {
+        changeOffsetX(-1);
+      } else if (event.code === 'KeyD') {
+        changeOffsetX(1);
+      } else if (event.code === 'KeyW') {
+        changeOffsetY(1);
+      } else if (event.code === 'KeyS') {
+        changeOffsetY(-1);
       }
     }
+
+    onMounted(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeyDown);
+    });
 
     return {
       offsetFaceX,
       offsetFaceY,
-      changeOffset
+      changeOffsetX,
+      changeOffsetY,
     }
   }
 })

@@ -1,6 +1,6 @@
 import {createStore} from 'vuex'
-import { writeFile, readTextFile } from '@tauri-apps/api/fs';
-import { documentDir } from '@tauri-apps/api/path';
+import {readTextFile, writeFile} from '@tauri-apps/api/fs';
+import {documentDir} from '@tauri-apps/api/path';
 
 interface BodyState {
     offsetBodyX: number;
@@ -57,13 +57,13 @@ export const store = createStore<State>({
             let newIndex = state.activeBodyIndex + amount;
             state.activeBodyIndex = newIndex >= 0 ? newIndex : 0;
         },
-        setOffsetBodyX(state, value) {
+        changeOffsetBodyX(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetBodyX = value;
+            state.bodyStates[state.activeBodyIndex].offsetBodyX = state.bodyStates[state.activeBodyIndex].offsetBodyX + amount;
         },
-        setOffsetBodyY(state, value) {
+        changeOffsetBodyY(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetBodyY = value;
+            state.bodyStates[state.activeBodyIndex].offsetBodyY = state.bodyStates[state.activeBodyIndex].offsetBodyY + amount;
         },
         incrementFaceIndex(state) {
             this.commit('pushToPast');
@@ -81,13 +81,13 @@ export const store = createStore<State>({
             this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 3 - 1) % 3;
         },
-        setOffsetFaceX(state, value) {
+        changeOffsetFaceX(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetFaceX = value;
+            state.bodyStates[state.activeBodyIndex].offsetFaceX = state.bodyStates[state.activeBodyIndex].offsetFaceX + amount;
         },
-        setOffsetFaceY(state, value) {
+        changeOffsetFaceY(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetFaceY = value;
+            state.bodyStates[state.activeBodyIndex].offsetFaceY = state.bodyStates[state.activeBodyIndex].offsetFaceY + amount;
         },
         toggleFacePriority(state) {
             this.commit('pushToPast');

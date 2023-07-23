@@ -36,7 +36,7 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 16 / 2;
-      const translateX = -offsetFaceX.value * scale - halfSize;
+      const translateX = offsetFaceX.value * scale - halfSize;
       const translateY = -offsetFaceY.value * scale - halfSize;
       return {
         ...backgroundStyle.value,
