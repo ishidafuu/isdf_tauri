@@ -17,12 +17,8 @@ export default defineComponent({
     const faceIndex = computed(() => store.getters.currentBodyState.faceIndex)
     const editMode = computed(() => store.state.editMode)
 
-    const changeCharacter = (amount: number) => {
-      if (amount > 0) {
-        store.commit('incrementFaceIndex')
-      } else {
-        store.commit('decrementFaceIndex')
-      }
+    const changeFaceIndex = (amount: number) => {
+      store.commit('changeFaceIndex', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -35,9 +31,9 @@ export default defineComponent({
       }
 
       if (event.code === 'KeyQ') {
-        changeCharacter(-1);
+        changeFaceIndex(-1);
       } else if (event.code === 'KeyE') {
-        changeCharacter(1);
+        changeFaceIndex(1);
       }
     }
 
@@ -51,7 +47,7 @@ export default defineComponent({
 
     return {
       faceIndex,
-      changeCharacter,
+      changeCharacter: changeFaceIndex,
       editMode
     }
   }

@@ -10,7 +10,6 @@
     <UndoRedoControl/>
     <SaveLoadControl/>
   </div>
-
 </template>
 
 <script>

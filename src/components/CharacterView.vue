@@ -3,6 +3,7 @@
     <div class="cross-line-view">
       <BodyView />
       <FaceView />
+      <ItemView />
     </div>
   </CrossLineView>
 </template>
@@ -11,13 +12,15 @@
 import CrossLineView from './CharacterView/CrossLineView.vue'
 import BodyView from './CharacterView/BodyView.vue'
 import FaceView from './CharacterView/FaceView.vue'
+import ItemView from './CharacterView/ItemView.vue'
 
 export default {
   name: 'CharacterView',
   components: {
     CrossLineView,
     BodyView,
-    FaceView
+    FaceView,
+    ItemView,
   }
 }
 </script>

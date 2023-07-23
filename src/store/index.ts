@@ -3,37 +3,48 @@ import {readTextFile, writeFile} from '@tauri-apps/api/fs';
 import {documentDir} from '@tauri-apps/api/path';
 
 interface BodyState {
-    offsetBodyX: number;
-    offsetBodyY: number;
+    bodyX: number;
+    bodyY: number;
     faceIndex: number;
     faceAngle: number;
-    offsetFaceX: number;
-    offsetFaceY: number;
+    faceX: number;
+    faceY: number;
     facePriority: number;
+    itemAngle: number;
+    itemX: number;
+    itemY: number;
+    itemPriority: number;
 }
 
 
 interface State {
     bodyIndex: number;
-    offsetBodyX: number;
-    offsetBodyY: number;
+    bodyX: number;
+    bodyY: number;
     faceIndex: number;
     faceAngle: number;
-    offsetFaceX: number;
-    offsetFaceY: number;
+    faceX: number;
+    faceY: number;
+    itemAngle: number;
+    itemX: number;
+    itemY: number;
+    itemPriority: number;
     past: Array<any>;
     future: Array<any>;
 }
 
 // This is the initial state for each body part
 const initialBodyState: BodyState = {
-    offsetBodyX: 0,
-    offsetBodyY: 0,
+    bodyX: 0,
+    bodyY: 0,
     faceIndex: 0,
     faceAngle: 0,
-    offsetFaceX: 0,
-    offsetFaceY: 0,
+    faceX: 0,
+    faceY: 0,
     facePriority: 0,
+    itemAngle: 0,
+    itemX: 0,
+    itemY: 0,
 }
 
 export const store = createStore<State>({
@@ -61,37 +72,29 @@ export const store = createStore<State>({
             let newIndex = state.activeBodyIndex + amount;
             state.activeBodyIndex = newIndex >= 0 ? newIndex : 0;
         },
-        changeOffsetBodyX(state, amount) {
+        changeBodyX(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetBodyX = state.bodyStates[state.activeBodyIndex].offsetBodyX + amount;
+            state.bodyStates[state.activeBodyIndex].bodyX = state.bodyStates[state.activeBodyIndex].bodyX + amount;
         },
-        changeOffsetBodyY(state, amount) {
+        changeBodyY(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetBodyY = state.bodyStates[state.activeBodyIndex].offsetBodyY + amount;
+            state.bodyStates[state.activeBodyIndex].bodyY = state.bodyStates[state.activeBodyIndex].bodyY + amount;
         },
-        incrementFaceIndex(state) {
+        changeFaceIndex(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 1) % 8;
+            state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 8 + amount) % 8;
         },
-        decrementFaceIndex(state) {
+        changeFaceAngle(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 8 - 1) % 8;
+            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 4 + amount) % 4;
         },
-        incrementFaceAngle(state) {
+        changeFaceX(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 1) % 4;
+            state.bodyStates[state.activeBodyIndex].faceX = state.bodyStates[state.activeBodyIndex].faceX + amount;
         },
-        decrementFaceAngle(state) {
+        changeFaceY(state, amount) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 4 - 1) % 4;
-        },
-        changeOffsetFaceX(state, amount) {
-            this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetFaceX = state.bodyStates[state.activeBodyIndex].offsetFaceX + amount;
-        },
-        changeOffsetFaceY(state, amount) {
-            this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].offsetFaceY = state.bodyStates[state.activeBodyIndex].offsetFaceY + amount;
+            state.bodyStates[state.activeBodyIndex].faceY = state.bodyStates[state.activeBodyIndex].faceY + amount;
         },
         toggleFacePriority(state) {
             this.commit('pushToPast');

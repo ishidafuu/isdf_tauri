@@ -34,8 +34,8 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 40 / 2;
-      const translateX = currentBodyState.value.offsetBodyX * scale - halfSize;
-      const translateY = -currentBodyState.value.offsetBodyY * scale - halfSize;
+      const translateX = currentBodyState.value.bodyX * scale - halfSize;
+      const translateY = -currentBodyState.value.bodyY * scale - halfSize;
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`

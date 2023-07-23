@@ -1,14 +1,14 @@
 <template>
   <div :class="{ highlight: editMode === 'Body' }">
     <div>
-      <button @click="changeOffsetX(-1)">Move Left</button>
-      <span>BodyX offset (A,D): {{ offsetBodyX }}</span>
-      <button @click="changeOffsetX(1)">Move Right</button>
+      <button @click="changeBodyX(-1)">Move Left</button>
+      <span>Body X (A,D): {{ bodyX }}</span>
+      <button @click="changeBodyX(1)">Move Right</button>
     </div>
     <div>
-      <button @click="changeOffsetY(-1)">Move Down</button>
-      <span>BodyY offset (W,S): {{ offsetBodyY }}</span>
-      <button @click="changeOffsetY(1)">Move Up</button>
+      <button @click="changeBodyY(-1)">Move Down</button>
+      <span>Body Y (W,S): {{ bodyY }}</span>
+      <button @click="changeBodyY(1)">Move Up</button>
     </div>
   </div>
 </template>
@@ -21,16 +21,16 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const offsetBodyX = computed(() => store.getters.currentBodyState.offsetBodyX)
-    const offsetBodyY = computed(() => store.getters.currentBodyState.offsetBodyY)
+    const bodyX = computed(() => store.getters.currentBodyState.bodyX)
+    const bodyY = computed(() => store.getters.currentBodyState.bodyY)
     const editMode = computed(() => store.state.editMode)
 
-    const changeOffsetX = (amount: number) => {
-      store.commit('changeOffsetBodyX', amount)
+    const changeBodyX = (amount: number) => {
+      store.commit('changeBodyX', amount)
     }
 
-    const changeOffsetY = (amount: number) => {
-      store.commit('changeOffsetBodyY', amount)
+    const changeBodyY = (amount: number) => {
+      store.commit('changeBodyY', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,13 +43,13 @@ export default defineComponent({
       }
 
       if (event.code === 'KeyA') {
-        changeOffsetX(-1);
+        changeBodyX(-1);
       } else if (event.code === 'KeyD') {
-        changeOffsetX(1);
+        changeBodyX(1);
       } else if (event.code === 'KeyW') {
-        changeOffsetY(1);
+        changeBodyY(1);
       } else if (event.code === 'KeyS') {
-        changeOffsetY(-1);
+        changeBodyY(-1);
       }
     }
 
@@ -62,10 +62,10 @@ export default defineComponent({
     });
 
     return {
-      offsetBodyX,
-      offsetBodyY,
-      changeOffsetX,
-      changeOffsetY,
+      bodyX,
+      bodyY,
+      changeBodyX,
+      changeBodyY,
       editMode,
     }
   }

@@ -1,14 +1,14 @@
 <template>
   <div :class="{ highlight: editMode === 'Face' }">
     <div>
-      <button @click="changeOffsetX(-1)">Move Left</button>
-      <span>FaceX offset (A,D): {{ offsetFaceX }}</span>
-      <button @click="changeOffsetX(1)">Move Right</button>
+      <button @click="changeFaceX(-1)">Move Left</button>
+      <span>Face X (A,D): {{ faceX }}</span>
+      <button @click="changeFaceX(1)">Move Right</button>
     </div>
     <div>
-      <button @click="changeOffsetY(-1)">Move Down</button>
-      <span>FaceY offset (W,S): {{ offsetFaceY }}</span>
-      <button @click="changeOffsetY(1)">Move Up</button>
+      <button @click="changeFaceY(-1)">Move Down</button>
+      <span>Face Y (W,S): {{ faceY }}</span>
+      <button @click="changeFaceY(1)">Move Up</button>
     </div>
   </div>
 </template>
@@ -21,16 +21,16 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const offsetFaceX = computed(() => store.getters.currentBodyState.offsetFaceX)
-    const offsetFaceY = computed(() => store.getters.currentBodyState.offsetFaceY)
+    const faceX = computed(() => store.getters.currentBodyState.faceX)
+    const faceY = computed(() => store.getters.currentBodyState.faceY)
     const editMode = computed(() => store.state.editMode)
 
-    const changeOffsetX = (amount: number) => {
-      store.commit('changeOffsetFaceX', amount)
+    const changeFaceX = (amount: number) => {
+      store.commit('changeFaceX', amount)
     }
 
-    const changeOffsetY = (amount: number) => {
-      store.commit('changeOffsetFaceY', amount)
+    const changeFaceY = (amount: number) => {
+      store.commit('changeFaceY', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,13 +43,13 @@ export default defineComponent({
       }
 
       if (event.code === 'KeyA') {
-        changeOffsetX(-1);
+        changeFaceX(-1);
       } else if (event.code === 'KeyD') {
-        changeOffsetX(1);
+        changeFaceX(1);
       } else if (event.code === 'KeyW') {
-        changeOffsetY(1);
+        changeFaceY(1);
       } else if (event.code === 'KeyS') {
-        changeOffsetY(-1);
+        changeFaceY(-1);
       }
     }
 
@@ -62,10 +62,10 @@ export default defineComponent({
     });
 
     return {
-      offsetFaceX,
-      offsetFaceY,
-      changeOffsetX,
-      changeOffsetY,
+      faceX,
+      faceY,
+      changeFaceX,
+      changeFaceY,
       editMode
     }
   }

@@ -1,5 +1,5 @@
 <template>
-  <div :style="styleData" class="character-face"></div>
+  <div :style="styleData" class="character-item"></div>
 </template>
 
 <script lang="ts">
@@ -8,23 +8,22 @@ import { useStore } from "vuex";
 import { useImageUtils } from "../../mixins/imageUtils";
 
 export default defineComponent({
-  name: "FaceView",
+  name: "ItemView",
   setup() {
     const store = useStore();
-    const imagePath = '/face.png';
+    const imagePath = '/item.png';
     const transparentImagePath = ref<string | null>(null);
-    const gridSize = 16;
+    const gridSize = 32;
     const { makeColorTransparent } = useImageUtils();
 
-    const faceIndex = computed(() => store.getters.currentBodyState.faceIndex);
-    const faceAngle = computed(() => store.getters.currentBodyState.faceAngle);
-    const faceX = computed(() => store.getters.currentBodyState.faceX);
-    const faceY = computed(() => store.getters.currentBodyState.faceY);
-    const facePriority = computed(() => store.getters.currentBodyState.facePriority);
+    const itemAngle = computed(() => store.getters.currentBodyState.itemAngle);
+    const itemPriority = computed(() => store.getters.currentBodyState.itemPriority);
+    const itemX = computed(() => store.getters.currentBodyState.itemX);
+    const itemY = computed(() => store.getters.currentBodyState.itemY);
 
     const backgroundStyle = computed(() => {
-      const col = faceIndex.value;
-      const row = faceAngle.value;
+      const col = itemAngle.value;
+      const row = 0;
       const bgPosX = -col * gridSize;
       const bgPosY = -row * gridSize;
       return {
@@ -35,13 +34,13 @@ export default defineComponent({
 
     const styleData = computed(() => {
       const scale = 4;
-      const halfSize = 16 / 2;
-      const translateX = faceX.value * scale - halfSize;
-      const translateY = -faceY.value * scale - halfSize;
+      const halfSize = 32 / 2;
+      const translateX = itemX.value * scale - halfSize;
+      const translateY = -itemY.value * scale - halfSize;
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: facePriority.value
+        zIndex: itemPriority.value
       };
     });
 
@@ -59,9 +58,9 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.character-face {
-  width: 16px;
-  height: 16px;
+.character-item {
+  width: 32px;
+  height: 32px;
   background-repeat: no-repeat;
   transform-origin: center;
   image-rendering: pixelated;
