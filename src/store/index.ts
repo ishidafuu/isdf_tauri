@@ -117,25 +117,28 @@ export const store = createStore<State>({
         },
     },
     actions: {
-        async saveState({ state }) {
+        async saveState({ state, dispatch }) {
             try {
                 const dataToSave = {
                     bodyStates: state.bodyStates,
                 };
-                const path = `${await documentDir()}/save.json`;
+                const path = await dispatch('getSavePath');
                 await writeFile({ path, contents: JSON.stringify(dataToSave) });
             } catch (error) {
                 console.error('Failed to save state:', error);
             }
         },
-        async loadState({ commit }) {
+        async loadState({ commit, dispatch }) {
             try {
-                const path = `${await documentDir()}/save.json`;
+                const path = await dispatch('getSavePath');
                 const loadedState = JSON.parse(await readTextFile(path));
                 commit('loadState', loadedState);
             } catch (error) {
                 console.error('Failed to load state:', error);
             }
+        },
+        async getSavePath() {
+            return `${await documentDir()}/cell_data.json`;
         },
     },
     getters: {
