@@ -52,15 +52,10 @@ export const store = createStore<State>({
             state.past = [];
             state.future = [];
         },
-        incrementBodyIndex(state) {
+        changeBodyIndex(state, amount) {
             this.commit('clearPast');
-            state.activeBodyIndex++;
-        },
-        decrementBodyIndex(state) {
-            if (state.activeBodyIndex > 0) {
-                this.commit('clearPast');
-                state.activeBodyIndex--;
-            }
+            let newIndex = state.activeBodyIndex + amount;
+            state.activeBodyIndex = newIndex >= 0 ? newIndex : 0;
         },
         setOffsetBodyX(state, value) {
             this.commit('pushToPast');

@@ -7,7 +7,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
+import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -17,12 +17,28 @@ export default defineComponent({
     const activeBodyIndex = computed(() => store.state.activeBodyIndex)
 
     const changeCharacter = (amount: number) => {
-      if (amount > 0) {
-        store.commit('incrementBodyIndex')
-      } else {
-        store.commit('decrementBodyIndex')
+      store.commit('changeBodyIndex', amount)
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.code === 'ArrowLeft') {
+        changeCharacter(-1);
+      } else if (event.code === 'ArrowRight') {
+        changeCharacter(1);
+      } else if (event.code === 'ArrowUp') {
+        changeCharacter(10);
+      } else if (event.code === 'ArrowDown') {
+        changeCharacter(-10);
       }
     }
+
+    onMounted(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeyDown);
+    });
 
     return {
       activeBodyIndex,
