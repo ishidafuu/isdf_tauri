@@ -1,5 +1,5 @@
 import {createStore} from 'vuex'
-import {readTextFile, writeFile} from '@tauri-apps/api/fs';
+import {readTextFile, writeFile, exists, createDir} from '@tauri-apps/api/fs';
 import {documentDir} from '@tauri-apps/api/path';
 
 interface BodyState {
@@ -47,6 +47,22 @@ const initialBodyState: BodyState = {
     itemY: 0,
     itemPriority: 0,
 }
+
+function getFormattedDate() {
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = ("0" + (date.getMonth() + 1)).slice(-2);
+    const day = ("0" + date.getDate()).slice(-2);
+    const hours = ("0" + date.getHours()).slice(-2);
+    const minutes = ("0" + date.getMinutes()).slice(-2);
+    const seconds = ("0" + date.getSeconds()).slice(-2);
+    return `${year}${month}${day}${hours}${minutes}${seconds}`;
+}
+
+function getFilePath(dirPath: string, fileName: string) {
+    return `${dirPath}${fileName}`;
+}
+
 
 export const store = createStore<State>({
     state: {
@@ -142,7 +158,25 @@ export const store = createStore<State>({
                 const dataToSave = {
                     bodyStates: state.bodyStates,
                 };
-                const path = await dispatch('getSavePath');
+
+                const saveDir = await dispatch('getSaveDir');
+                if (!await exists(saveDir)) {
+                    await createDir(saveDir);
+                }
+
+                // Create a backup directory if it doesn't exist
+                const backupDir = `${saveDir}/cell_data_backup`;
+                if (!await exists(backupDir)) {
+                    await createDir(backupDir);
+                }
+
+                // Backup the current state
+                const timestamp = getFormattedDate();
+                const backupPath = `${backupDir}/cell_data_backup_${timestamp}.json`;
+                await writeFile({path: backupPath, contents: JSON.stringify(dataToSave)});
+
+                // Save the current state
+                const path = `${saveDir}/cell_data.json`;
                 await writeFile({path, contents: JSON.stringify(dataToSave)});
             } catch (error) {
                 console.error('Failed to save state:', error);
@@ -150,15 +184,17 @@ export const store = createStore<State>({
         },
         async loadState({commit, dispatch}) {
             try {
-                const path = await dispatch('getSavePath');
+                const saveDir = await dispatch('getSaveDir');
+                const path = `${saveDir}/cell_data.json`;
+
                 const loadedState = JSON.parse(await readTextFile(path));
                 commit('loadState', loadedState);
             } catch (error) {
                 console.error('Failed to load state:', error);
             }
         },
-        async getSavePath() {
-            return `${await documentDir()}/cell_data.json`;
+        async getSaveDir() {
+            return `${await documentDir()}/sai2_data`;
         },
     },
     getters: {
