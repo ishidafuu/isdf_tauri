@@ -9,7 +9,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref} from 'vue'
+import {defineComponent, onBeforeUnmount, ref} from 'vue'
 import {useStore} from 'vuex'
 import {invoke} from '@tauri-apps/api/tauri'
 
@@ -43,15 +43,16 @@ export default defineComponent({
 
     window.addEventListener('keydown', handleKeydown)
 
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeydown.value)
+    })
+
     return {
       saveState,
       loadState,
       fileStatus,
       openSaveDirectory,
     }
-  },
-  beforeUnmount() {
-    window.removeEventListener('keydown', handleKeydown)
   },
 })
 </script>

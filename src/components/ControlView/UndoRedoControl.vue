@@ -6,7 +6,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
@@ -36,13 +36,14 @@ export default defineComponent({
 
     window.addEventListener('keydown', handleKeydown)
 
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeydown.value)
+    })
+
     return {
       undo,
       redo
     }
-  },
-  beforeUnmount() {
-    window.removeEventListener('keydown', handleKeydown)
   },
 })
 </script>
