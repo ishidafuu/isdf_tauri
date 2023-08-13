@@ -2,8 +2,9 @@
   <CrossLineView>
     <div class="cross-line-view">
       <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeBodyIndex="activeBodyIndex"/>
-      <FaceView/>
-      <ItemView/>
+      <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle" :faceX="faceX" :faceY="faceY"
+                :facePriority="facePriority"/>
+      <ItemView :itemAngle="itemAngle" :itemPriority="itemPriority" :itemX="itemX" :itemY="itemY"/>
     </div>
   </CrossLineView>
 </template>
@@ -27,7 +28,16 @@ export default {
     ...mapState({
       activeBodyIndex: state => state.activeBodyIndex,
       bodyX: state => state.bodyStates[state.activeBodyIndex].bodyX,
-      bodyY: state => state.bodyStates[state.activeBodyIndex].bodyY
+      bodyY: state => state.bodyStates[state.activeBodyIndex].bodyY,
+      faceIndex: state => state.bodyStates[state.activeBodyIndex].faceIndex,
+      faceAngle: state => state.bodyStates[state.activeBodyIndex].faceAngle,
+      faceX: state => state.bodyStates[state.activeBodyIndex].faceX,
+      faceY: state => state.bodyStates[state.activeBodyIndex].faceY,
+      facePriority: state => state.bodyStates[state.activeBodyIndex].facePriority,
+      itemAngle: state => state.bodyStates[state.activeBodyIndex].itemAngle,
+      itemPriority: state => state.bodyStates[state.activeBodyIndex].itemPriority,
+      itemX: state => state.bodyStates[state.activeBodyIndex].itemX,
+      itemY: state => state.bodyStates[state.activeBodyIndex].itemY,
     })
   }
 }

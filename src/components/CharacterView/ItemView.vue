@@ -4,28 +4,25 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted } from "vue";
-import { useStore } from "vuex";
 import { useImageUtils } from "../../mixins/imageUtils";
 
 export default defineComponent({
   name: "ItemView",
-  setup() {
-    const store = useStore();
+  props: {
+    itemAngle: Number,
+    itemPriority: Number,
+    itemX: Number,
+    itemY: Number
+  },
+  setup(props) {
     const imagePath = '/item.png';
     const transparentImagePath = ref<string | null>(null);
     const gridSize = 32;
     const { makeColorTransparent } = useImageUtils();
 
-    const itemAngle = computed(() => store.getters.currentBodyState.itemAngle);
-    const itemPriority = computed(() => store.getters.currentBodyState.itemPriority);
-    const itemX = computed(() => store.getters.currentBodyState.itemX);
-    const itemY = computed(() => store.getters.currentBodyState.itemY);
-
     const backgroundStyle = computed(() => {
-      const col = itemAngle.value;
-      const row = 0;
-      const bgPosX = -col * gridSize;
-      const bgPosY = -row * gridSize;
+      const bgPosX = -props.itemAngle * gridSize;
+      const bgPosY = 0;
       return {
         backgroundImage: `url(${transparentImagePath.value || imagePath})`,
         backgroundPosition: `${bgPosX}px ${bgPosY}px`
@@ -35,12 +32,12 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 32 / 2;
-      const translateX = itemX.value * scale - halfSize;
-      const translateY = -itemY.value * scale - halfSize;
+      const translateX = props.itemX * scale - halfSize;
+      const translateY = -props.itemY * scale - halfSize;
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: itemPriority.value
+        zIndex: props.itemPriority
       };
     });
 

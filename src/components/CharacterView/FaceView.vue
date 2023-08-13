@@ -4,27 +4,26 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted } from "vue";
-import { useStore } from "vuex";
 import { useImageUtils } from "../../mixins/imageUtils";
 
 export default defineComponent({
   name: "FaceView",
-  setup() {
-    const store = useStore();
+  props: {
+    faceIndex: Number,
+    faceAngle: Number,
+    faceX: Number,
+    faceY: Number,
+    facePriority: Number
+  },
+  setup(props) {
     const imagePath = '/face.png';
     const transparentImagePath = ref<string | null>(null);
     const gridSize = 16;
     const { makeColorTransparent } = useImageUtils();
 
-    const faceIndex = computed(() => store.getters.currentBodyState.faceIndex);
-    const faceAngle = computed(() => store.getters.currentBodyState.faceAngle);
-    const faceX = computed(() => store.getters.currentBodyState.faceX);
-    const faceY = computed(() => store.getters.currentBodyState.faceY);
-    const facePriority = computed(() => store.getters.currentBodyState.facePriority);
-
     const backgroundStyle = computed(() => {
-      const col = faceIndex.value;
-      const row = faceAngle.value;
+      const col = props.faceIndex;
+      const row = props.faceAngle;
       const bgPosX = -col * gridSize;
       const bgPosY = -row * gridSize;
       return {
@@ -36,12 +35,12 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 16 / 2;
-      const translateX = faceX.value * scale - halfSize;
-      const translateY = -faceY.value * scale - halfSize;
+      const translateX = props.faceX * scale - halfSize;
+      const translateY = -props.faceY * scale - halfSize;
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: facePriority.value
+        zIndex: props.facePriority
       };
     });
 
