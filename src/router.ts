@@ -3,6 +3,7 @@ import BaseMotion from './components/BaseMotion.vue';
 import HelloWorld from './components/HelloWorld.vue';
 
 const routes: Array<RouteRecordRaw> = [
+    { path: '/', redirect: '/base_motion' },
     { path: '/base_motion', component: BaseMotion },
     { path: '/hello_world', component: HelloWorld }
 ];
