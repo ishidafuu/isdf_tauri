@@ -1,14 +1,15 @@
 <template>
   <CrossLineView>
     <div class="cross-line-view">
-      <BodyView />
-      <FaceView />
-      <ItemView />
+      <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeBodyIndex="activeBodyIndex"/>
+      <FaceView/>
+      <ItemView/>
     </div>
   </CrossLineView>
 </template>
 
 <script>
+import {mapState} from 'vuex';
 import CrossLineView from './CharacterView/CrossLineView.vue'
 import BodyView from './CharacterView/BodyView.vue'
 import FaceView from './CharacterView/FaceView.vue'
@@ -21,6 +22,13 @@ export default {
     BodyView,
     FaceView,
     ItemView,
+  },
+  computed: {
+    ...mapState({
+      activeBodyIndex: state => state.activeBodyIndex,
+      bodyX: state => state.bodyStates[state.activeBodyIndex].bodyX,
+      bodyY: state => state.bodyStates[state.activeBodyIndex].bodyY
+    })
   }
 }
 </script>

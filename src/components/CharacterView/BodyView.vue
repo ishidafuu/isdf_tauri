@@ -6,23 +6,24 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted } from "vue";
-import { useStore } from "vuex";
 import { useImageUtils } from "../../mixins/imageUtils";
 
 export default defineComponent({
   name: "BodyView",
-  setup() {
-    const store = useStore();
+  props: {
+    bodyX: Number,
+    bodyY: Number,
+    activeBodyIndex: Number,
+  },
+  setup(props) {
     const imagePath = '/nm2body.png';
     const transparentImagePath = ref<string | null>(null);
     const gridSize = 40;
     const { makeColorTransparent } = useImageUtils();
 
-    const currentBodyState = computed(() => store.getters.currentBodyState);
-
     const backgroundStyle = computed(() => {
-      const col = Math.floor(store.state.activeBodyIndex / gridSize);
-      const row = store.state.activeBodyIndex % gridSize;
+      const col = Math.floor(props.activeBodyIndex / gridSize);
+      const row = props.activeBodyIndex % gridSize;
       const bgPosX = -col * gridSize;
       const bgPosY = -row * gridSize;
       return {
@@ -34,8 +35,8 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 40 / 2;
-      const translateX = currentBodyState.value.bodyX * scale - halfSize;
-      const translateY = -currentBodyState.value.bodyY * scale - halfSize;
+      const translateX = props.bodyX * scale - halfSize;
+      const translateY = -props.bodyY * scale - halfSize;
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
