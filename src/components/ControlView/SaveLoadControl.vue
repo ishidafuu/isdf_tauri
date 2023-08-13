@@ -31,7 +31,7 @@ export default defineComponent({
     }
 
     const openSaveDirectory = async () => {
-      const savePath = await store.dispatch('getSavePath')
+      const savePath = await store.dispatch('getSaveDir')
       await invoke('open_save_directory', {path: savePath})  // modify this line
     }
 
