@@ -1,7 +1,7 @@
 <template>
   <div class="parent-component">
     <nav class="navigation">
-      <router-link to="/base_motion">BaseMotion</router-link>
+      <router-link to="/chara_cell_editor">CharaCellEditor</router-link>
       <router-link to="/hello_world">HelloWorld</router-link>
     </nav>
     <div class="content">
@@ -14,11 +14,10 @@
 <script lang="ts">
   import { defineComponent, onMounted } from 'vue'
   import { useStore } from 'vuex'
-  import BaseMotion from "./components/BaseMotion.vue";
-  import ControlView from "./components/ControlView.vue";
+  import CharaCellEditor from "./page/CharaCellEditor.vue";
 
   export default defineComponent({
-    components: {ControlView, BaseMotion},
+    components: {CharaCellEditor},
     setup() {
       const store = useStore()
 

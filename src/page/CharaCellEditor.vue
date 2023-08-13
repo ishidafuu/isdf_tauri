@@ -14,7 +14,7 @@ import CharacterView from "../components/CharacterView.vue";
 import ControlView from "../components/ControlView.vue";
 
 export default {
-  name: 'BaseMotion',
+  name: 'CharaCellEditor',
   components: {
     CharacterView,
     ControlView,

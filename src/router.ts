@@ -1,10 +1,10 @@
 import { createRouter, createWebHashHistory, RouteRecordRaw } from 'vue-router';
-import BaseMotion from './components/BaseMotion.vue';
 import HelloWorld from './components/HelloWorld.vue';
+import CharaCellEditor from "./page/CharaCellEditor.vue";
 
 const routes: Array<RouteRecordRaw> = [
-    { path: '/', redirect: '/base_motion' },
-    { path: '/base_motion', component: BaseMotion },
+    { path: '/', redirect: '/chara_cell_editor' },
+    { path: '/chara_cell_editor', component: CharaCellEditor },
     { path: '/hello_world', component: HelloWorld }
 ];
 
