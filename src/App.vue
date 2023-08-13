@@ -1,8 +1,7 @@
 <template>
   <div class="parent-component">
-    <nav>
-      <router-link to="/base_motion">BaseMotion</router-link>
     <nav class="navigation">
+      <router-link to="/base_motion">BaseMotion</router-link>
       <router-link to="/hello_world">HelloWorld</router-link>
     </nav>
     <div class="content">
