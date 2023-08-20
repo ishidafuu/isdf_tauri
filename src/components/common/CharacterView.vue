@@ -26,18 +26,18 @@ export default {
   },
   computed: {
     ...mapState({
-      activeBodyIndex: state => state.activeBodyIndex,
-      bodyX: state => state.bodyStates[state.activeBodyIndex].bodyX,
-      bodyY: state => state.bodyStates[state.activeBodyIndex].bodyY,
-      faceIndex: state => state.bodyStates[state.activeBodyIndex].faceIndex,
-      faceAngle: state => state.bodyStates[state.activeBodyIndex].faceAngle,
-      faceX: state => state.bodyStates[state.activeBodyIndex].faceX,
-      faceY: state => state.bodyStates[state.activeBodyIndex].faceY,
-      faceZ: state => state.bodyStates[state.activeBodyIndex].faceZ,
-      itemAngle: state => state.bodyStates[state.activeBodyIndex].itemAngle,
-      itemZ: state => state.bodyStates[state.activeBodyIndex].itemZ,
-      itemX: state => state.bodyStates[state.activeBodyIndex].itemX,
-      itemY: state => state.bodyStates[state.activeBodyIndex].itemY,
+      activeBodyIndex: state => state.charaCell.activeBodyIndex,
+      bodyX: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].bodyX,
+      bodyY: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].bodyY,
+      faceIndex: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].faceIndex,
+      faceAngle: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].faceAngle,
+      faceX: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].faceX,
+      faceY: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].faceY,
+      faceZ: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].faceZ,
+      itemAngle: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemAngle,
+      itemZ: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemZ,
+      itemX: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemX,
+      itemY: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemY,
     })
   }
 }
