@@ -4,12 +4,12 @@
     <BodyIndexControl/>
     <BodyOffsetControl/>
     <FaceIndexControl/>
-    <FacePriorityControl/>
     <FaceAngleControl/>
     <FaceOffsetControl/>
-    <itemZControl/>
+    <FacePriorityControl/>
     <ItemAngleControl/>
     <ItemOffsetControl/>
+    <ItemPriorityControl/>
     <UndoRedoControl/>
     <SaveLoadControl/>
   </div>
@@ -23,9 +23,9 @@ import FaceIndexControl from "./ControlView/FaceIndexControl.vue";
 import FaceAngleControl from "./ControlView/FaceAngleControl.vue";
 import FaceOffsetControl from "./ControlView/FaceOffsetControl.vue";
 import FacePriorityControl from "./ControlView/FacePriorityControl.vue";
-import itemPriorityControl from "./ControlView/itemPriorityControl.vue";
 import ItemAngleControl from "./ControlView/ItemAngleControl.vue";
 import ItemOffsetControl from "./ControlView/ItemOffsetControl.vue";
+import ItemPriorityControl from "./ControlView/ItemPriorityControl.vue";
 import UndoRedoControl from "./ControlView/UndoRedoControl.vue";
 import SaveLoadControl from "./ControlView/SaveLoadControl.vue";
 
@@ -36,12 +36,12 @@ export default {
     BodyIndexControl,
     BodyOffsetControl,
     FaceIndexControl,
-    FacePriorityControl,
     FaceAngleControl,
     FaceOffsetControl,
-    itemPriorityControl,
+    FacePriorityControl,
     ItemAngleControl,
     ItemOffsetControl,
+    ItemPriorityControl,
     UndoRedoControl,
     SaveLoadControl,
   }

@@ -1,7 +1,7 @@
 <template>
   <div :class="{ highlight: editMode === 'Item' }">
     <button @click="changePriority('up')">UP</button>
-    <span>Item Priority (F): {{ itemZ }}</span>
+    <span>Item Z (F): {{ itemZ }}</span>
     <button @click="changePriority('down')">DOWN</button>
   </div>
 </template>
