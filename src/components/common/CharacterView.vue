@@ -1,7 +1,7 @@
 <template>
   <CrossLineView>
     <div class="cross-line-view">
-      <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeBodyIndex="activeBodyIndex"/>
+      <BodyView :bodyX="bodyX" :bodyY="bodyY2" :activeBodyIndex="activeBodyIndex"/>
       <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle" :faceX="faceX" :faceY="faceY"
                 :facePriority="faceZ"/>
       <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY"/>
@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex';
+import {mapGetters, mapState} from 'vuex';
 import CrossLineView from './CrossLineView.vue'
 import BodyView from './BodyView.vue'
 import FaceView from './FaceView.vue'
@@ -25,6 +25,9 @@ export default {
     ItemView,
   },
   computed: {
+    ...mapGetters(
+        (["currentBodyState"]),
+    ),
     ...mapState({
       activeBodyIndex: state => state.charaCell.activeBodyIndex,
       bodyX: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].bodyX,
@@ -38,7 +41,10 @@ export default {
       itemZ: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemZ,
       itemX: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemX,
       itemY: state => state.charaCell.bodyStates[state.charaCell.activeBodyIndex].itemY,
-    })
+    }),
+    bodyY2() {
+      return this.currentBodyState.bodyY;
+    },
   }
 }
 </script>
