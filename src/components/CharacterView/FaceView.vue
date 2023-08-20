@@ -13,7 +13,7 @@ export default defineComponent({
     faceAngle: Number,
     faceX: Number,
     faceY: Number,
-    facePriority: Number
+    faceZ: Number
   },
   setup(props) {
     const imagePath = '/face.png';
@@ -40,7 +40,7 @@ export default defineComponent({
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: props.facePriority
+        zIndex: props.faceZ
       };
     });
 

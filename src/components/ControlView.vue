@@ -7,7 +7,7 @@
     <FacePriorityControl/>
     <FaceAngleControl/>
     <FaceOffsetControl/>
-    <ItemPriorityControl/>
+    <itemZControl/>
     <ItemAngleControl/>
     <ItemOffsetControl/>
     <UndoRedoControl/>
@@ -23,7 +23,7 @@ import FaceIndexControl from "./ControlView/FaceIndexControl.vue";
 import FaceAngleControl from "./ControlView/FaceAngleControl.vue";
 import FaceOffsetControl from "./ControlView/FaceOffsetControl.vue";
 import FacePriorityControl from "./ControlView/FacePriorityControl.vue";
-import ItemPriorityControl from "./ControlView/ItemPriorityControl.vue";
+import itemPriorityControl from "./ControlView/itemPriorityControl.vue";
 import ItemAngleControl from "./ControlView/ItemAngleControl.vue";
 import ItemOffsetControl from "./ControlView/ItemOffsetControl.vue";
 import UndoRedoControl from "./ControlView/UndoRedoControl.vue";
@@ -39,7 +39,7 @@ export default {
     FacePriorityControl,
     FaceAngleControl,
     FaceOffsetControl,
-    ItemPriorityControl,
+    itemPriorityControl,
     ItemAngleControl,
     ItemOffsetControl,
     UndoRedoControl,

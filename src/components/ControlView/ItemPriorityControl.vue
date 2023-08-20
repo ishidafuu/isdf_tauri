@@ -1,7 +1,7 @@
 <template>
   <div :class="{ highlight: editMode === 'Item' }">
     <button @click="changePriority('up')">UP</button>
-    <span>Item Priority (F): {{ itemPriority }}</span>
+    <span>Item Priority (F): {{ itemZ }}</span>
     <button @click="changePriority('down')">DOWN</button>
   </div>
 </template>
@@ -14,12 +14,12 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const itemPriority = computed(() => store.getters.currentBodyState.itemPriority)
+    const itemZ = computed(() => store.getters.currentBodyState.itemZ)
     const editMode = computed(() => store.state.editMode)
 
     const changePriority = (direction: string) => {
-      if ((direction === 'up' && itemPriority.value < 0) || (direction === 'down' && itemPriority.value >= 0)) {
-        store.commit('toggleItemPriority')
+      if ((direction === 'up' && itemZ.value < 0) || (direction === 'down' && itemZ.value >= 0)) {
+        store.commit('toggleitemZ')
       }
     }
 
@@ -29,7 +29,7 @@ export default defineComponent({
       }
 
       if (event.code === 'KeyF') {
-        changePriority(itemPriority.value >= 0 ? 'down' : 'up');
+        changePriority(itemZ.value >= 0 ? 'down' : 'up');
       }
     }
 
@@ -42,7 +42,7 @@ export default defineComponent({
     });
 
     return {
-      itemPriority,
+      itemZ,
       changePriority,
       editMode
     }

@@ -10,7 +10,7 @@ export default defineComponent({
   name: "ItemView",
   props: {
     itemAngle: Number,
-    itemPriority: Number,
+    itemZ: Number,
     itemX: Number,
     itemY: Number
   },
@@ -37,7 +37,7 @@ export default defineComponent({
       return {
         ...backgroundStyle.value,
         transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
-        zIndex: props.itemPriority
+        zIndex: props.itemZ
       };
     });
 

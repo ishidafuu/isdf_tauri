@@ -1,7 +1,7 @@
 <template>
   <div :class="{ highlight: editMode === 'Face' }">
     <button @click="changePriority('up')">UP</button>
-    <span>Face Priority (F): {{ facePriority }}</span>
+    <span>Face Priority (F): {{ faceZ }}</span>
     <button @click="changePriority('down')">DOWN</button>
   </div>
 </template>
@@ -14,11 +14,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const facePriority = computed(() => store.getters.currentBodyState.facePriority)
+    const faceZ = computed(() => store.getters.currentBodyState.faceZ)
     const editMode = computed(() => store.state.editMode)
 
     const changePriority = (direction: string) => {
-      if ((direction === 'up' && facePriority.value < 0) || (direction === 'down' && facePriority.value >= 0)) {
+      if ((direction === 'up' && faceZ.value < 0) || (direction === 'down' && faceZ.value >= 0)) {
         store.commit('toggleFacePriority')
       }
     }
@@ -29,7 +29,7 @@ export default defineComponent({
       }
 
       if (event.code === 'KeyF') {
-        changePriority(facePriority.value >= 0 ? 'down' : 'up');
+        changePriority(faceZ.value >= 0 ? 'down' : 'up');
       }
     }
 
@@ -42,7 +42,7 @@ export default defineComponent({
     });
 
     return {
-      facePriority,
+      faceZ,
       changePriority,
       editMode
     }

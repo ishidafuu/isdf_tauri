@@ -9,11 +9,11 @@ interface BodyState {
     faceAngle: number;
     faceX: number;
     faceY: number;
-    facePriority: number;
+    faceZ: number;
     itemAngle: number;
     itemX: number;
     itemY: number;
-    itemPriority: number;
+    itemZ: number;
 }
 
 
@@ -28,7 +28,7 @@ interface State {
     itemAngle: number;
     itemX: number;
     itemY: number;
-    itemPriority: number;
+    itemZ: number;
     past: Array<any>;
     future: Array<any>;
 }
@@ -41,11 +41,11 @@ const initialBodyState: BodyState = {
     faceAngle: 0,
     faceX: 0,
     faceY: 0,
-    facePriority: 0,
+    faceZ: 0,
     itemAngle: 0,
     itemX: 0,
     itemY: 0,
-    itemPriority: 0,
+    itemZ: 0,
 }
 
 function getFormattedDate() {
@@ -110,7 +110,7 @@ export const store = createStore<State>({
         },
         toggleFacePriority(state) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].facePriority = state.bodyStates[state.activeBodyIndex].facePriority === 0 ? -1 : 0;
+            state.bodyStates[state.activeBodyIndex].faceZ = state.bodyStates[state.activeBodyIndex].faceZ === 0 ? -1 : 0;
         },
         changeItemAngle(state, amount) {
             this.commit('pushToPast');
@@ -124,9 +124,9 @@ export const store = createStore<State>({
             this.commit('pushToPast');
             state.bodyStates[state.activeBodyIndex].itemY = state.bodyStates[state.activeBodyIndex].itemY + amount;
         },
-        toggleItemPriority(state) {
+        toggleitemZ(state) {
             this.commit('pushToPast');
-            state.bodyStates[state.activeBodyIndex].itemPriority = state.bodyStates[state.activeBodyIndex].itemPriority === 0 ? -1 : 0;
+            state.bodyStates[state.activeBodyIndex].itemZ = state.bodyStates[state.activeBodyIndex].itemZ === 0 ? -1 : 0;
         },
 
         undo(state) {
