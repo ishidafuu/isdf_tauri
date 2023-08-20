@@ -10,8 +10,8 @@
 </template>
 
 <script>
-import CharacterView from "../components/CharacterView.vue";
-import ControlView from "../components/ControlView.vue";
+import CharacterView from "../components/common/CharacterView.vue";
+import ControlView from "../components/chara-cell/CharCellController.vue";
 
 export default {
   name: 'CharaCellEditor',

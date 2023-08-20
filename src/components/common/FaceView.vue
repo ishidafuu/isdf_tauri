@@ -4,7 +4,7 @@
 
 <script lang="ts">
 import { defineComponent, computed, ref, onMounted } from "vue";
-import { useImageUtils } from "../../mixins/imageUtils";
+import { useImageUtils } from "../../mixins/imageUtils.ts";
 
 export default defineComponent({
   name: "FaceView",

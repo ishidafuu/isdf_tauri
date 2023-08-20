@@ -11,10 +11,10 @@
 
 <script>
 import {mapState} from 'vuex';
-import CrossLineView from './CharacterView/CrossLineView.vue'
-import BodyView from './CharacterView/BodyView.vue'
-import FaceView from './CharacterView/FaceView.vue'
-import ItemView from './CharacterView/ItemView.vue'
+import CrossLineView from './CrossLineView.vue'
+import BodyView from './BodyView.vue'
+import FaceView from './FaceView.vue'
+import ItemView from './ItemView.vue'
 
 export default {
   name: 'CharacterView',
