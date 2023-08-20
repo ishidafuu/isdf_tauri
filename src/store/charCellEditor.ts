@@ -1,4 +1,5 @@
-import { BodyState } from './index';
+import {BodyState} from './interface.ts';
+import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path"; // BodyStateの定義が必要な場合
 
@@ -17,22 +18,13 @@ const initialBodyState: BodyState = {
 };
 
 const state = {
-    bodyStates: Array.from({ length: 100 }, () => ({ ...initialBodyState })),
+    bodyStates: Array.from({length: 100}, () => ({...initialBodyState})),
     activeBodyIndex: 0,
     editMode: 'Body',
     past: [],
     future: [],
 };
 
-function getFormattedDate() {
-    const date = new Date();
-    const month = ("0" + (date.getMonth() + 1)).slice(-2);
-    const day = ("0" + date.getDate()).slice(-2);
-    const hours = ("0" + date.getHours()).slice(-2);
-    const minutes = ("0" + date.getMinutes()).slice(-2);
-    const seconds = ("0" + date.getSeconds()).slice(-2);
-    return `${month}${day}_${hours}${minutes}${seconds}`;
-}
 
 const mutations = {
     setEditMode(state, mode) {
