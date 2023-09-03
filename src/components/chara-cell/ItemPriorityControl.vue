@@ -14,12 +14,12 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const itemZ = computed(() => store.getters.currentBodyState.itemZ)
+    const itemZ = computed(() => store.getters['charaCell/currentBodyState'].itemZ)
     const editMode = computed(() => store.state.editMode)
 
     const changePriority = (direction: string) => {
       if ((direction === 'up' && itemZ.value < 0) || (direction === 'down' && itemZ.value >= 0)) {
-        store.commit('toggleitemZ')
+        store.commit('charaCell/toggleitemZ')
       }
     }
 

@@ -14,11 +14,11 @@ export default defineComponent({
     const store = useStore()
 
     const undo = () => {
-      store.commit('undo')
+      store.commit('charaCell/undo')
     }
 
     const redo = () => {
-      store.commit('redo')
+      store.commit('charaCell/redo')
     }
 
     const handleKeydown = (event: KeyboardEvent) => {

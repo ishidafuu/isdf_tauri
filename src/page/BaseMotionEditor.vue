@@ -4,7 +4,7 @@
       <CharacterView/>
     </div>
     <div class="control-view">
-      <ControlView/>
+      <BaseMotionControlView/>
     </div>
   </div>
 </template>

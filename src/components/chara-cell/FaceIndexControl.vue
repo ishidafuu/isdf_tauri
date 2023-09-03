@@ -14,11 +14,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const faceIndex = computed(() => store.getters.currentBodyState.faceIndex)
+    const faceIndex = computed(() => store.getters['charaCell/currentBodyState'].faceIndex)
     const editMode = computed(() => store.state.editMode)
 
     const changeFaceIndex = (amount: number) => {
-      store.commit('changeFaceIndex', amount)
+      store.commit('charaCell/changeFaceIndex', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

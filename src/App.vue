@@ -23,7 +23,7 @@ export default defineComponent({
     const store = useStore()
 
     onMounted(async () => {
-      await store.dispatch('loadState')
+      await store.dispatch('charaCell/loadState')
     })
   }
 })

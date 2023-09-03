@@ -21,16 +21,16 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const itemX = computed(() => store.getters.currentBodyState.itemX)
-    const itemY = computed(() => store.getters.currentBodyState.itemY)
+    const itemX = computed(() => store.getters['charaCell/currentBodyState'].itemX)
+    const itemY = computed(() => store.getters['charaCell/currentBodyState'].itemY)
     const editMode = computed(() => store.state.editMode)
 
     const changeItemX = (amount: number) => {
-      store.commit('changeItemX', amount)
+      store.commit('charaCell/changeItemX', amount)
     }
 
     const changeItemY = (amount: number) => {
-      store.commit('changeItemY', amount)
+      store.commit('charaCell/changeItemY', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

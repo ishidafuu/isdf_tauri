@@ -25,9 +25,7 @@ export default {
     ItemView,
   },
   computed: {
-    ...mapGetters(
-        (["currentBodyState"]),
-    ),
+    ...mapGetters('charaCell', ['currentBodyState']),
     ...mapState({
       activeBodyIndex: state => state.charaCell.activeBodyIndex,
       bodyX: state => state.charaCell.cells[state.charaCell.activeBodyIndex].bodyX,

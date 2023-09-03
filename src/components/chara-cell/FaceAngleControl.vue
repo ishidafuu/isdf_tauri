@@ -14,11 +14,11 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const faceAngle = computed(() => store.getters.currentBodyState.faceAngle)
+    const faceAngle = computed(() => store.getters['charaCell/currentBodyState'].faceAngle)
     const editMode = computed(() => store.state.editMode)
 
     const changeCharacter = (amount: number) => {
-      store.commit('changeFaceAngle', amount)
+      store.commit('charaCell/changeFaceAngle', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

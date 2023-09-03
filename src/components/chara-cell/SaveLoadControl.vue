@@ -19,19 +19,19 @@ export default defineComponent({
     const fileStatus = ref('')
 
     const saveState = async () => {
-      await store.dispatch('saveState')
+      await store.dispatch('charaCell/saveState')
       fileStatus.value = 'SaveComplete'
       setTimeout(() => fileStatus.value = '', 1000)
     }
 
     const loadState = () => {
-      store.dispatch('loadState')
+      store.dispatch('charaCell/loadState')
       fileStatus.value = 'LoadComplete'
       setTimeout(() => fileStatus.value = '', 1000)
     }
 
     const openSaveDirectory = async () => {
-      const savePath = await store.dispatch('getSaveDir')
+      const savePath = await store.dispatch('charaCell/getSaveDir')
       await invoke('open_save_directory', {path: savePath})  // modify this line
     }
 

@@ -16,7 +16,7 @@ export default defineComponent({
     const editMode = computed(() => store.state.editMode)
 
     const changeEditMode = (mode: string) => {
-      store.commit('setEditMode', mode)
+      store.commit('charaCell/setEditMode', mode)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

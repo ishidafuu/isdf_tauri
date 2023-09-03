@@ -21,16 +21,16 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const faceX = computed(() => store.getters.currentBodyState.faceX)
-    const faceY = computed(() => store.getters.currentBodyState.faceY)
+    const faceX = computed(() => store.getters['charaCell/currentBodyState'].faceX)
+    const faceY = computed(() => store.getters['charaCell/currentBodyState'].faceY)
     const editMode = computed(() => store.state.editMode)
 
     const changeFaceX = (amount: number) => {
-      store.commit('changeFaceX', amount)
+      store.commit('charaCell/changeFaceX', amount)
     }
 
     const changeFaceY = (amount: number) => {
-      store.commit('changeFaceY', amount)
+      store.commit('charaCell/changeFaceY', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

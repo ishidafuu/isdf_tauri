@@ -17,7 +17,7 @@ export default defineComponent({
     const activeBodyIndex = computed(() => store.state.activeBodyIndex)
 
     const changeCharacter = (amount: number) => {
-      store.commit('changeBodyIndex', amount)
+      store.commit('charaCell/changeBodyIndex', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
