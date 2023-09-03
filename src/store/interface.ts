@@ -1,4 +1,4 @@
-export interface BodyState {
+export interface Cell {
     bodyX: number;
     bodyY: number;
     faceIndex: number;
@@ -10,4 +10,16 @@ export interface BodyState {
     itemX: number;
     itemY: number;
     itemZ: number;
+}
+
+export interface BaseMotion {
+    cellNo: number;
+    offsetX: number;
+    offsetY: number;
+    frame: number;
+    isAction: number;
+    loopPoint: number;
+    loopCount: number;
+    seNo: number;
+    isLoopSe: number;
 }

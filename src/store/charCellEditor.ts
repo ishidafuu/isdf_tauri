@@ -1,9 +1,9 @@
-import {BodyState} from './interface.ts';
+import {Cell} from './interface.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
-import {documentDir} from "@tauri-apps/api/path"; // BodyStateの定義が必要な場合
+import {documentDir} from "@tauri-apps/api/path";
 
-const initialBodyState: BodyState = {
+const initialCell: Cell = {
     bodyX: 0,
     bodyY: 0,
     faceIndex: 0,
@@ -18,7 +18,7 @@ const initialBodyState: BodyState = {
 };
 
 const state = {
-    bodyStates: Array.from({length: 100}, () => ({...initialBodyState})),
+    cells: Array.from({length: 100}, () => ({...initialCell})),
     activeBodyIndex: 0,
     editMode: 'Body',
     past: [],
@@ -31,7 +31,7 @@ const mutations = {
         state.editMode = mode;
     },
     pushToPast(state) {
-        state.past.push(state.bodyStates.map(bodyState => ({...bodyState})));
+        state.past.push(state.cells.map(cell => ({...cell})));
         state.future = []
     },
     clearPast(state) {
@@ -45,61 +45,61 @@ const mutations = {
     },
     changeBodyX(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].bodyX = state.bodyStates[state.activeBodyIndex].bodyX + amount;
+        state.cells[state.activeBodyIndex].bodyX = state.cells[state.activeBodyIndex].bodyX + amount;
     },
     changeBodyY(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].bodyY = state.bodyStates[state.activeBodyIndex].bodyY + amount;
+        state.cells[state.activeBodyIndex].bodyY = state.cells[state.activeBodyIndex].bodyY + amount;
     },
     changeFaceIndex(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].faceIndex = (state.bodyStates[state.activeBodyIndex].faceIndex + 8 + amount) % 8;
+        state.cells[state.activeBodyIndex].faceIndex = (state.cells[state.activeBodyIndex].faceIndex + 8 + amount) % 8;
     },
     changeFaceAngle(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].faceAngle = (state.bodyStates[state.activeBodyIndex].faceAngle + 4 + amount) % 4;
+        state.cells[state.activeBodyIndex].faceAngle = (state.cells[state.activeBodyIndex].faceAngle + 4 + amount) % 4;
     },
     changeFaceX(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].faceX = state.bodyStates[state.activeBodyIndex].faceX + amount;
+        state.cells[state.activeBodyIndex].faceX = state.cells[state.activeBodyIndex].faceX + amount;
     },
     changeFaceY(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].faceY = state.bodyStates[state.activeBodyIndex].faceY + amount;
+        state.cells[state.activeBodyIndex].faceY = state.cells[state.activeBodyIndex].faceY + amount;
     },
     toggleFacePriority(state) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].faceZ = state.bodyStates[state.activeBodyIndex].faceZ === 0 ? -1 : 0;
+        state.cells[state.activeBodyIndex].faceZ = state.cells[state.activeBodyIndex].faceZ === 0 ? -1 : 0;
     },
     changeItemAngle(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].itemAngle = (state.bodyStates[state.activeBodyIndex].itemAngle + 8 + amount) % 8;
+        state.cells[state.activeBodyIndex].itemAngle = (state.cells[state.activeBodyIndex].itemAngle + 8 + amount) % 8;
     },
     changeItemX(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].itemX = state.bodyStates[state.activeBodyIndex].itemX + amount;
+        state.cells[state.activeBodyIndex].itemX = state.cells[state.activeBodyIndex].itemX + amount;
     },
     changeItemY(state, amount) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].itemY = state.bodyStates[state.activeBodyIndex].itemY + amount;
+        state.cells[state.activeBodyIndex].itemY = state.cells[state.activeBodyIndex].itemY + amount;
     },
     toggleitemZ(state) {
         this.commit('pushToPast');
-        state.bodyStates[state.activeBodyIndex].itemZ = state.bodyStates[state.activeBodyIndex].itemZ === 0 ? -1 : 0;
+        state.cells[state.activeBodyIndex].itemZ = state.cells[state.activeBodyIndex].itemZ === 0 ? -1 : 0;
     },
 
     undo(state) {
         if (state.past.length > 0) {
             const previousState = state.past.pop();
             state.future.push({...state});
-            Object.assign(state.bodyStates, previousState);
+            Object.assign(state.cells, previousState);
         }
     },
     redo(state) {
         if (state.future.length > 0) {
             const nextState = state.future.pop();
             state.past.push({...state});
-            Object.assign(state.bodyStates, nextState);
+            Object.assign(state.cells, nextState);
         }
     },
     loadState(state, newState) {
@@ -111,7 +111,7 @@ const actions = {
     async saveState({state, dispatch}) {
         try {
             const dataToSave = {
-                bodyStates: state.bodyStates,
+                cells: state.cells,
             };
 
             const saveDir = await dispatch('getSaveDir');
@@ -155,7 +155,7 @@ const actions = {
 
 const getters = {
     currentBodyState: (state: typeof state) => {
-        return state.bodyStates[state.activeBodyIndex];
+        return state.cells[state.activeBodyIndex];
     },
 };
 
