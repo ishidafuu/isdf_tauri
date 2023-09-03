@@ -4,20 +4,20 @@
       <CharacterView/>
     </div>
     <div class="control-view">
-      <CharaCellControlView/>
+      <ControlView/>
     </div>
   </div>
 </template>
 
 <script>
 import CharacterView from "../components/common/CharacterView.vue";
-import CharaCellControlView from "../components/chara-cell/CharaCellController.vue";
+import BaseMotionControlView from "../components/base-motion/BaseMotionController.vue";
 
 export default {
-  name: 'CharaCellEditor',
+  name: 'BaseMotionEditor',
   components: {
     CharacterView,
-    CharaCellControlView,
+    BaseMotionControlView,
   }
 }
 </script>

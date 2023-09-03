@@ -2,7 +2,7 @@
   <div class="parent-component">
     <nav class="navigation">
       <router-link to="/chara_cell_editor">CharaCellEditor</router-link>
-      <router-link to="/hello_world">HelloWorld</router-link>
+      <router-link to="/base_motion_editor">BaseMotionEditor</router-link>
     </nav>
     <div class="content">
       <router-view/>
@@ -12,21 +12,22 @@
 
 
 <script lang="ts">
-  import { defineComponent, onMounted } from 'vue'
-  import { useStore } from 'vuex'
-  import CharaCellEditor from "./page/CharaCellEditor.vue";
+import {defineComponent, onMounted} from 'vue'
+import {useStore} from 'vuex'
+import CharaCellEditor from "./page/CharaCellEditor.vue";
+import BaseMotionEditor from "./page/BaseMotionEditor.vue";
 
-  export default defineComponent({
-    components: {CharaCellEditor},
-    setup() {
-      const store = useStore()
+export default defineComponent({
+  components: {CharaCellEditor, BaseMotionEditor},
+  setup() {
+    const store = useStore()
 
-      onMounted(async () => {
-        await store.dispatch('loadState')
-      })
-    }
-  })
-  </script>
+    onMounted(async () => {
+      await store.dispatch('loadState')
+    })
+  }
+})
+</script>
 
 <style scoped>
 .parent-component {

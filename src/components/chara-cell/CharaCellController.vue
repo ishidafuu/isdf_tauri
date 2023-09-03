@@ -30,7 +30,7 @@ import UndoRedoControl from "./UndoRedoControl.vue";
 import SaveLoadControl from "./SaveLoadControl.vue";
 
 export default {
-  name: 'ControlView',
+  name: 'CharaCellControlView',
   components: {
     EditStateControl,
     BodyIndexControl,
