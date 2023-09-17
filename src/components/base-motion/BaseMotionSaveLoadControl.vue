@@ -14,25 +14,31 @@ import {useStore} from 'vuex'
 import {invoke} from '@tauri-apps/api/tauri'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
     const fileStatus = ref('')
 
     const saveState = async () => {
-      await store.dispatch('baseMotion/saveState')
+      await store.dispatch(`${props.storeName}/saveState`)
       fileStatus.value = 'SaveComplete'
       setTimeout(() => fileStatus.value = '', 1000)
     }
 
     const loadState = () => {
-      store.dispatch('baseMotion/loadState')
+      store.dispatch(`${props.storeName}/loadState`)
       fileStatus.value = 'LoadComplete'
       setTimeout(() => fileStatus.value = '', 1000)
     }
 
     const openSaveDirectory = async () => {
-      const savePath = await store.dispatch('baseMotion/getSaveDir')
-      await invoke('open_save_directory', {path: savePath})  // modify this line
+      const savePath = await store.dispatch(`${props.storeName}/getSaveDir`)
+      await invoke('open_save_directory', {path: savePath})
     }
 
     const handleKeydown = (event: KeyboardEvent) => {
@@ -44,7 +50,7 @@ export default defineComponent({
     window.addEventListener('keydown', handleKeydown)
 
     onBeforeUnmount(() => {
-      window.removeEventListener('keydown', handleKeydown.value)
+      window.removeEventListener('keydown', handleKeydown)
     })
 
     return {

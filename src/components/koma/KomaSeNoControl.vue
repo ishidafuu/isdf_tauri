@@ -17,18 +17,24 @@ import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
 
-    const seNo = computed(() => store.getters['baseMotion/currentKomaState'].seNo)
-    const isLoopSe = computed(() => store.getters['baseMotion/currentKomaState'].isLoopSe)
+    const seNo = computed(() => store.getters[`${props.storeName}/currentKomaState`].seNo)
+    const isLoopSe = computed(() => store.getters[`${props.storeName}/currentKomaState`].isLoopSe)
 
     const changeSeNo = (amount: number) => {
-      store.commit('baseMotion/changeSeNo', amount)
+      store.commit(`${props.storeName}/changeSeNo`, amount)
     }
 
     const toggleLoopSe = () => {
-      store.commit('baseMotion/toggleLoopSe')
+      store.commit(`${props.storeName}/toggleLoopSe`)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

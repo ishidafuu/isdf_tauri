@@ -10,16 +10,20 @@
 import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
 import {useStore} from 'vuex'
 
-
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
 
-    const activeMotionIndex = computed(() => store.state.baseMotion.activeMotionIndex)
-
+    const activeMotionIndex = computed(() => store.state[props.storeName].activeMotionIndex)
 
     const changeMotionIndex = (amount: number) => {
-      store.commit('baseMotion/changeMotionIndex', amount)
+      store.commit(`${props.storeName}/changeMotionIndex`, amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -40,11 +44,11 @@ export default defineComponent({
 
     onMounted(() => {
       window.addEventListener('keydown', handleKeyDown);
-    });
+    })
 
     onBeforeUnmount(() => {
       window.removeEventListener('keydown', handleKeyDown);
-    });
+    })
 
     return {
       activeMotionIndex,

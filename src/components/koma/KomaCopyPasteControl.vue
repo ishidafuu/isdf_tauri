@@ -6,18 +6,26 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, onMounted, onBeforeUnmount} from 'vue'
-import {useStore} from 'vuex'
+import { defineComponent, onMounted, onBeforeUnmount, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const store = useStore()
+    const { storeName } = toRefs(props)
+
     const copyKoma = () => {
-      store.commit('baseMotion/copyKoma')
+      store.commit(`${storeName.value}/copyKoma`)
     }
 
     const pasteKoma = () => {
-      store.commit('baseMotion/pasteKoma')
+      store.commit(`${storeName.value}/pasteKoma`)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -31,12 +39,12 @@ export default defineComponent({
     }
 
     onMounted(() => {
-      window.addEventListener('keydown', handleKeyDown);
-    });
+      window.addEventListener('keydown', handleKeyDown)
+    })
 
     onBeforeUnmount(() => {
-      window.removeEventListener('keydown', handleKeyDown);
-    });
+      window.removeEventListener('keydown', handleKeyDown)
+    })
 
     return {
       copyKoma,
@@ -45,4 +53,3 @@ export default defineComponent({
   }
 })
 </script>
-

@@ -16,18 +16,24 @@ import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
 import {useStore} from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
 
-    const offsetX = computed(() => store.getters['baseMotion/currentKomaState'].offsetX)
-    const offsetY = computed(() => store.getters['baseMotion/currentKomaState'].offsetY)
+    const offsetX = computed(() => store.getters[`${props.storeName}/currentKomaState`].offsetX)
+    const offsetY = computed(() => store.getters[`${props.storeName}/currentKomaState`].offsetY)
 
     const changeOffsetX = (amount: number) => {
-      store.commit('baseMotion/changeOffsetX', amount)
+      store.commit(`${props.storeName}/changeOffsetX`, amount)
     }
 
     const changeOffsetY = (amount: number) => {
-      store.commit('baseMotion/changeOffsetY', amount)
+      store.commit(`${props.storeName}/changeOffsetY`, amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

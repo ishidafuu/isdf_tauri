@@ -1,15 +1,15 @@
 <template>
   <div>
-    <BaseMotionNameControl/>
-    <KomaListControl/>
-    <KomaAddRemoveControl/>
-    <KomaCopyPasteControl/>
-    <KomaCellNoControl/>
-    <KomaOffsetControl/>
-    <KomaFrameControl/>
-    <KomaActionControl/>
-    <KomaSeNoControl/>
-    <KomaLoopControl/>
+    <BaseMotionNameControl :storeName="'baseMotion'"/>
+    <KomaListControl :storeName="'baseMotion'"/>
+    <KomaAddRemoveControl :storeName="'baseMotion'"/>
+    <KomaCopyPasteControl :storeName="'baseMotion'"/>
+    <KomaCellNoControl :storeName="'baseMotion'"/>
+    <KomaOffsetControl :storeName="'baseMotion'"/>
+    <KomaFrameControl :storeName="'baseMotion'"/>
+    <KomaActionControl :storeName="'baseMotion'"/>
+    <KomaSeNoControl :storeName="'baseMotion'"/>
+    <KomaLoopControl :storeName="'baseMotion'"/>
   </div>
 </template>
 

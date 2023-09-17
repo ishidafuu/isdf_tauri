@@ -6,17 +6,24 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, computed} from 'vue'
-import {useStore} from 'vuex'
+import { defineComponent, computed, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const store = useStore()
+    const { storeName } = toRefs(props)
 
-    const isAction = computed(() => store.getters['baseMotion/currentKomaState'].isAction)
+    const isAction = computed(() => store.getters[`${storeName.value}/currentKomaState`].isAction)
 
     const toggleAction = () => {
-      store.commit('baseMotion/toggleAction')
+      store.commit(`${storeName.value}/toggleAction`)
     }
 
     return {

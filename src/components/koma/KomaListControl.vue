@@ -19,12 +19,18 @@ import {useStore} from 'vuex'
 import {LoopPoint} from '../../types/enum.ts';
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
-    const activeKomaIndex = computed(() => store.state.baseMotion.activeKomaIndex)
-    const komas = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].komas)
+    const activeKomaIndex = computed(() => store.state[props.storeName].activeKomaIndex)
+    const komas = computed(() => store.state[props.storeName].motions[store.state[props.storeName].activeMotionIndex].komas)
     const selectKoma = (index: number) => {
-      store.commit('baseMotion/changeKomaIndex', index)
+      store.commit(`${props.storeName}/changeKomaIndex`, index)
     }
 
     const getLoop = (loopPoint: number, loopCount: number) => {

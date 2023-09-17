@@ -7,16 +7,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
+import {defineComponent, computed, onMounted, onBeforeUnmount, toRefs} from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const store = useStore()
+    const {storeName} = toRefs(props)
+    const cellNo = computed(() => {
+      return store.state[storeName.value].motions[store.state[storeName.value].activeMotionIndex].komas[store.state[storeName.value].activeKomaIndex].cellNo
+    })
 
-    const cellNo = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].komas[store.state.baseMotion.activeKomaIndex].cellNo)
     const changeCellNo = (amount: number) => {
-      store.commit('baseMotion/changeCellNo', amount)
+      store.commit(`${storeName.value}/changeCellNo`, amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

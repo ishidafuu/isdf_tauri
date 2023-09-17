@@ -8,13 +8,18 @@ import {defineComponent, computed, ref} from 'vue'
 import {useStore} from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
-    const activeKomaIndex = computed(() => store.state.baseMotion.activeMotionIndex)
-    const name = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].name)
+    const name = computed(() => store.state[props.storeName].motions[store.state[props.storeName].activeMotionIndex].name)
     const currentName = ref(name.value)
-    const changeMotionName = (newName: string) => {  // update this line
-      store.commit('baseMotion/changeMotionName', newName)
+    const changeMotionName = (newName: string) => {
+      store.commit(`${props.storeName}/changeMotionName`, newName)
     }
 
     return {

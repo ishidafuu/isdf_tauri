@@ -8,21 +8,28 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
-import {useStore} from 'vuex'
+import { defineComponent, computed, onMounted, onBeforeUnmount, toRefs } from 'vue'
+import { useStore } from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    }
+  },
+  setup(props) {
     const store = useStore()
+    const { storeName } = toRefs(props)
 
-    const frame = computed(() => store.getters['baseMotion/currentKomaState'].frame)
+    const frame = computed(() => store.getters[`${storeName.value}/currentKomaState`].frame)
 
     const changeFrame = (amount: number) => {
-      store.commit('baseMotion/changeFrame', amount)
+      store.commit(`${storeName.value}/changeFrame`, amount)
     }
 
     const changeFrameAll = () => {
-      store.commit('baseMotion/changeFrameAll')
+      store.commit(`${storeName.value}/changeFrameAll`)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

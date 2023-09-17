@@ -32,9 +32,9 @@ export default {
   },
   computed: {
     ...mapState({
-      activeCellIndex: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
-      offsetX: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetX,
-      offsetY: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetY,
+      activeCellIndex: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
+      offsetX: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetX,
+      offsetY: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetY,
     }),
   }
 }

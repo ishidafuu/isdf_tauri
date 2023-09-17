@@ -19,18 +19,24 @@ import {useStore} from 'vuex'
 import {LoopPoint} from "../../types/enum.ts";
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
 
-    const loopPoint = computed(() => store.getters['baseMotion/currentKomaState'].loopPoint)
-    const loopCount = computed(() => store.getters['baseMotion/currentKomaState'].loopCount)
+    const loopPoint = computed(() => store.getters[`${props.storeName}/currentKomaState`].loopPoint)
+    const loopCount = computed(() => store.getters[`${props.storeName}/currentKomaState`].loopCount)
 
     const changeLoopPoint = (amount: number) => {
-      store.commit('baseMotion/changeLoopPoint', amount)
+      store.commit(`${props.storeName}/changeLoopPoint`, amount)
     }
 
     const changeLoopCount = (amount: number) => {
-      store.commit('baseMotion/changeLoopCount', amount)
+      store.commit(`${props.storeName}/changeLoopCount`, amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {

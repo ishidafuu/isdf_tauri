@@ -24,7 +24,7 @@ const initialBaseMotion: BaseMotion = {
 
 
 const state = {
-    baseMotions: Array.from({length: 100}, () => ({
+    motions: Array.from({length: 100}, () => ({
         ...initialBaseMotion,
         komas: [...initialBaseMotion.komas.map(koma => ({...koma}))]
     })),
@@ -42,7 +42,7 @@ const mutations = {
     },
     pushToPast(state) {
         state.past.push({
-            baseMotions: state.baseMotions.map(baseMotion => ({...baseMotion})),
+            motions: state.motions.map(baseMotion => ({...baseMotion})),
             activeMotionIndex: state.activeMotionIndex,
             activeKomaIndex: state.activeKomaIndex,
         });
@@ -56,11 +56,11 @@ const mutations = {
         if (state.past.length > 0) {
             const previousState = state.past.pop();
             state.future.push({
-                baseMotions: state.baseMotions.map(baseMotion => ({...baseMotion})),
+                motions: state.motions.map(motion => ({...motion})),
                 activeMotionIndex: state.activeMotionIndex,
                 activeKomaIndex: state.activeKomaIndex,
             });
-            Object.assign(state.baseMotions, previousState.baseMotions);
+            Object.assign(state.motions, previousState.motions);
             state.activeMotionIndex = previousState.activeMotionIndex;
             state.activeKomaIndex = previousState.activeKomaIndex;
         }
@@ -69,11 +69,11 @@ const mutations = {
         if (state.future.length > 0) {
             const nextState = state.future.pop();
             state.past.push({
-                baseMotions: state.baseMotions.map(baseMotion => ({...baseMotion})),
+                motions: state.motions.map(baseMotion => ({...baseMotion})),
                 activeMotionIndex: state.activeMotionIndex,
                 activeKomaIndex: state.activeKomaIndex,
             });
-            Object.assign(state.baseMotions, nextState.baseMotions);
+            Object.assign(state.motions, nextState.motions);
             state.activeMotionIndex = nextState.activeMotionIndex;
             state.activeKomaIndex = nextState.activeKomaIndex;
         }
@@ -90,118 +90,118 @@ const mutations = {
     // モーション追加削除
     addMotion(state) {
         this.commit('baseMotion/pushToPast');
-        state.baseMotions.splice(state.activeMotionIndex, 0, {initialBaseMotion});
+        state.motions.splice(state.activeMotionIndex, 0, {initialBaseMotion});
         state.activeMotionIndex += 1;
         state.activeKomaIndex = 0;
     },
     removeMotion(state) {
-        if (state.baseMotions.length <= 1) {
+        if (state.motions.length <= 1) {
             return;
         }
         this.commit('baseMotion/pushToPast');
-        state.baseMotions.splice(state.activeMotionIndex, 1);
-        const motionsLength = state.baseMotions.length;
+        state.motions.splice(state.activeMotionIndex, 1);
+        const motionsLength = state.motions.length;
         state.activeMotionIndex = Math.min(Math.max(0, state.activeKomaIndex), motionsLength - 1);
         state.activeKomaIndex = 0;
     },
     // モーション名
     changeMotionName(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const motion = state.baseMotions[state.activeMotionIndex];
+        const motion = state.motions[state.activeMotionIndex];
         motion.name = amount;
     },
     // コマインデックス
     changeKomaIndex(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const komasLength = state.baseMotions[state.activeMotionIndex].komas.length;
+        const komasLength = state.motions[state.activeMotionIndex].komas.length;
         state.activeKomaIndex = Math.min(Math.max(0, amount), komasLength - 1);
     },
     // コマ追加削除
     addKoma(state) {
         this.commit('baseMotion/pushToPast');
-        const komas = state.baseMotions[state.activeMotionIndex].komas;
+        const komas = state.motions[state.activeMotionIndex].komas;
         komas.splice(state.activeKomaIndex + 1, 0, initialKoma);
     },
     removeKoma(state) {
-        const komas = state.baseMotions[state.activeMotionIndex].komas;
+        const komas = state.motions[state.activeMotionIndex].komas;
         if (komas.length <= 1) {
             return;
         }
         this.commit('baseMotion/pushToPast');
         komas.splice(state.activeKomaIndex, 1);
-        const komasLength = state.baseMotions[state.activeMotionIndex].komas.length;
+        const komasLength = state.motions[state.activeMotionIndex].komas.length;
         state.activeKomaIndex = Math.min(Math.max(0, state.activeKomaIndex), komasLength - 1);
     },
     // コマコピペ
     copyKoma(state) {
-        state.clipKoma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        state.clipKoma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
     },
     pasteKoma(state) {
         if (state.clipKoma === null) {
             return;
         }
         this.commit('baseMotion/pushToPast');
-        state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex] = state.clipKoma;
+        state.motions[state.activeMotionIndex].komas[state.activeKomaIndex] = state.clipKoma;
     },
     // コマ編集
     changeCellNo(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.cellNo += amount;
         if (koma.cellNo < 0) koma.cellNo = 0;
     },
     changeOffsetX(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.offsetX += amount;
     },
     changeOffsetY(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.offsetY += amount;
     },
     // 効果音
     changeSeNo(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.seNo += amount;
         if (koma.seNo < 0) koma.seNo = 0;
     },
     toggleLoopSe(state) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.isLoopSe = koma.isLoopSe === 0 ? 1 : 0;
     },
     // ループ
     changeLoopPoint(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.loopPoint = (koma.loopPoint + LoopPoint.LoopPointCount + amount) % LoopPoint.LoopPointCount;
     },
     changeLoopCount(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.loopCount += amount;
         if (koma.loopCount < 0) koma.loopCount = 0;
     },
     // フレーム数
     changeFrame(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.frame += amount;
         if (koma.frame < 0) koma.frame = 0;
     },
     changeFrameAll(state) {
         this.commit('baseMotion/pushToPast');
-        const frame = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex].frame;
-        state.baseMotions[state.activeMotionIndex].komas.forEach((koma) => {
+        const frame = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex].frame;
+        state.motions[state.activeMotionIndex].komas.forEach((koma) => {
             koma.frame = frame;
         });
     },
     // アクションポイント
     toggleAction(state) {
         this.commit('baseMotion/pushToPast');
-        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.isAction = koma.isAction === 0 ? 1 : 0;
     },
 };
@@ -210,7 +210,7 @@ const actions = {
     async saveState({state, dispatch}) {
         try {
             const dataToSave = {
-                cells: state.baseMotions,
+                cells: state.motions,
             };
 
             const saveDir = await dispatch('getSaveDir');
@@ -255,10 +255,10 @@ const actions = {
 
 const getters = {
     currentMotionState: (state: typeof state) => {
-        return state.baseMotions[state.activeMotionIndex];
+        return state.motions[state.activeMotionIndex];
     },
     currentKomaState: (state: typeof state) => {
-        return state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        return state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
     },
 };
 
