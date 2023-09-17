@@ -4,6 +4,7 @@
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY"/>
       <BaseMotionListControl/>
       <BaseMotionSaveLoadControl/>
+      <ErrorView/>
     </div>
     <div class="control-view">
       <BaseMotionControlView/>
@@ -17,11 +18,13 @@ import BaseMotionControlView from "../components/base-motion/BaseMotionControlle
 import BaseMotionListControl from "../components/base-motion/BaseMotionListControl.vue";
 import {mapState} from "vuex";
 import BaseMotionSaveLoadControl from "../components/base-motion/BaseMotionSaveLoadControl.vue";
+import ErrorView from "../components/common/ErrorView.vue";
 
 
 export default {
   name: 'BaseMotionEditor',
   components: {
+    ErrorView,
     BaseMotionSaveLoadControl,
     CharacterView,
     BaseMotionListControl,

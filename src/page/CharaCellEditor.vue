@@ -2,6 +2,7 @@
   <div class="base-motion-container">
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="0" :offsetY="0"/>
+      <ErrorView/>
     </div>
     <div class="control-view">
       <CharaCellControlView/>
@@ -17,10 +18,12 @@ import BodyView from "../components/common/BodyView.vue";
 import FaceView from "../components/common/FaceView.vue";
 import ItemView from "../components/common/ItemView.vue";
 import {mapGetters, mapState} from "vuex";
+import ErrorView from "../components/common/ErrorView.vue";
 
 export default {
   name: 'CharaCellEditor',
   components: {
+    ErrorView,
     CharacterView,
     CharaCellControlView,
   },

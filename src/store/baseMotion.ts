@@ -3,6 +3,7 @@ import {LoopPoint} from '../types/enum.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path";
+import {store} from "./index.ts";
 
 const initialKoma: Koma = {
     cellNo: 0,
@@ -233,6 +234,7 @@ const actions = {
             await writeFile({path, contents: JSON.stringify(dataToSave)});
         } catch (error) {
             console.error('Failed to save state:', error);
+            store.commit('errorHandler/setError', error);
         }
     },
     async loadState({commit, dispatch}) {
