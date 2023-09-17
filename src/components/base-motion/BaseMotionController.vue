@@ -5,6 +5,7 @@
     <KomaAddRemoveControl/>
     <KomaCopyPasteControl/>
     <KomaCellNoControl/>
+    <KomaOffsetControl/>
   </div>
 </template>
 
@@ -14,6 +15,7 @@ import KomaListControl from "../base-motion/KomaListControl.vue";
 import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
 import KomaCopyPasteControl from "../base-motion/KomaCopyPasteControl.vue";
 import KomaCellNoControl from "../base-motion/KomaCellNoControl.vue";
+import KomaOffsetControl from "../base-motion/KomaOffsetControl.vue";
 
 
 export default {
@@ -24,6 +26,7 @@ export default {
     KomaAddRemoveControl,
     KomaCopyPasteControl,
     KomaCellNoControl,
+    KomaOffsetControl,
   }
 }
 </script>

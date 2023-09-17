@@ -15,7 +15,7 @@ export default defineComponent({
     const store = useStore()
 
     const faceAngle = computed(() => store.getters['charaCell/currentBodyState'].faceAngle)
-    const editMode = computed(() => store.state.editMode)
+    const editMode = computed(() => store.state.charaCell.editMode)
 
     const changeCharacter = (amount: number) => {
       store.commit('charaCell/changeFaceAngle', amount)

@@ -23,7 +23,7 @@ export default defineComponent({
 
     const itemX = computed(() => store.getters['charaCell/currentBodyState'].itemX)
     const itemY = computed(() => store.getters['charaCell/currentBodyState'].itemY)
-    const editMode = computed(() => store.state.editMode)
+    const editMode = computed(() => store.state.charaCell.editMode)
 
     const changeItemX = (amount: number) => {
       store.commit('charaCell/changeItemX', amount)

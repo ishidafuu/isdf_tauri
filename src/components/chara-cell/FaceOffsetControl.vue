@@ -23,7 +23,7 @@ export default defineComponent({
 
     const faceX = computed(() => store.getters['charaCell/currentBodyState'].faceX)
     const faceY = computed(() => store.getters['charaCell/currentBodyState'].faceY)
-    const editMode = computed(() => store.state.editMode)
+    const editMode = computed(() => store.state.charaCell.editMode)
 
     const changeFaceX = (amount: number) => {
       store.commit('charaCell/changeFaceX', amount)

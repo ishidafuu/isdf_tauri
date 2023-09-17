@@ -15,7 +15,7 @@ export default defineComponent({
     const store = useStore()
 
     const faceZ = computed(() => store.getters['charaCell/currentBodyState'].faceZ)
-    const editMode = computed(() => store.state.editMode)
+    const editMode = computed(() => store.state.charaCell.editMode)
 
     const changePriority = (direction: string) => {
       if ((direction === 'up' && faceZ.value < 0) || (direction === 'down' && faceZ.value >= 0)) {

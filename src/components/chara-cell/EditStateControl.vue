@@ -13,7 +13,7 @@ import { useStore } from 'vuex'
 export default defineComponent({
   setup() {
     const store = useStore()
-    const editMode = computed(() => store.state.editMode)
+    const editMode = computed(() => store.state.charaCell.editMode)
 
     const changeEditMode = (mode: string) => {
       store.commit('charaCell/setEditMode', mode)
