@@ -1,6 +1,7 @@
 <template>
   <div>
-    <MotionIndexControl/>
+<!--    <MotionListControl/>-->
+<!--    <MotionIndexControl/>-->
 <!--    <EditStateControl/>-->
 <!--    <BodyOffsetControl/>-->
 <!--    <FaceIndexControl/>-->
@@ -16,6 +17,7 @@
 </template>
 
 <script>
+import MotionListControl from "../base-motion/BaseMotionListControl.vue";
 import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
 // import EditStateControl from "../chara-cell/EditStateControl.vue";
 // import BodyOffsetControl from "../chara-cell/BodyOffsetControl.vue";
@@ -32,6 +34,7 @@ import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
 export default {
   name: 'BaseMotionControlView',
   components: {
+    MotionListControl,
     MotionIndexControl,
     // EditStateControl,
     // BodyOffsetControl,

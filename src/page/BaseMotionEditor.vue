@@ -2,6 +2,7 @@
   <div class="base-motion-container">
     <div class="character-view">
       <CharacterView/>
+      <BaseMotionListControl/>
     </div>
     <div class="control-view">
       <BaseMotionControlView/>
@@ -12,11 +13,14 @@
 <script>
 import CharacterView from "../components/common/CharacterView.vue";
 import BaseMotionControlView from "../components/base-motion/BaseMotionController.vue";
+import BaseMotionListControl from "../components/base-motion/BaseMotionListControl.vue";
+
 
 export default {
   name: 'BaseMotionEditor',
   components: {
     CharacterView,
+    BaseMotionListControl,
     BaseMotionControlView,
   }
 }

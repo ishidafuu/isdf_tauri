@@ -25,7 +25,7 @@ const initialKoma: Koma = {
 };
 
 const initialBaseMotion: BaseMotion = {
-    name: "",
+    name: "NewMotion",
     komas: Array.from({length: 100}, () => ({...initialKoma})),
 };
 
@@ -89,8 +89,7 @@ const mutations = {
     // モーションインデックス
     changeMotionIndex(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const newIndex = state.activeMotionIndex + amount;
-        state.activeMotionIndex = newIndex >= 0 ? newIndex : 0;
+        state.activeMotionIndex = amount >= 0 ? amount : 0;
         state.activeKomaIndex = 0;
     },
     // モーション追加削除

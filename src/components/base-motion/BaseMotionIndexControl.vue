@@ -7,14 +7,16 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
+import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
+import {useStore} from 'vuex'
+
 
 export default defineComponent({
   setup() {
     const store = useStore()
 
     const activeMotionIndex = computed(() => store.state.baseMotion.activeMotionIndex)
+
 
     const changeMotionIndex = (amount: number) => {
       store.commit('baseMotion/changeMotionIndex', amount)
@@ -46,7 +48,7 @@ export default defineComponent({
 
     return {
       activeMotionIndex,
-      changeMotionIndex
+      changeMotionIndex,
     }
   }
 })
