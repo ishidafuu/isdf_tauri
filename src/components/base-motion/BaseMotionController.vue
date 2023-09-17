@@ -2,6 +2,7 @@
   <div>
     <KomaListControl/>
     <KomaAddRemoveControl/>
+    <KomaCopyPasteControl/>
 <!--    <MotionIndexControl/>-->
 <!--    <EditStateControl/>-->
 <!--    <BodyOffsetControl/>-->
@@ -20,6 +21,7 @@
 <script>
 import KomaListControl from "../base-motion/KomaListControl.vue";
 import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
+import KomaCopyPasteControl from "../base-motion/KomaCopyPasteControl.vue";
 // import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
 // import EditStateControl from "../chara-cell/EditStateControl.vue";
 // import BodyOffsetControl from "../chara-cell/BodyOffsetControl.vue";
@@ -38,6 +40,7 @@ export default {
   components: {
     KomaListControl,
     KomaAddRemoveControl,
+    KomaCopyPasteControl,
     // MotionIndexControl,
     // EditStateControl,
     // BodyOffsetControl,

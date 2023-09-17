@@ -1,7 +1,7 @@
 <template>
   <div>
-    <button @click="addKoma()">AddKoma (N)</button>
-    <button @click="removeKoma()">RemoveKoma (Del)</button>
+    <button @click="copyKoma()">CopyKoma (Ctrl+C)</button>
+    <button @click="pasteKoma()">PasteKoma (Ctrl+V)</button>
   </div>
 </template>
 
@@ -12,21 +12,21 @@ import {useStore} from 'vuex'
 export default defineComponent({
   setup() {
     const store = useStore()
-    const addKoma = () => {
-      store.commit('baseMotion/addKoma')
+    const copyKoma = () => {
+      store.commit('baseMotion/copyKoma')
     }
 
-    const removeKoma = () => {
-      store.commit('baseMotion/removeKoma')
+    const pasteKoma = () => {
+      store.commit('baseMotion/pasteKoma')
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
-      if (event.code === 'KeyN') {
-        addKoma();
+      if (event.ctrlKey && event.key === 'c') {
+        copyKoma()
       }
 
-      if (event.code === 'Delete') {
-        removeKoma();
+      if (event.ctrlKey && event.key === 'v') {
+        pasteKoma()
       }
     }
 
@@ -39,8 +39,8 @@ export default defineComponent({
     });
 
     return {
-      addKoma,
-      removeKoma,
+      copyKoma,
+      pasteKoma,
     }
   }
 })
