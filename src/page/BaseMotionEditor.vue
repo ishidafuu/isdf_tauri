@@ -33,6 +33,7 @@ export default {
 
 .character-view {
   flex: 1; /* 左側の領域を均等に占める */
+  min-width: 400px;
 }
 
 .control-view {

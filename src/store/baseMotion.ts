@@ -26,12 +26,15 @@ const initialKoma: Koma = {
 
 const initialBaseMotion: BaseMotion = {
     name: "NewMotion",
-    komas: Array.from({length: 100}, () => ({...initialKoma})),
+    komas: Array.from({length: 1}, () => ({...initialKoma})),
 };
 
 
 const state = {
-    baseMotions: Array.from({length: 100}, () => ({...initialBaseMotion})),
+    baseMotions: Array.from({length: 100}, () => ({
+        ...initialBaseMotion,
+        komas: [...initialBaseMotion.komas.map(koma => ({...koma}))]
+    })),
     activeMotionIndex: 0,
     activeKomaIndex: 0,
     // editMode: 'Body',
@@ -118,17 +121,14 @@ const mutations = {
     // コマインデックス
     changeKomaIndex(state, amount) {
         this.commit('baseMotion/pushToPast');
-        const newIndex = state.activeKomaIndex + amount;
         const komasLength = state.baseMotions[state.activeMotionIndex].komas.length;
-        state.activeKomaIndex = Math.min(Math.max(0, newIndex), komasLength - 1);
+        state.activeKomaIndex = Math.min(Math.max(0, amount), komasLength - 1);
     },
     // コマ追加削除
     addKoma(state) {
         this.commit('baseMotion/pushToPast');
         const komas = state.baseMotions[state.activeMotionIndex].komas;
-        komas.splice(state.activeKomaIndex, 0, {initialKoma});
-        const komasLength = state.baseMotions[state.activeMotionIndex].komas.length;
-        state.activeKomaIndex += 1;
+        komas.splice(state.activeKomaIndex + 1, 0, initialKoma);
     },
     removeKoma(state) {
         const komas = state.baseMotions[state.activeMotionIndex].komas;

@@ -1,12 +1,11 @@
 <template>
   <div>
-    <!-- add this line -->
-    <div v-if="activeMotionIndex >= 0">Selected: {{activeMotionIndex}}: {{ baseMotions[activeMotionIndex].name }}</div>
+    <div v-if="activeMotionIndex >= 0">Selected: {{ activeMotionIndex }}: {{baseMotions[activeMotionIndex].name }}
+    </div>
     <ul class="list-box">
       <li v-for="(motion, index) in baseMotions" :key="motion.name"
           @click="selectMotion(index)"
           :class="{ 'selected': activeMotionIndex === index }">
-        <!-- update this line -->
         {{ index.toString().padStart(3, '0') }}: {{ motion.name }}
       </li>
     </ul>
@@ -14,8 +13,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed } from 'vue'
-import { useStore } from 'vuex'
+import {defineComponent, computed} from 'vue'
+import {useStore} from 'vuex'
 
 export default defineComponent({
   setup() {
@@ -26,7 +25,6 @@ export default defineComponent({
 
     const selectMotion = (index: number) => {
       store.commit('baseMotion/changeMotionIndex', index)
-
     }
 
     return {

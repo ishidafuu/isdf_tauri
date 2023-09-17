@@ -1,6 +1,7 @@
 <template>
   <div>
-<!--    <MotionListControl/>-->
+    <KomaListControl/>
+    <KomaAddRemoveControl/>
 <!--    <MotionIndexControl/>-->
 <!--    <EditStateControl/>-->
 <!--    <BodyOffsetControl/>-->
@@ -17,8 +18,9 @@
 </template>
 
 <script>
-import MotionListControl from "../base-motion/BaseMotionListControl.vue";
-import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
+import KomaListControl from "../base-motion/KomaListControl.vue";
+import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
+// import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
 // import EditStateControl from "../chara-cell/EditStateControl.vue";
 // import BodyOffsetControl from "../chara-cell/BodyOffsetControl.vue";
 // import FaceIndexControl from "../chara-cell/FaceIndexControl.vue";
@@ -34,8 +36,9 @@ import MotionIndexControl from "../base-motion/BaseMotionIndexControl.vue";
 export default {
   name: 'BaseMotionControlView',
   components: {
-    MotionListControl,
-    MotionIndexControl,
+    KomaListControl,
+    KomaAddRemoveControl,
+    // MotionIndexControl,
     // EditStateControl,
     // BodyOffsetControl,
     // FaceIndexControl,
