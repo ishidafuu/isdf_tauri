@@ -16,7 +16,7 @@
 <script lang="ts">
 import {defineComponent, computed} from 'vue'
 import {useStore} from 'vuex'
-import {LoopPoint} from '../../types/enum';
+import {LoopPoint} from '../../types/enum.ts';
 
 export default defineComponent({
   setup() {
