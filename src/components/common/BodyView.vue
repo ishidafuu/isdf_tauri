@@ -13,7 +13,7 @@ export default defineComponent({
   props: {
     bodyX: Number,
     bodyY: Number,
-    activeBodyIndex: Number,
+    activeCellIndex: Number,
   },
   setup(props) {
     const imagePath = '/nm2body.png';
@@ -22,8 +22,8 @@ export default defineComponent({
     const { makeColorTransparent } = useImageUtils();
 
     const backgroundStyle = computed(() => {
-      const col = Math.floor(props.activeBodyIndex / gridSize);
-      const row = props.activeBodyIndex % gridSize;
+      const col = Math.floor(props.activeCellIndex / gridSize);
+      const row = props.activeCellIndex % gridSize;
       const bgPosX = -col * gridSize;
       const bgPosY = -row * gridSize;
       return {

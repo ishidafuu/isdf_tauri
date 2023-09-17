@@ -1,7 +1,7 @@
 <template>
   <CrossLineView>
     <div class="cross-line-view">
-      <BodyView :bodyX="bodyX" :bodyY="bodyY2" :activeBodyIndex="activeBodyIndex"/>
+      <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeCellIndex="activeCellIndex"/>
       <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle" :faceX="faceX" :faceY="faceY"
                 :facePriority="faceZ"/>
       <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY"/>
@@ -10,39 +10,53 @@
 </template>
 
 <script>
-import {mapGetters, mapState} from 'vuex';
+import {mapGetters, mapState, useStore} from 'vuex';
 import CrossLineView from './CrossLineView.vue'
 import BodyView from './BodyView.vue'
 import FaceView from './FaceView.vue'
 import ItemView from './ItemView.vue'
+import {computed} from "vue";
 
 export default {
   name: 'CharacterView',
+  props: {
+    activeCellIndex: {
+      type: Number
+    }
+  },
   components: {
     CrossLineView,
     BodyView,
     FaceView,
     ItemView,
   },
-  computed: {
-    ...mapGetters('charaCell', ['currentBodyState']),
-    ...mapState({
-      activeBodyIndex: state => state.charaCell.activeBodyIndex,
-      bodyX: state => state.charaCell.cells[state.charaCell.activeBodyIndex].bodyX,
-      bodyY: state => state.charaCell.cells[state.charaCell.activeBodyIndex].bodyY,
-      faceIndex: state => state.charaCell.cells[state.charaCell.activeBodyIndex].faceIndex,
-      faceAngle: state => state.charaCell.cells[state.charaCell.activeBodyIndex].faceAngle,
-      faceX: state => state.charaCell.cells[state.charaCell.activeBodyIndex].faceX,
-      faceY: state => state.charaCell.cells[state.charaCell.activeBodyIndex].faceY,
-      faceZ: state => state.charaCell.cells[state.charaCell.activeBodyIndex].faceZ,
-      itemAngle: state => state.charaCell.cells[state.charaCell.activeBodyIndex].itemAngle,
-      itemZ: state => state.charaCell.cells[state.charaCell.activeBodyIndex].itemZ,
-      itemX: state => state.charaCell.cells[state.charaCell.activeBodyIndex].itemX,
-      itemY: state => state.charaCell.cells[state.charaCell.activeBodyIndex].itemY,
-    }),
-    bodyY2() {
-      return this.currentBodyState.bodyY;
-    },
+  setup(props) {
+    const store = useStore()
+    const bodyX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX);
+    const bodyY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY);
+    const faceIndex = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceIndex);
+    const faceAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceAngle);
+    const faceX = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceX);
+    const faceY = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceY);
+    const faceZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceZ);
+    const itemAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemAngle);
+    const itemZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemZ);
+    const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemX);
+    const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemY);
+
+    return {
+      bodyX,
+      bodyY,
+      faceIndex,
+      faceAngle,
+      faceX,
+      faceY,
+      faceZ,
+      itemAngle,
+      itemZ,
+      itemX,
+      itemY,
+    }
   }
 }
 </script>

@@ -1,8 +1,8 @@
 <template>
   <div>
-    <button @click="changeBodyIndex(-1)">-</button>
-    <span>Body index (Cursor): {{ activeBodyIndex }}</span>
-    <button @click="changeBodyIndex(1)">+</button>
+    <button @click="changeCellIndex(-1)">-</button>
+    <span>Cell Index (Cursor): {{ activeCellIndex }}</span>
+    <button @click="changeCellIndex(1)">+</button>
   </div>
 </template>
 
@@ -14,10 +14,10 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const activeBodyIndex = computed(() => store.state.charaCell.activeBodyIndex)
+    const activeCellIndex = computed(() => store.state.charaCell.activeCellIndex)
 
-    const changeBodyIndex = (amount: number) => {
-      store.commit('charaCell/changeBodyIndex', amount)
+    const changeCellIndex = (amount: number) => {
+      store.commit('charaCell/changeCellIndex', amount)
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -26,13 +26,13 @@ export default defineComponent({
       }
 
       if (event.code === 'ArrowLeft') {
-        changeBodyIndex(-1);
+        changeCellIndex(-1);
       } else if (event.code === 'ArrowRight') {
-        changeBodyIndex(1);
+        changeCellIndex(1);
       } else if (event.code === 'ArrowUp') {
-        changeBodyIndex(10);
+        changeCellIndex(10);
       } else if (event.code === 'ArrowDown') {
-        changeBodyIndex(-10);
+        changeCellIndex(-10);
       }
     }
 
@@ -45,8 +45,8 @@ export default defineComponent({
     });
 
     return {
-      activeBodyIndex,
-      changeBodyIndex
+      activeCellIndex,
+      changeCellIndex
     }
   }
 })

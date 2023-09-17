@@ -1,7 +1,7 @@
 <template>
   <div class="base-motion-container">
     <div class="character-view">
-      <CharacterView/>
+      <CharacterView :activeCellIndex="activeCellIndex"/>
       <BaseMotionListControl/>
     </div>
     <div class="control-view">
@@ -14,6 +14,7 @@
 import CharacterView from "../components/common/CharacterView.vue";
 import BaseMotionControlView from "../components/base-motion/BaseMotionController.vue";
 import BaseMotionListControl from "../components/base-motion/BaseMotionListControl.vue";
+import {mapState} from "vuex";
 
 
 export default {
@@ -22,6 +23,11 @@ export default {
     CharacterView,
     BaseMotionListControl,
     BaseMotionControlView,
+  },
+  computed: {
+    ...mapState({
+      activeCellIndex: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
+    }),
   }
 }
 </script>

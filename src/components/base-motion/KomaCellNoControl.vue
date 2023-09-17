@@ -14,7 +14,7 @@ export default defineComponent({
   setup() {
     const store = useStore()
 
-    const cellNo = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].komas[store.state.baseMotion.activeMotionIndex].cellNo)
+    const cellNo = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].komas[store.state.baseMotion.activeKomaIndex].cellNo)
     const changeCellNo = (amount: number) => {
       store.commit('baseMotion/changeCellNo', amount)
     }
