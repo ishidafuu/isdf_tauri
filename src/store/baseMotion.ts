@@ -163,7 +163,8 @@ const mutations = {
     changeSeNo(state, amount) {
         this.commit('baseMotion/pushToPast');
         const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
-        koma.seNo = amount;
+        koma.seNo += amount;
+        if (koma.seNo < 0) koma.seNo = 0;
     },
     toggleLoopSe(state) {
         this.commit('baseMotion/pushToPast');

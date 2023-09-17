@@ -7,6 +7,8 @@
     <KomaCellNoControl/>
     <KomaOffsetControl/>
     <KomaFrameControl/>
+    <KomaSeNoControl/>
+    <KomaLoopControl/>
   </div>
 </template>
 
@@ -18,6 +20,8 @@ import KomaCopyPasteControl from "../base-motion/KomaCopyPasteControl.vue";
 import KomaCellNoControl from "../base-motion/KomaCellNoControl.vue";
 import KomaOffsetControl from "../base-motion/KomaOffsetControl.vue";
 import KomaFrameControl from "../base-motion/KomaFrameControl.vue";
+import KomaSeNoControl from "../base-motion/KomaSeNoControl.vue";
+import KomaLoopControl from "../base-motion/KomaLoopControl.vue";
 
 
 export default {
@@ -30,6 +34,8 @@ export default {
     KomaCellNoControl,
     KomaOffsetControl,
     KomaFrameControl,
+    KomaSeNoControl,
+    KomaLoopControl,
   }
 }
 </script>

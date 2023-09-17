@@ -63,9 +63,3 @@ export default defineComponent({
   }
 })
 </script>
-
-<style scoped>
-.highlight {
-  color: yellow;
-}
-</style>

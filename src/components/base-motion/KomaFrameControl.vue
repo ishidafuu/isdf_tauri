@@ -3,6 +3,7 @@
     <button @click="changeFrame(-1)">Decrease Frame</button>
     <span>Frame (Q,E): {{ frame }}</span>
     <button @click="changeFrame(1)">Increase Frame</button>
+    <button @click="changeFrameAll">Set All Frames</button>
   </div>
 </template>
 
@@ -18,6 +19,10 @@ export default defineComponent({
 
     const changeFrame = (amount: number) => {
       store.commit('baseMotion/changeFrame', amount)
+    }
+
+    const changeFrameAll = () => {
+      store.commit('baseMotion/changeFrameAll')
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -43,13 +48,8 @@ export default defineComponent({
     return {
       frame,
       changeFrame,
+      changeFrameAll,
     }
   }
 })
 </script>
-
-<style scoped>
-.highlight {
-  color: yellow;
-}
-</style>
