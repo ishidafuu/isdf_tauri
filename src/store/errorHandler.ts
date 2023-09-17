@@ -1,5 +1,5 @@
 const state = {
-    latestError: String,
+    latestError: '',
 };
 
 const mutations = {

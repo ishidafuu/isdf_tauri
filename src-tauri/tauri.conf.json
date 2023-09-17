@@ -14,7 +14,11 @@
     "allowlist": {
       "fs": {
         "all": true,
-        "scope": ["$DOCUMENT/*", "$DOCUMENT/sai2_data/*",  "$DOCUMENT/sai2_data/cell_data_backup/*"]
+        "scope": ["$DOCUMENT/*",
+          "$DOCUMENT/sai2_data/*",
+          "$DOCUMENT/sai2_data/cell_data_backup/*",
+          "$DOCUMENT/sai2_data/base_motion_data_backup/*"
+        ]
       },
       "path": {
         "all": true
