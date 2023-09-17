@@ -1,5 +1,6 @@
 <template>
   <div>
+    <BaseMotionNameControl/>
     <KomaListControl/>
     <KomaAddRemoveControl/>
     <KomaCopyPasteControl/>
@@ -19,6 +20,7 @@
 </template>
 
 <script>
+import BaseMotionNameControl from "../base-motion/BaseMotionNameControl.vue";
 import KomaListControl from "../base-motion/KomaListControl.vue";
 import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
 import KomaCopyPasteControl from "../base-motion/KomaCopyPasteControl.vue";
@@ -38,6 +40,7 @@ import KomaCopyPasteControl from "../base-motion/KomaCopyPasteControl.vue";
 export default {
   name: 'BaseMotionControlView',
   components: {
+    BaseMotionNameControl,
     KomaListControl,
     KomaAddRemoveControl,
     KomaCopyPasteControl,

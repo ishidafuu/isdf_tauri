@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <div v-if="activeMotionIndex >= 0">Selected: {{ activeMotionIndex }}: {{baseMotions[activeMotionIndex].name }}
-    </div>
+  <div v-if="activeMotionIndex >= 0">Selected: {{ activeMotionIndex }}: {{ baseMotions[activeMotionIndex].name }}
+  </div>
+  <div class="list-container">
     <ul class="list-box">
       <li v-for="(motion, index) in baseMotions" :key="motion.name"
           @click="selectMotion(index)"
@@ -37,9 +37,15 @@ export default defineComponent({
 </script>
 
 <style>
+
+.list-container {
+  display: flex;
+  justify-content: center;
+}
+
 .list-box {
   height: 400px;
-  width: 275px;
+  width: 200px;
   overflow-y: auto;
   border: 1px solid #ccc;
   text-align: left;

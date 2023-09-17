@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="koma-list-container">
     <ul class="koma-list-box">
       <li v-for="(koma, index) in komas" :key="koma.cellNo"
           @click="selectKoma(index)"
@@ -32,10 +32,17 @@ export default defineComponent({
 })
 </script>
 
+
+
 <style>
+.koma-list-container {
+  display: flex;
+  justify-content: center;
+}
+
 .koma-list-box {
   height: 200px;
-  width: 275px;
+  width: 200px;
   overflow-y: auto;
   border: 1px solid #ccc;
   text-align: left;
