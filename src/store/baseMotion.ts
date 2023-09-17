@@ -29,7 +29,6 @@ const state = {
     })),
     activeMotionIndex: 0,
     activeKomaIndex: 0,
-    // editMode: 'Body',
     past: [],
     future: [],
     clipKoma: null as Koma | null,
