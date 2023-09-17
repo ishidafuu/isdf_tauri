@@ -4,9 +4,10 @@
       <li v-for="(koma, index) in komas" :key="koma.cellNo"
           @click="selectKoma(index)"
           :class="{ 'selected': activeKomaIndex === index }">
-        {{ index.toString().padStart(2, '0') }}: {{ koma.cellNo.toString().padStart(3, '0') }} {{ koma.frame }}f {{
-          getLoopPointName(koma.loopPoint)
-        }}
+        {{ index.toString().padStart(2, '0') }}: {{ koma.cellNo.toString().padStart(3, '0') }} {{ koma.frame }}f
+        {{ getLoop(koma.loopPoint, koma.loopCount) }}
+        {{ getSe(koma.seNo, koma.isLoopSe) }}
+        {{ getAction(koma.isAction) }}
       </li>
     </ul>
   </div>
@@ -26,19 +27,44 @@ export default defineComponent({
       store.commit('baseMotion/changeKomaIndex', index)
     }
 
-    const getLoopPointName = (value: number) => {
-      if (value > 0 && value < LoopPoint.LoopPointCount) {
-        return LoopPoint[value];
+    const getLoop = (loopPoint: number, loopCount: number) => {
+      if (loopPoint > 0 && loopPoint < LoopPoint.LoopPointCount) {
+        if (loopPoint === LoopPoint.Start
+            || loopPoint === LoopPoint.SingleLoop) {
+          return `${LoopPoint[loopPoint]}:${loopCount}`;
+        }
+        return `${LoopPoint[loopPoint]}`;
       } else {
         return "";
       }
-    };
+    }
+
+    const getSe = (seNo: number, isLoopSe: number) => {
+      if (seNo > 0) {
+        if (isLoopSe === 1) {
+          return `LoopSe${seNo}`;
+        }
+        return `Se${seNo}`;
+      } else {
+        return "";
+      }
+    }
+
+    const getAction = (isAction: number) => {
+      if (isAction === 1) {
+        return `Act`;
+      } else {
+        return "";
+      }
+    }
 
     return {
       komas,
       selectKoma,
       activeKomaIndex,
-      getLoopPointName,
+      getLoop,
+      getSe,
+      getAction,
     }
   }
 })
@@ -53,7 +79,7 @@ export default defineComponent({
 
 .koma-list-box {
   height: 200px;
-  width: 200px;
+  width: 300px;
   overflow-y: auto;
   border: 1px solid #ccc;
   text-align: left;

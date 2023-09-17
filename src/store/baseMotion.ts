@@ -175,7 +175,7 @@ const mutations = {
     changeLoopPoint(state, amount) {
         this.commit('baseMotion/pushToPast');
         const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
-        koma.loopPoint = (koma.loopPoint + amount) % LoopPoint.LoopPointCount;
+        koma.loopPoint = (koma.loopPoint + LoopPoint.LoopPointCount + amount) % LoopPoint.LoopPointCount;
     },
     changeLoopCount(state, amount) {
         this.commit('baseMotion/pushToPast');

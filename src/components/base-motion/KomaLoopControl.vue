@@ -2,20 +2,21 @@
   <div>
     <div>
       <button @click="changeLoopPoint(-1)">Decrease Loop Point</button>
-      <span>Loop Point (Q,E): {{ loopPoint }}</span>
+      <span>Loop Point (X): {{ getLoopPointName(loopPoint)}}</span>
       <button @click="changeLoopPoint(1)">Increase Loop Point</button>
     </div>
     <div>
       <button @click="changeLoopCount(-1)">Decrease Loop Count</button>
-      <span>Loop Count (Z,X): {{ loopCount }}</span>
+      <span>Loop Count (Z,C): {{ loopCount }}</span>
       <button @click="changeLoopCount(1)">Increase Loop Count</button>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
-import { useStore } from 'vuex'
+import {defineComponent, computed, onMounted, onBeforeUnmount} from 'vue'
+import {useStore} from 'vuex'
+import {LoopPoint} from "../../types/enum.ts";
 
 export default defineComponent({
   setup() {
@@ -37,16 +38,22 @@ export default defineComponent({
         return;
       }
 
-      if (event.code === 'KeyQ') {
-        changeLoopPoint(-1);
-      } else if (event.code === 'KeyE') {
+      if (event.code === 'KeyX') {
         changeLoopPoint(1);
       } else if (event.code === 'KeyZ') {
         changeLoopCount(-1);
-      } else if (event.code === 'KeyX') {
+      } else if (event.code === 'KeyC') {
         changeLoopCount(1);
       }
     }
+
+    const getLoopPointName = (value: number) => {
+      if (value >= 0 && value < LoopPoint.LoopPointCount) {
+        return LoopPoint[value];
+      } else {
+        return "";
+      }
+    };
 
     onMounted(() => {
       window.addEventListener('keydown', handleKeyDown);
@@ -61,6 +68,7 @@ export default defineComponent({
       loopCount,
       changeLoopPoint,
       changeLoopCount,
+      getLoopPointName,
     }
   }
 })
