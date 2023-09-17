@@ -1,16 +1,8 @@
-import {Koma, BaseMotion} from './interface.ts';
+import {Koma, BaseMotion} from '../types/interface.ts';
+import {LoopPoint} from '../types/enum.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path";
-
-enum LoopPoint {
-    None = 0,
-    Start = 1,
-    End = 2,
-    SingleLoop = 3,
-    LoopPointCount = 4,
-}
-
 
 const initialKoma: Koma = {
     cellNo: 0,

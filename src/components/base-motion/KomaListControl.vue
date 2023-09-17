@@ -4,7 +4,9 @@
       <li v-for="(koma, index) in komas" :key="koma.cellNo"
           @click="selectKoma(index)"
           :class="{ 'selected': activeKomaIndex === index }">
-        {{ index.toString().padStart(2, '0') }}: {{ koma.cellNo }} {{ koma.frame }}f
+        {{ index.toString().padStart(2, '0') }}: {{ koma.cellNo.toString().padStart(3, '0') }} {{ koma.frame }}f {{
+          getLoopPointName(koma.loopPoint)
+        }}
       </li>
     </ul>
   </div>
@@ -13,6 +15,7 @@
 <script lang="ts">
 import {defineComponent, computed} from 'vue'
 import {useStore} from 'vuex'
+import {LoopPoint} from '../../types/enum';
 
 export default defineComponent({
   setup() {
@@ -23,15 +26,23 @@ export default defineComponent({
       store.commit('baseMotion/changeKomaIndex', index)
     }
 
+    const getLoopPointName = (value: number) => {
+      if (value > 0 && value < LoopPoint.LoopPointCount) {
+        return LoopPoint[value];
+      } else {
+        return "";
+      }
+    };
+
     return {
       komas,
       selectKoma,
       activeKomaIndex,
+      getLoopPointName,
     }
   }
 })
 </script>
-
 
 
 <style>

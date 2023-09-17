@@ -1,4 +1,4 @@
-import {Cell} from './interface.ts';
+import {Cell} from '../types/interface.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path";
