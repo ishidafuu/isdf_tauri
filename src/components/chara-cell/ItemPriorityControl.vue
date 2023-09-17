@@ -19,7 +19,7 @@ export default defineComponent({
 
     const changePriority = (direction: string) => {
       if ((direction === 'up' && itemZ.value < 0) || (direction === 'down' && itemZ.value >= 0)) {
-        store.commit('charaCell/toggleitemZ')
+        store.commit('charaCell/toggleItemZ')
       }
     }
 

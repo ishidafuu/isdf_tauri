@@ -12,7 +12,7 @@ export interface Cell {
     itemZ: number;
 }
 
-export interface BaseMotion {
+export interface Koma {
     cellNo: number;
     offsetX: number;
     offsetY: number;
@@ -23,3 +23,9 @@ export interface BaseMotion {
     seNo: number;
     isLoopSe: number;
 }
+
+export interface BaseMotion {
+    name: string;
+    komas: Koma[];
+}
+
