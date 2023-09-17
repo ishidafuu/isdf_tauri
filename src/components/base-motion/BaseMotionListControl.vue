@@ -44,7 +44,7 @@ export default defineComponent({
 }
 
 .list-box {
-  height: 400px;
+  height: 200px;
   width: 200px;
   overflow-y: auto;
   border: 1px solid #ccc;

@@ -25,7 +25,6 @@ import KomaActionControl from "../base-motion/KomaActionControl.vue";
 import KomaSeNoControl from "../base-motion/KomaSeNoControl.vue";
 import KomaLoopControl from "../base-motion/KomaLoopControl.vue";
 
-
 export default {
   name: 'BaseMotionControlView',
   components: {
