@@ -152,6 +152,12 @@ const mutations = {
         state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex] = state.clipKoma;
     },
     // コマ編集
+    changeCellNo(state, amount) {
+        this.commit('baseMotion/pushToPast');
+        const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        koma.cellNo += amount;
+        if (koma.cellNo < 0) koma.cellNo = 0;
+    },
     changeOffsetX(state, amount) {
         this.commit('baseMotion/pushToPast');
         const koma = state.baseMotions[state.activeMotionIndex].komas[state.activeKomaIndex];

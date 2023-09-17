@@ -1,0 +1,52 @@
+<template>
+  <div>
+    <button @click="changeCellNo(-1)">-</button>
+    <span>CellNo (Cursor): {{ cellNo }}</span>
+    <button @click="changeCellNo(1)">+</button>
+  </div>
+</template>
+
+<script lang="ts">
+import { defineComponent, computed, onMounted, onBeforeUnmount } from 'vue'
+import { useStore } from 'vuex'
+
+export default defineComponent({
+  setup() {
+    const store = useStore()
+
+    const cellNo = computed(() => store.state.baseMotion.baseMotions[store.state.baseMotion.activeMotionIndex].komas[store.state.baseMotion.activeMotionIndex].cellNo)
+    const changeCellNo = (amount: number) => {
+      store.commit('baseMotion/changeCellNo', amount)
+    }
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.shiftKey) {
+        return;
+      }
+
+      if (event.code === 'ArrowLeft') {
+        changeCellNo(-1);
+      } else if (event.code === 'ArrowRight') {
+        changeCellNo(1);
+      } else if (event.code === 'ArrowUp') {
+        changeCellNo(10);
+      } else if (event.code === 'ArrowDown') {
+        changeCellNo(-10);
+      }
+    }
+
+    onMounted(() => {
+      window.addEventListener('keydown', handleKeyDown);
+    });
+
+    onBeforeUnmount(() => {
+      window.removeEventListener('keydown', handleKeyDown);
+    });
+
+    return {
+      cellNo,
+      changeCellNo
+    }
+  }
+})
+</script>
