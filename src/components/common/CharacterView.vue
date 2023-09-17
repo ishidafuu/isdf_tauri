@@ -22,6 +22,12 @@ export default {
   props: {
     activeCellIndex: {
       type: Number
+    },
+    offsetX: {
+      type: Number
+    },
+    offsetY: {
+      type: Number
     }
   },
   components: {
@@ -32,17 +38,17 @@ export default {
   },
   setup(props) {
     const store = useStore()
-    const bodyX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX);
-    const bodyY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY);
+    const bodyX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX + props.offsetX);
+    const bodyY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY + props.offsetY);
     const faceIndex = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceIndex);
     const faceAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceAngle);
-    const faceX = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceX);
-    const faceY = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceY);
+    const faceX = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceX + props.offsetX);
+    const faceY = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceY + props.offsetY);
     const faceZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceZ);
     const itemAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemAngle);
     const itemZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemZ);
-    const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemX);
-    const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemY);
+    const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemX + props.offsetX);
+    const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemY + props.offsetY);
 
     return {
       bodyX,

@@ -1,7 +1,7 @@
 <template>
   <div class="base-motion-container">
     <div class="character-view">
-      <CharacterView :activeCellIndex="activeCellIndex" />
+      <CharacterView :activeCellIndex="activeCellIndex" :offsetX="0" :offsetY="0"/>
     </div>
     <div class="control-view">
       <CharaCellControlView/>

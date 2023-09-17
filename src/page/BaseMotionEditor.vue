@@ -1,7 +1,7 @@
 <template>
   <div class="base-motion-container">
     <div class="character-view">
-      <CharacterView :activeCellIndex="activeCellIndex"/>
+      <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY"/>
       <BaseMotionListControl/>
     </div>
     <div class="control-view">
@@ -27,6 +27,8 @@ export default {
   computed: {
     ...mapState({
       activeCellIndex: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
+      offsetX: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetX,
+      offsetY: state => state.baseMotion.baseMotions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetY,
     }),
   }
 }
