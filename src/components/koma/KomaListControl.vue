@@ -2,7 +2,7 @@
   <div class="koma-list-container">
     <ul class="koma-list-box">
       <li v-for="(koma, index) in komas" :key="koma.cellNo"
-          @click="selectKoma(index)"
+          @click="changeKomaIndex(index)"
           :class="{ 'selected': activeKomaIndex === index }">
         {{ index.toString().padStart(2, '0') }}: {{ koma.cellNo.toString().padStart(3, '0') }} {{ koma.frame }}f
         {{ getLoop(koma.loopPoint, koma.loopCount) }}
@@ -29,7 +29,7 @@ export default defineComponent({
     const store = useStore()
     const activeKomaIndex = computed(() => store.state[props.storeName].activeKomaIndex)
     const komas = computed(() => store.state[props.storeName].motions[store.state[props.storeName].activeMotionIndex].komas)
-    const selectKoma = (index: number) => {
+    const changeKomaIndex = (index: number) => {
       store.commit(`${props.storeName}/changeKomaIndex`, index)
     }
 
@@ -66,7 +66,7 @@ export default defineComponent({
 
     return {
       komas,
-      selectKoma,
+      changeKomaIndex,
       activeKomaIndex,
       getLoop,
       getSe,

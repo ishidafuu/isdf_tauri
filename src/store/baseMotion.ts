@@ -1,4 +1,4 @@
-import {Koma, BaseMotion} from '../types/interface.ts';
+import {Koma, Motion, MotionState} from '../types/interface.ts';
 import {LoopPoint} from '../types/enum.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
@@ -17,13 +17,13 @@ const initialKoma: Koma = {
     isLoopSe: 0,
 };
 
-const initialBaseMotion: BaseMotion = {
+const initialBaseMotion: Motion = {
     name: "NewMotion",
     komas: Array.from({length: 1}, () => ({...initialKoma})),
 };
 
 
-const state = {
+const state: MotionState = {
     motions: Array.from({length: 100}, () => ({
         ...initialBaseMotion,
         komas: [...initialBaseMotion.komas.map(koma => ({...koma}))]

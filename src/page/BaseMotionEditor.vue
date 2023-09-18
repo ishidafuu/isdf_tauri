@@ -2,8 +2,8 @@
   <div class="base-motion-container">
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY"/>
-      <BaseMotionListControl/>
-      <BaseMotionSaveLoadControl/>
+      <BaseMotionListControl :storeName="'baseMotion'"/>
+      <BaseMotionSaveLoadControl :storeName="'baseMotion'"/>
       <ErrorView/>
     </div>
     <div class="control-view">
@@ -19,11 +19,13 @@ import BaseMotionListControl from "../components/base-motion/BaseMotionListContr
 import {mapState} from "vuex";
 import BaseMotionSaveLoadControl from "../components/base-motion/BaseMotionSaveLoadControl.vue";
 import ErrorView from "../components/common/ErrorView.vue";
+import KomaLoopControl from "../components/koma/KomaLoopControl.vue";
 
 
 export default {
   name: 'BaseMotionEditor',
   components: {
+    KomaLoopControl,
     ErrorView,
     BaseMotionSaveLoadControl,
     CharacterView,

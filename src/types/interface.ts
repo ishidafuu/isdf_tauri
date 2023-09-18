@@ -12,6 +12,15 @@ export interface Cell {
     itemZ: number;
 }
 
+export interface Battle {
+    hitX: number;
+    hitY: number;
+    hitW: number;
+    hitH: number;
+    moveType: number;
+}
+
+
 export interface Koma {
     cellNo: number;
     offsetX: number;
@@ -24,8 +33,16 @@ export interface Koma {
     isLoopSe: number;
 }
 
-export interface BaseMotion {
+export interface Motion {
     name: string;
     komas: Koma[];
 }
 
+export interface MotionState {
+    motions: Motion[];
+    activeMotionIndex: number;
+    activeKomaIndex: number;
+    past: [];
+    future: [];
+    clipKoma: Koma | null;
+}

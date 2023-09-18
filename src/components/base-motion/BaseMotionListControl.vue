@@ -4,7 +4,7 @@
   <div class="list-container">
     <ul class="list-box">
       <li v-for="(motion, index) in motions" :key="motion.name"
-          @click="selectMotion(index)"
+          @click="changeMotionIndex(index)"
           :class="{ 'selected': activeMotionIndex === index }">
         {{ index.toString().padStart(3, '0') }}: {{ motion.name }}
       </li>
@@ -29,13 +29,13 @@ export default defineComponent({
     const activeMotionIndex = computed(() => store.state[props.storeName].activeMotionIndex)
     const motions = computed(() => store.state[props.storeName].motions)
 
-    const selectMotion = (index: number) => {
+    const changeMotionIndex = (index: number) => {
       store.commit(`${props.storeName}/changeMotionIndex`, index)
     }
 
     return {
       motions,
-      selectMotion,
+      changeMotionIndex,
       activeMotionIndex,
     }
   }
