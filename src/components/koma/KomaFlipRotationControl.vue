@@ -2,8 +2,6 @@
   <div>
     <button @click="toggleFlipX">Toggle FlipX</button>
     <span>FlipX (F): {{ flipX }}</span>
-  </div>
-  <div>
     <button @click="toggleFlipY">Toggle FlipY</button>
     <span>FlipY (G): {{ flipY }}</span>
   </div>
