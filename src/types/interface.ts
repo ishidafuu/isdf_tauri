@@ -12,14 +12,13 @@ export interface Cell {
     itemZ: number;
 }
 
-export interface Battle {
+export interface Attack {
     hitX: number;
     hitY: number;
     hitW: number;
     hitH: number;
     moveType: number;
 }
-
 
 export interface Koma {
     cellNo: number;
@@ -34,6 +33,7 @@ export interface Koma {
     loopCount: number;
     seNo: number;
     isLoopSe: number;
+    attack: Attack | null;
 }
 
 export interface Motion {

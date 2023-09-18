@@ -13,9 +13,9 @@ export default defineComponent({
     itemZ: Number,
     itemX: Number,
     itemY: Number,
-    flipX: Number,  // add this line
-    flipY: Number,  // add this line
-    rotation: Number  // add this line
+    flipX: Number,
+    flipY: Number,
+    rotation: Number
   },
   setup(props) {
     const imagePath = '/item.png';

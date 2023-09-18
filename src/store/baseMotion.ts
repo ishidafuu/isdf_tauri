@@ -1,4 +1,4 @@
-import {Koma, Motion, MotionState} from '../types/interface.ts';
+import {Attack, Koma, Motion, MotionState} from '../types/interface.ts';
 import {LoopPoint, Rotation90} from '../types/enum.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
@@ -18,13 +18,13 @@ const initialKoma: Koma = {
     flipX: 0,
     flipY: 0,
     rotation: Rotation90.r0,
+    attack: null as Attack | null,
 };
 
 const initialBaseMotion: Motion = {
     name: "NewMotion",
     komas: Array.from({length: 1}, () => ({...initialKoma})),
 };
-
 
 const state: MotionState = {
     motions: Array.from({length: 100}, () => ({
@@ -45,7 +45,7 @@ const mutations = {
     },
     pushToPast(state) {
         state.past.push({
-            motions: state.motions.map(baseMotion => ({...baseMotion})),
+            motions: state.motions.map(motion => ({...motion})),
             activeMotionIndex: state.activeMotionIndex,
             activeKomaIndex: state.activeKomaIndex,
         });
@@ -72,7 +72,7 @@ const mutations = {
         if (state.future.length > 0) {
             const nextState = state.future.pop();
             state.past.push({
-                motions: state.motions.map(baseMotion => ({...baseMotion})),
+                motions: state.motions.map(motion => ({...motion})),
                 activeMotionIndex: state.activeMotionIndex,
                 activeKomaIndex: state.activeKomaIndex,
             });

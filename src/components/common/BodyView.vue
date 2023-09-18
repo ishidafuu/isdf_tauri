@@ -14,9 +14,9 @@ export default defineComponent({
     bodyX: Number,
     bodyY: Number,
     activeCellIndex: Number,
-    flipX: Number,  // add this line
-    flipY: Number,  // add this line
-    rotation: Number  // add this line
+    flipX: Number,
+    flipY: Number,
+    rotation: Number
   },
   setup(props) {
     const imagePath = '/nm2body.png';
