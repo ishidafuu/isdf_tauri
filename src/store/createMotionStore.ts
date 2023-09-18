@@ -31,7 +31,7 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
     };
 
     const initialBaseMotion: T = {
-        name: "NewMotion",
+        name: hasAttack ? "BattleMotion" : "BaseMotion",
         komas: Array.from({length: 1}, () => ({...initialKoma})),
     } as T;
 

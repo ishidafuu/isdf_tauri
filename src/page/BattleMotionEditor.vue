@@ -3,19 +3,19 @@
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY" :flipX="flipX"
                      :flipY="flipY" :rotation="rotation"/>
-      <BaseMotionListControl :storeName="'baseMotion'"/>
-      <BaseMotionSaveLoadControl :storeName="'baseMotion'"/>
+      <BaseMotionListControl :storeName="'battleMotion'"/>
+      <BaseMotionSaveLoadControl :storeName="'battleMotion'"/>
       <ErrorView/>
     </div>
     <div class="control-view">
-      <BaseMotionController/>
+      <BattleMotionController/>
     </div>
   </div>
 </template>
 
 <script>
 import CharacterView from "../components/common/CharacterView.vue";
-import BaseMotionController from "../components/motion/BaseMotionController.vue";
+import BattleMotionController from "../components/motion/BattleMotionController.vue";
 import BaseMotionListControl from "../components/motion/MotionListControl.vue";
 import {mapState} from "vuex";
 import BaseMotionSaveLoadControl from "../components/motion/MotionSaveLoadControl.vue";
@@ -24,23 +24,23 @@ import KomaLoopControl from "../components/koma/KomaLoopControl.vue";
 
 
 export default {
-  name: 'BaseMotionEditor',
+  name: 'BattleMotionEditor',
   components: {
     KomaLoopControl,
     ErrorView,
     BaseMotionSaveLoadControl,
     CharacterView,
     BaseMotionListControl,
-    BaseMotionController,
+    BattleMotionController,
   },
   computed: {
     ...mapState({
-      activeCellIndex: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
-      offsetX: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetX,
-      offsetY: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetY,
-      flipX: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].flipX,
-      flipY: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].flipY,
-      rotation: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].rotation,
+      activeCellIndex: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].cellNo,
+      offsetX: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].offsetX,
+      offsetY: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].offsetY,
+      flipX: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].flipX,
+      flipY: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].flipY,
+      rotation: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].rotation,
     }),
   }
 }

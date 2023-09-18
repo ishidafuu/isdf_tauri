@@ -1,6 +1,6 @@
 <template>
   <div>
-    <BaseMotionNameControl :storeName="'baseMotion'"/>
+    <MotionNameControl :storeName="'baseMotion'"/>
     <KomaListControl :storeName="'baseMotion'"/>
     <KomaAddRemoveControl :storeName="'baseMotion'"/>
     <KomaCopyPasteControl :storeName="'baseMotion'"/>
@@ -15,9 +15,9 @@
 </template>
 
 <script>
-import BaseMotionNameControl from "../base-motion/BaseMotionNameControl.vue";
+import MotionNameControl from "./MotionNameControl.vue";
 import KomaListControl from "../koma/KomaListControl.vue";
-import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
+import KomaAddRemoveControl from "../koma/KomaAddRemoveControl.vue";
 import KomaCopyPasteControl from "../koma/KomaCopyPasteControl.vue";
 import KomaCellNoControl from "../koma/KomaCellNoControl.vue";
 import KomaOffsetControl from "../koma/KomaOffsetControl.vue";
@@ -28,9 +28,9 @@ import KomaSeNoControl from "../koma/KomaSeNoControl.vue";
 import KomaLoopControl from "../koma/KomaLoopControl.vue";
 
 export default {
-  name: 'BaseMotionControlView',
+  name: 'BattleMotionController',
   components: {
-    BaseMotionNameControl,
+    MotionNameControl,
     KomaListControl,
     KomaAddRemoveControl,
     KomaCopyPasteControl,

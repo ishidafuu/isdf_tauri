@@ -3,6 +3,7 @@
     <nav class="navigation">
       <router-link to="/chara_cell_editor">CharaCellEditor</router-link>
       <router-link to="/base_motion_editor">BaseMotionEditor</router-link>
+      <router-link to="/battle_motion_editor">BattleMotionEditor</router-link>
     </nav>
     <div class="content">
       <router-view/>
@@ -16,9 +17,10 @@ import {defineComponent, onMounted} from 'vue'
 import {useStore} from 'vuex'
 import CharaCellEditor from "./page/CharaCellEditor.vue";
 import BaseMotionEditor from "./page/BaseMotionEditor.vue";
+import BattleMotionEditor from "./page/BattleMotionEditor.vue";
 
 export default defineComponent({
-  components: {CharaCellEditor, BaseMotionEditor},
+  components: {CharaCellEditor, BaseMotionEditor, BattleMotionEditor},
   setup() {
     const store = useStore()
 
