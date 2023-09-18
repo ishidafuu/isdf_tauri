@@ -25,6 +25,9 @@ export interface Koma {
     cellNo: number;
     offsetX: number;
     offsetY: number;
+    flipX: number;
+    flipY: number;
+    rotation: number;
     frame: number;
     isAction: number;
     loopPoint: number;

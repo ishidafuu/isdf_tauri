@@ -1,5 +1,5 @@
 import {Koma, Motion, MotionState} from '../types/interface.ts';
-import {LoopPoint} from '../types/enum.ts';
+import {LoopPoint, Rotation90} from '../types/enum.ts';
 import {getFormattedDate} from './stringUtil.ts';
 import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path";
@@ -15,6 +15,9 @@ const initialKoma: Koma = {
     loopCount: 0,
     seNo: 0,
     isLoopSe: 0,
+    flipX: 0,
+    flipY: 0,
+    rotation: Rotation90.r0,
 };
 
 const initialBaseMotion: Motion = {
@@ -159,6 +162,21 @@ const mutations = {
         this.commit('baseMotion/pushToPast');
         const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
         koma.offsetY += amount;
+    },
+    toggleFlipX(state) {
+        this.commit('baseMotion/pushToPast');
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        koma.flipX = koma.flipX === 0 ? 1 : 0;
+    },
+    toggleFlipY(state) {
+        this.commit('baseMotion/pushToPast');
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        koma.flipY = koma.flipY === 0 ? 1 : 0;
+    },
+    changeRotation(state, amount) {
+        this.commit('baseMotion/pushToPast');
+        const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+        koma.rotation = (koma.rotation + Rotation90.Rotation90Count + amount) % Rotation90.Rotation90Count;
     },
     // 効果音
     changeSeNo(state, amount) {

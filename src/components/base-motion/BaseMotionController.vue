@@ -6,6 +6,7 @@
     <KomaCopyPasteControl :storeName="'baseMotion'"/>
     <KomaCellNoControl :storeName="'baseMotion'"/>
     <KomaOffsetControl :storeName="'baseMotion'"/>
+    <KomaFlipRotationControl :storeName="'baseMotion'"/>
     <KomaFrameControl :storeName="'baseMotion'"/>
     <KomaActionControl :storeName="'baseMotion'"/>
     <KomaSeNoControl :storeName="'baseMotion'"/>
@@ -20,6 +21,7 @@ import KomaAddRemoveControl from "../base-motion/KomaAddRemoveControl.vue";
 import KomaCopyPasteControl from "../koma/KomaCopyPasteControl.vue";
 import KomaCellNoControl from "../koma/KomaCellNoControl.vue";
 import KomaOffsetControl from "../koma/KomaOffsetControl.vue";
+import KomaFlipRotationControl from "../koma/KomaFlipRotationControl.vue";
 import KomaFrameControl from "../koma/KomaFrameControl.vue";
 import KomaActionControl from "../koma/KomaActionControl.vue";
 import KomaSeNoControl from "../koma/KomaSeNoControl.vue";
@@ -34,6 +36,7 @@ export default {
     KomaCopyPasteControl,
     KomaCellNoControl,
     KomaOffsetControl,
+    KomaFlipRotationControl,
     KomaFrameControl,
     KomaActionControl,
     KomaSeNoControl,
