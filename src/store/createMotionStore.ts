@@ -230,6 +230,33 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.isAction = koma.isAction === 0 ? 1 : 0;
         },
+
+        // Attack
+        changeHitX(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitX += amount;
+        },
+
+        changeHitY(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitY += amount;
+        },
+
+        changeHitW(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitW += amount;
+            if (koma.attack.hitW < 0) koma.attack.hitW = 0;
+        },
+
+        changeHitH(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitH += amount;
+            if (koma.attack.hitH < 0) koma.attack.hitH = 0;
+        },
     };
 
     const actions = {

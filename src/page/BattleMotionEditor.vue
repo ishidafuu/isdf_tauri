@@ -3,8 +3,8 @@
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY" :flipX="flipX"
                      :flipY="flipY" :rotation="rotation"/>
-      <BaseMotionListControl :storeName="'battleMotion'"/>
-      <BaseMotionSaveLoadControl :storeName="'battleMotion'"/>
+      <MotionListControl :storeName="'battleMotion'"/>
+      <MotionSaveLoadControl :storeName="'battleMotion'"/>
       <ErrorView/>
     </div>
     <div class="control-view">
@@ -14,12 +14,12 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
+import ErrorView from "../components/common/ErrorView.vue";
 import CharacterView from "../components/common/CharacterView.vue";
 import BattleMotionController from "../components/motion/BattleMotionController.vue";
-import BaseMotionListControl from "../components/motion/MotionListControl.vue";
-import {mapState} from "vuex";
-import BaseMotionSaveLoadControl from "../components/motion/MotionSaveLoadControl.vue";
-import ErrorView from "../components/common/ErrorView.vue";
+import MotionListControl from "../components/motion/MotionListControl.vue";
+import MotionSaveLoadControl from "../components/motion/MotionSaveLoadControl.vue";
 import KomaLoopControl from "../components/koma/KomaLoopControl.vue";
 
 
@@ -28,9 +28,9 @@ export default {
   components: {
     KomaLoopControl,
     ErrorView,
-    BaseMotionSaveLoadControl,
+    MotionSaveLoadControl,
     CharacterView,
-    BaseMotionListControl,
+    MotionListControl,
     BattleMotionController,
   },
   computed: {

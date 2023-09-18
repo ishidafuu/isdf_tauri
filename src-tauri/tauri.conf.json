@@ -67,7 +67,7 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 1000,
+        "height": 1200,
         "resizable": true,
         "title": "isdf-vite",
         "width": 1200

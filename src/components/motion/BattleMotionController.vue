@@ -1,16 +1,17 @@
 <template>
   <div>
-    <MotionNameControl :storeName="'baseMotion'"/>
-    <KomaListControl :storeName="'baseMotion'"/>
-    <KomaAddRemoveControl :storeName="'baseMotion'"/>
-    <KomaCopyPasteControl :storeName="'baseMotion'"/>
-    <KomaCellNoControl :storeName="'baseMotion'"/>
-    <KomaOffsetControl :storeName="'baseMotion'"/>
-    <KomaFlipRotationControl :storeName="'baseMotion'"/>
-    <KomaFrameControl :storeName="'baseMotion'"/>
-    <KomaActionControl :storeName="'baseMotion'"/>
-    <KomaSeNoControl :storeName="'baseMotion'"/>
-    <KomaLoopControl :storeName="'baseMotion'"/>
+    <MotionNameControl :storeName="'battleMotion'"/>
+    <KomaListControl :storeName="'battleMotion'"/>
+    <KomaAddRemoveControl :storeName="'battleMotion'"/>
+    <KomaCopyPasteControl :storeName="'battleMotion'"/>
+    <KomaCellNoControl :storeName="'battleMotion'"/>
+    <KomaOffsetControl :storeName="'battleMotion'"/>
+    <KomaFlipRotationControl :storeName="'battleMotion'"/>
+    <KomaFrameControl :storeName="'battleMotion'"/>
+    <KomaActionControl :storeName="'battleMotion'"/>
+    <KomaSeNoControl :storeName="'battleMotion'"/>
+    <KomaLoopControl :storeName="'battleMotion'"/>
+    <KomaHitControl :storeName="'battleMotion'"/>
   </div>
 </template>
 
@@ -26,6 +27,7 @@ import KomaFrameControl from "../koma/KomaFrameControl.vue";
 import KomaActionControl from "../koma/KomaActionControl.vue";
 import KomaSeNoControl from "../koma/KomaSeNoControl.vue";
 import KomaLoopControl from "../koma/KomaLoopControl.vue";
+import KomaHitControl from "../koma/KomaHitControl.vue";
 
 export default {
   name: 'BattleMotionController',
@@ -41,6 +43,7 @@ export default {
     KomaActionControl,
     KomaSeNoControl,
     KomaLoopControl,
+    KomaHitControl,
   }
 }
 </script>
