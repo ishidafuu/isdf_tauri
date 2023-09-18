@@ -1,7 +1,8 @@
 <template>
   <div class="base-motion-container">
     <div class="character-view">
-      <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY"/>
+      <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY" :flipX="flipX"
+                     :flipY="flipY" :rotation="rotation"/>
       <BaseMotionListControl :storeName="'baseMotion'"/>
       <BaseMotionSaveLoadControl :storeName="'baseMotion'"/>
       <ErrorView/>
@@ -37,6 +38,9 @@ export default {
       activeCellIndex: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].cellNo,
       offsetX: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetX,
       offsetY: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].offsetY,
+      flipX: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].flipX,
+      flipY: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].flipY,
+      rotation: state => state.baseMotion.motions[state.baseMotion.activeMotionIndex].komas[state.baseMotion.activeKomaIndex].rotation,
     }),
   }
 }
@@ -45,6 +49,7 @@ export default {
 <style scoped>
 .base-motion-container {
   display: flex; /* Flexboxを有効に */
+
 }
 
 .character-view {

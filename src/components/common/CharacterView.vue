@@ -1,7 +1,8 @@
 <template>
   <CrossLineView>
     <div class="cross-line-view">
-      <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeCellIndex="activeCellIndex"/>
+      <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeCellIndex="activeCellIndex" :flipX="flipX" :flipY="flipY"
+                :rotation="rotation"/>
       <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle" :faceX="faceX" :faceY="faceY"
                 :facePriority="faceZ"/>
       <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY"/>
@@ -24,11 +25,25 @@ export default {
       type: Number
     },
     offsetX: {
-      type: Number
+      type: Number,
+      default: 0,
     },
     offsetY: {
-      type: Number
-    }
+      type: Number,
+      default: 0,
+    },
+    flipX: {
+      type: Number,
+      default: 0,
+    },
+    flipY: {
+      type: Number,
+      default: 0,
+    },
+    rotation: {
+      type: Number,
+      default: 0,
+    },
   },
   components: {
     CrossLineView,

@@ -14,6 +14,9 @@ export default defineComponent({
     bodyX: Number,
     bodyY: Number,
     activeCellIndex: Number,
+    flipX: Number,  // add this line
+    flipY: Number,  // add this line
+    rotation: Number  // add this line
   },
   setup(props) {
     const imagePath = '/nm2body.png';
@@ -37,9 +40,14 @@ export default defineComponent({
       const halfSize = 40 / 2;
       const translateX = props.bodyX * scale - halfSize;
       const translateY = -props.bodyY * scale - halfSize;
+      // add flip and rotation transformations
+      const scaleX = props.flipX ? -1 : 1;
+      const scaleY = props.flipY ? -1 : 1;
+      const rotationAngle = props.rotation * 90;  // convert enum to degrees
+
       return {
         ...backgroundStyle.value,
-        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`
+        transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX * scale}, ${scaleY * scale}) rotate(${rotationAngle}deg)`
       };
     });
 
