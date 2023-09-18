@@ -12,7 +12,10 @@ export default defineComponent({
     itemAngle: Number,
     itemZ: Number,
     itemX: Number,
-    itemY: Number
+    itemY: Number,
+    flipX: Number,  // add this line
+    flipY: Number,  // add this line
+    rotation: Number  // add this line
   },
   setup(props) {
     const imagePath = '/item.png';
@@ -32,11 +35,30 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 32 / 2;
-      const translateX = props.itemX * scale - halfSize;
-      const translateY = -props.itemY * scale - halfSize;
+      const scaleX = props.flipX ? -1 : 1;
+      const scaleY = props.flipY ? -1 : 1;
+      let translateX = props.itemX * scale;
+      let translateY = -props.itemY * scale;
+      const rotationAngle = props.rotation * 90;  // convert enum to degrees
+
+      // Rotation-based coordinate transformation
+      switch (props.rotation) {
+        case 1:  // 90 degrees
+          [translateX, translateY] = [-translateY, translateX];
+          break;
+        case 2:  // 180 degrees
+          [translateX, translateY] = [-translateX, -translateY];
+          break;
+        case 3:  // 270 degrees
+          [translateX, translateY] = [translateY, -translateX];
+          break;
+      }
+      translateX -= halfSize * scaleX;
+      translateY -= halfSize * scaleY;
+
       return {
         ...backgroundStyle.value,
-        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+        transform: `scale(${scaleX}, ${scaleY}) translate(${translateX}px, ${translateY}px) rotate(${rotationAngle}deg) scale(${scale})`,
         zIndex: props.itemZ
       };
     });

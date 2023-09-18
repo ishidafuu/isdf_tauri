@@ -37,17 +37,31 @@ export default defineComponent({
 
     const styleData = computed(() => {
       const scale = 4;
-      const halfSize = 40 / 2;
-      const translateX = props.bodyX * scale - halfSize;
-      const translateY = -props.bodyY * scale - halfSize;
-      // add flip and rotation transformations
       const scaleX = props.flipX ? -1 : 1;
       const scaleY = props.flipY ? -1 : 1;
+      const halfSize = 40 / 2;
+      let translateX = props.bodyX * scale;
+      let translateY = -props.bodyY * scale;
       const rotationAngle = props.rotation * 90;  // convert enum to degrees
+
+      switch (props.rotation) {
+        case 1:  // 90 degrees
+          [translateX, translateY] = [-translateY, translateX];
+          break;
+        case 2:  // 180 degrees
+          [translateX, translateY] = [-translateX, -translateY];
+          break;
+        case 3:  // 270 degrees
+          [translateX, translateY] = [translateY, -translateX];
+          break;
+      }
+
+      translateX -= halfSize * scaleX;
+      translateY -= halfSize * scaleY;
 
       return {
         ...backgroundStyle.value,
-        transform: `translate(${translateX}px, ${translateY}px) scale(${scaleX * scale}, ${scaleY * scale}) rotate(${rotationAngle}deg)`
+        transform: `scale(${scaleX}, ${scaleY}) translate(${translateX}px, ${translateY}px) rotate(${rotationAngle}deg) scale(${scale})`
       };
     });
 

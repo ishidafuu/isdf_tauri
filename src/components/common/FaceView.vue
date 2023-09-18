@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from "vue";
-import { useImageUtils } from "../../mixins/imageUtils.ts";
+import {defineComponent, computed, ref, onMounted} from "vue";
+import {useImageUtils} from "../../mixins/imageUtils.ts";
 
 export default defineComponent({
   name: "FaceView",
@@ -13,13 +13,16 @@ export default defineComponent({
     faceAngle: Number,
     faceX: Number,
     faceY: Number,
-    faceZ: Number
+    faceZ: Number,
+    flipX: Number,
+    flipY: Number,
+    rotation: Number
   },
   setup(props) {
     const imagePath = '/face.png';
     const transparentImagePath = ref<string | null>(null);
     const gridSize = 16;
-    const { makeColorTransparent } = useImageUtils();
+    const {makeColorTransparent} = useImageUtils();
 
     const backgroundStyle = computed(() => {
       const col = props.faceIndex;
@@ -35,11 +38,29 @@ export default defineComponent({
     const styleData = computed(() => {
       const scale = 4;
       const halfSize = 16 / 2;
-      const translateX = props.faceX * scale - halfSize;
-      const translateY = -props.faceY * scale - halfSize;
+      const scaleX = props.flipX ? -1 : 1;
+      const scaleY = props.flipY ? -1 : 1;
+      let translateX = props.faceX * scale;
+      let translateY = -props.faceY * scale;
+      const rotationAngle = props.rotation * 90;
+
+      switch (props.rotation) {
+        case 1:  // 90 degrees
+          [translateX, translateY] = [-translateY, translateX];
+          break;
+        case 2:  // 180 degrees
+          [translateX, translateY] = [-translateX, -translateY];
+          break;
+        case 3:  // 270 degrees
+          [translateX, translateY] = [translateY, -translateX];
+          break;
+      }
+      translateX -= halfSize * scaleX;
+      translateY -= halfSize * scaleY;
+
       return {
         ...backgroundStyle.value,
-        transform: `translate(${translateX}px, ${translateY}px) scale(${scale})`,
+        transform: `scale(${scaleX}, ${scaleY}) translate(${translateX}px, ${translateY}px) rotate(${rotationAngle}deg) scale(${scale})`,
         zIndex: props.faceZ
       };
     });

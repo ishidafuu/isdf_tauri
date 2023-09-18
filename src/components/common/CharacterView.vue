@@ -3,9 +3,13 @@
     <div class="cross-line-view">
       <BodyView :bodyX="bodyX" :bodyY="bodyY" :activeCellIndex="activeCellIndex" :flipX="flipX" :flipY="flipY"
                 :rotation="rotation"/>
-      <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle" :faceX="faceX" :faceY="faceY"
-                :facePriority="faceZ"/>
-      <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY"/>
+      <FaceView :faceIndex="faceIndex" :faceAngle="faceAngle"
+                :bodyX="bodyX" :bodyY="bodyY"
+                :faceX="faceX" :faceY="faceY" :faceZ="faceZ"
+                :flipX="flipX" :flipY="flipY" :rotation="rotation"
+                />
+      <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY" :flipX="flipX" :flipY="flipY"
+                :rotation="rotation"/>
     </div>
   </CrossLineView>
 </template>
@@ -57,13 +61,13 @@ export default {
     const bodyY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY + props.offsetY);
     const faceIndex = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceIndex);
     const faceAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceAngle);
-    const faceX = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceX + props.offsetX);
-    const faceY = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceY + props.offsetY);
+    const faceX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX + store.state.charaCell.cells[props.activeCellIndex].faceX + props.offsetX);
+    const faceY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY + store.state.charaCell.cells[props.activeCellIndex].faceY + props.offsetY);
     const faceZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].faceZ);
     const itemAngle = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemAngle);
     const itemZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemZ);
-    const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemX + props.offsetX);
-    const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemY + props.offsetY);
+    const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX + store.state.charaCell.cells[props.activeCellIndex].itemX + props.offsetX);
+    const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY + store.state.charaCell.cells[props.activeCellIndex].itemY + props.offsetY);
 
     return {
       bodyX,
