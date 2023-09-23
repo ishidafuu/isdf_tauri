@@ -13,12 +13,17 @@ function resetAttackValues(koma: Koma) {
     koma.attack.hitH = 0;
 }
 
+function deepCopy<T>(obj: T): T {
+    return JSON.parse(JSON.stringify(obj));
+}
+
+// 例えば、performPushToPast関数を以下のように修正
 function performPushToPast(state: any) {
-    state.past.push({
-        motions: state.motions.map(motion => ({...motion})),
+    state.past.push(deepCopy({
+        motions: state.motions,
         activeMotionIndex: state.activeMotionIndex,
         activeKomaIndex: state.activeKomaIndex,
-    });
+    }));
     state.future = [];
 }
 
@@ -75,28 +80,25 @@ export function createMotionStore<T extends Motion>(storeName: string, saveFileN
         },
         undo(state) {
             if (state.past.length > 0) {
-                const previousState = state.past.pop();
-                state.future.push({
-                    motions: state.motions.map(motion => ({...motion})),
+                const previousState = deepCopy(state.past.pop());
+                state.future.push(deepCopy({
+                    motions: state.motions,
                     activeMotionIndex: state.activeMotionIndex,
                     activeKomaIndex: state.activeKomaIndex,
-                });
-                Object.assign(state.motions, previousState.motions);
-                state.activeMotionIndex = previousState.activeMotionIndex;
-                state.activeKomaIndex = previousState.activeKomaIndex;
+                }));
+                Object.assign(state, previousState);
             }
         },
+
         redo(state) {
             if (state.future.length > 0) {
-                const nextState = state.future.pop();
-                state.past.push({
-                    motions: state.motions.map(motion => ({...motion})),
+                const nextState = deepCopy(state.future.pop());
+                state.past.push(deepCopy({
+                    motions: state.motions,
                     activeMotionIndex: state.activeMotionIndex,
                     activeKomaIndex: state.activeKomaIndex,
-                });
-                Object.assign(state.motions, nextState.motions);
-                state.activeMotionIndex = nextState.activeMotionIndex;
-                state.activeKomaIndex = nextState.activeKomaIndex;
+                }));
+                Object.assign(state, nextState);
             }
         },
         loadState(state, newState) {

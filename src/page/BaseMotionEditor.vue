@@ -18,7 +18,7 @@ import CharacterView from "../components/common/CharacterView.vue";
 import BaseMotionController from "../components/motion/BaseMotionController.vue";
 import BaseMotionListControl from "../components/motion/MotionListControl.vue";
 import {mapState} from "vuex";
-import BaseMotionSaveLoadControl from "../components/motion/MotionSaveLoadControl.vue";
+import BaseMotionSaveLoadControl from "../components/common/SaveLoadControl.vue";
 import ErrorView from "../components/common/ErrorView.vue";
 import KomaLoopControl from "../components/koma/KomaLoopControl.vue";
 

@@ -10,15 +10,21 @@ import { defineComponent, onBeforeUnmount } from 'vue'
 import { useStore } from 'vuex'
 
 export default defineComponent({
-  setup() {
+  props: {
+    storeName: {
+      type: String,
+      required: true
+    },
+  },
+  setup(props) {
     const store = useStore()
 
     const undo = () => {
-      store.commit('charaCell/undo')
+      store.commit(`${props.storeName}/undo`)
     }
 
     const redo = () => {
-      store.commit('charaCell/redo')
+      store.commit(`${props.storeName}/redo`)
     }
 
     const handleKeydown = (event: KeyboardEvent) => {

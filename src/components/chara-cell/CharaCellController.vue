@@ -10,8 +10,8 @@
     <ItemAngleControl/>
     <ItemOffsetControl/>
     <ItemPriorityControl/>
-    <UndoRedoControl/>
-    <SaveLoadControl/>
+    <UndoRedoControl :storeName="'charaCell'"/>
+    <SaveLoadControl :storeName="'charaCell'"/>
   </div>
 </template>
 
@@ -26,8 +26,8 @@ import FacePriorityControl from "./FacePriorityControl.vue";
 import ItemAngleControl from "./ItemAngleControl.vue";
 import ItemOffsetControl from "./ItemOffsetControl.vue";
 import ItemPriorityControl from "./ItemPriorityControl.vue";
-import UndoRedoControl from "./UndoRedoControl.vue";
-import SaveLoadControl from "./SaveLoadControl.vue";
+import UndoRedoControl from "../common/UndoRedoControl.vue";
+import SaveLoadControl from "../common/SaveLoadControl.vue";
 
 export default {
   name: 'CharaCellControlView',

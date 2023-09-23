@@ -11,6 +11,8 @@
     <KomaActionControl :storeName="'baseMotion'"/>
     <KomaSeNoControl :storeName="'baseMotion'"/>
     <KomaLoopControl :storeName="'baseMotion'"/>
+    <UndoRedoControl :storeName="'baseMotion'"/>
+    <SaveLoadControl :storeName="'baseMotion'"/>
   </div>
 </template>
 
@@ -26,10 +28,13 @@ import KomaFrameControl from "../koma/KomaFrameControl.vue";
 import KomaActionControl from "../koma/KomaActionControl.vue";
 import KomaSeNoControl from "../koma/KomaSeNoControl.vue";
 import KomaLoopControl from "../koma/KomaLoopControl.vue";
+import UndoRedoControl from "../common/UndoRedoControl.vue";
+import SaveLoadControl from "../common/SaveLoadControl.vue";
 
 export default {
   name: 'BaseMotionController',
   components: {
+    SaveLoadControl, UndoRedoControl,
     MotionNameControl,
     KomaListControl,
     KomaAddRemoveControl,
