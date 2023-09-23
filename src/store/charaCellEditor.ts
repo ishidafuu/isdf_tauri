@@ -25,18 +25,20 @@ const state = {
     future: [],
 };
 
+function performPushToPast(state: any) {
+    state.past.push(state.cells.map(cell => ({...cell})));
+    state.future = []
+}
+
+function performClearPast(state: any) {
+    state.past = [];
+    state.future = [];
+}
+
 
 const mutations = {
     setEditMode(state, mode) {
         state.editMode = mode;
-    },
-    pushToPast(state) {
-        state.past.push(state.cells.map(cell => ({...cell})));
-        state.future = []
-    },
-    clearPast(state) {
-        state.past = [];
-        state.future = [];
     },
     undo(state) {
         if (state.past.length > 0) {
@@ -57,63 +59,63 @@ const mutations = {
     },
     // 体パーツ
     changeCellIndex(state, amount) {
-        this.commit('charaCell/clearPast');
+        performClearPast(state);
         const newIndex = state.activeCellIndex + amount;
         state.activeCellIndex = newIndex >= 0 ? newIndex : 0;
     },
     changeBodyX(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.bodyX += amount;
     },
     changeBodyY(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.bodyY += amount;
     },
     // 顔パーツ
     changeFaceIndex(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.faceIndex = (cell.faceIndex + 8 + amount) % 8;
     },
     changeFaceAngle(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         cell.faceAngle = (cell.faceAngle + 4 + amount) % 4;
     },
     changeFaceX(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.faceX += amount;
     },
     changeFaceY(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.faceY += amount;
     },
     toggleFacePriority(state) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.faceZ = cell.faceZ === 0 ? -1 : 0;
     },
     // アイテム
     changeItemAngle(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.itemAngle = (cell.itemAngle + 8 + amount) % 8;
     },
     changeItemX(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.itemX += amount;
     },
     changeItemY(state, amount) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.itemY += amount;
     },
     toggleItemZ(state) {
-        this.commit('charaCell/pushToPast');
+        performPushToPast(state);
         const cell = state.cells[state.activeCellIndex];
         cell.itemZ = cell.itemZ === 0 ? -1 : 0;
     },
