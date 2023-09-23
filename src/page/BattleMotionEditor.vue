@@ -2,7 +2,8 @@
   <div class="base-motion-container">
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY" :flipX="flipX"
-                     :flipY="flipY" :rotation="rotation" :hitX="hitX" :hitY="hitY" :hitW="hitW" :hitH="hitH"/>
+                     :flipY="flipY" :rotation="rotation" :hitX="hitX" :hitY="hitY" :hitW="hitW" :hitH="hitH"
+                      :isEditableHitBox=true :storeName="'battleMotion'"/>
       <MotionListControl :storeName="'battleMotion'"/>
       <MotionSaveLoadControl :storeName="'battleMotion'"/>
       <ErrorView/>

@@ -11,6 +11,7 @@
       <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY" :flipX="flipX" :flipY="flipY"
                 :rotation="rotation"/>
       <HitBoxView :hitX="hitX" :hitY="hitY" :hitW="hitW" :hitH="hitH"/>
+      <HitBoxEditor v-if="isEditableHitBox" :storeName="storeName" />
     </div>
   </CrossLineView>
 </template>
@@ -22,6 +23,7 @@ import BodyView from './BodyView.vue'
 import FaceView from './FaceView.vue'
 import ItemView from './ItemView.vue'
 import HitBoxView from './HitBoxView.vue'
+import HitBoxEditor from '../attack/HitBoxControl.vue'
 import {computed} from "vue";
 
 export default {
@@ -66,6 +68,14 @@ export default {
       type: Number,
       default: 0,
     },
+    isEditableHitBox: {
+      type: Boolean,
+      default: false,
+    },
+    storeName: {
+      type: String,
+      default: ''
+    },
   },
   components: {
     CrossLineView,
@@ -73,6 +83,7 @@ export default {
     FaceView,
     ItemView,
     HitBoxView,
+    HitBoxEditor,
   },
   setup(props) {
     const store = useStore()
