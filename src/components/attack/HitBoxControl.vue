@@ -1,6 +1,5 @@
 <template>
   <div class="hitbox-control" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp">
-    <div class="hitbox-rect" :style="hitboxStyle"></div>
   </div>
 </template>
 
@@ -17,46 +16,34 @@ export default defineComponent({
     }
   },
   setup(props) {
+    const offsetX = -216;
+    const offsetY = -292;
+    const scale = 4;
     const store = useStore();
     const isDragging = ref(false);
     const initialX = ref(0);
     const initialY = ref(0);
 
-    const currentX = ref(0); // 追加：現在のX座標
-    const currentY = ref(0); // 追加：現在のY座標
-
-    // setup内に以下の計算プロパティを追加
-    const hitboxStyle = computed(() => {
-      return {
-        left: `${initialX.value}px`,
-        top: `${initialY.value}px`,
-        width: `${Math.abs(initialX.value - (isDragging.value ? currentX.value : initialX.value))}px`,
-        height: `${Math.abs(initialY.value - (isDragging.value ? currentY.value : initialY.value))}px`,
-      };
-    });
-
     const handleMouseDown = (e: MouseEvent) => {
-      console.log("Mouse Move")
       isDragging.value = true;
-      initialX.value = e.clientX;
-      initialY.value = e.clientY;
+      initialX.value = e.clientX + offsetX;
+      initialY.value = e.clientY + offsetY;
 
-      const hitX = initialX.value;
-      const hitY = initialY.value;
+      const hitX = Math.floor(initialX.value / scale);
+      const hitY = Math.floor(initialY.value / scale);
 
       // Storeにデータを保存
       store.commit(`${props.storeName}/setHitX`, hitX);
       store.commit(`${props.storeName}/setHitY`, hitY);
+      store.commit(`${props.storeName}/setHitW`, 0);
+      store.commit(`${props.storeName}/setHitH`, 0);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
-      console.log("Mouse Up");
       if (!isDragging.value) return;
-      currentX.value = e.clientX; // 追加：現在のX座標を更新
-      currentY.value = e.clientY; // 追加：現在のY座標を更新
 
-      const hitW = e.clientX - initialX.value;
-      const hitH = e.clientY - initialY.value;
+      const hitW = Math.floor(Math.abs(e.clientX + offsetX - initialX.value) / scale);
+      const hitH = Math.floor(Math.abs(e.clientY + offsetY - initialY.value) / scale);
 
       // Storeにデータを保存
       store.commit(`${props.storeName}/setHitW`, hitW);
@@ -71,7 +58,6 @@ export default defineComponent({
       handleMouseDown,
       handleMouseMove,
       handleMouseUp,
-      hitboxStyle,
     };
   },
 });

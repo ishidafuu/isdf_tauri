@@ -15,8 +15,8 @@ export default defineComponent({
   setup(props) {
     const hitboxStyle = computed(() => {
       const scale = 4;
-      const x = (props.hitX - props.hitW) * scale;
-      const y = (-props.hitY - props.hitH) * scale;
+      const x = 160 + (props.hitX - props.hitW) * scale;
+      const y = 160 - (-props.hitY + props.hitH) * scale;
       const width = props.hitW * 2 * scale;
       const height = props.hitH * 2 * scale;
 
