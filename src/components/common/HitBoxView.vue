@@ -39,6 +39,6 @@ export default defineComponent({
 .hitbox {
   position: absolute;
   border: 1px solid yellow;
-  background-color: rgba(255, 255, 0, 0.2);
+  background-color: rgba(255, 255, 0, 0.4);
 }
 </style>
