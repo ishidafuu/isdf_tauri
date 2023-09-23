@@ -3,8 +3,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, computed, ref, onMounted } from "vue";
-import { useImageUtils } from "../../mixins/imageUtils.ts";
+import {defineComponent, computed, ref, onMounted} from "vue";
+import {useImageUtils} from "../../mixins/imageUtils.ts";
 
 export default defineComponent({
   name: "ItemView",
@@ -21,7 +21,7 @@ export default defineComponent({
     const imagePath = '/item.png';
     const transparentImagePath = ref<string | null>(null);
     const gridSize = 32;
-    const { makeColorTransparent } = useImageUtils();
+    const {makeColorTransparent} = useImageUtils();
 
     const backgroundStyle = computed(() => {
       const bgPosX = -props.itemAngle * gridSize;
@@ -78,11 +78,13 @@ export default defineComponent({
 
 <style scoped>
 .character-item {
+  left: 50%;
+  top: 50%;
+  position: absolute;
   width: 32px;
   height: 32px;
   background-repeat: no-repeat;
   transform-origin: center;
-  image-rendering: pixelated;
-  position: relative;
+  image-rendering: pixelated;//border: 1px solid magenta;
 }
 </style>

@@ -80,11 +80,13 @@ export default defineComponent({
 
 <style scoped>
 .character-face {
+  left: 50%;
+  top: 50%;
+  position: absolute;
   width: 16px;
   height: 16px;
   background-repeat: no-repeat;
   transform-origin: center;
-  image-rendering: pixelated;
-  position: relative;
+  image-rendering: pixelated; //border: 1px solid cyan;
 }
 </style>

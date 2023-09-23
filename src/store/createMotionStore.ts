@@ -257,6 +257,32 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
             koma.attack.hitH += amount;
             if (koma.attack.hitH < 0) koma.attack.hitH = 0;
         },
+
+        setHitX(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitX = amount;
+        },
+
+        setHitY(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitY = amount;
+        },
+
+        setHitW(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitW = amount;
+            if (koma.attack.hitW < 0) koma.attack.hitW = 0;
+        },
+
+        setHitH(state, amount) {
+            this.commit('pushToPast');
+            const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
+            koma.attack.hitH = amount;
+            if (koma.attack.hitH < 0) koma.attack.hitH = 0;
+        },
     };
 
     const actions = {

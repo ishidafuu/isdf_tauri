@@ -1,15 +1,15 @@
 <template>
-  <div class="hitbox-editor" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp">
+  <div class="hitbox-control" @mousedown="handleMouseDown" @mousemove="handleMouseMove" @mouseup="handleMouseUp">
     <div class="hitbox-rect" :style="hitboxStyle"></div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, SetupContext, computed } from "vue";
-import { useStore } from 'vuex';
+import {defineComponent, ref, SetupContext, computed} from "vue";
+import {useStore} from 'vuex';
 
 export default defineComponent({
-  name: "HitBoxEditor",
+  name: "HitBoxControl",
   props: {
     storeName: {
       type: String,
@@ -45,8 +45,8 @@ export default defineComponent({
       const hitY = initialY.value;
 
       // Storeにデータを保存
-      store.commit(`${props.storeName}/changeHitX`, hitX);
-      store.commit(`${props.storeName}/changeHitY`, hitY);
+      store.commit(`${props.storeName}/setHitX`, hitX);
+      store.commit(`${props.storeName}/setHitY`, hitY);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -59,8 +59,8 @@ export default defineComponent({
       const hitH = e.clientY - initialY.value;
 
       // Storeにデータを保存
-      store.commit(`${props.storeName}/changeHitW`, hitW);
-      store.commit(`${props.storeName}/changeHitH`, hitH);
+      store.commit(`${props.storeName}/setHitW`, hitW);
+      store.commit(`${props.storeName}/setHitH`, hitH);
     };
 
     const handleMouseUp = () => {
@@ -78,11 +78,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
-.hitbox-editor {
+.hitbox-control {
+  position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  position: absolute;
-  cursor: crosshair;
+  border: 1px solid yellow;
 }
 
 .hitbox-rect {
