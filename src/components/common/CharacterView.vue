@@ -23,7 +23,7 @@ import BodyView from './BodyView.vue'
 import FaceView from './FaceView.vue'
 import ItemView from './ItemView.vue'
 import HitBoxView from './HitBoxView.vue'
-import HitBoxEditor from '../attack/HitBoxControl.vue'
+import HitBoxEditor from '../attack/HitBoxEditor.vue'
 import {computed} from "vue";
 
 export default {

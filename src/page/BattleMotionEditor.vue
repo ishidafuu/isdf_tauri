@@ -24,6 +24,7 @@ import MotionSaveLoadControl from "../components/motion/MotionSaveLoadControl.vu
 import KomaLoopControl from "../components/koma/KomaLoopControl.vue";
 
 
+
 export default {
   name: 'BattleMotionEditor',
   components: {
