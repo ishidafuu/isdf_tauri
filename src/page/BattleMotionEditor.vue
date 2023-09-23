@@ -2,7 +2,7 @@
   <div class="base-motion-container">
     <div class="character-view">
       <CharacterView :activeCellIndex="activeCellIndex" :offsetX="offsetX" :offsetY="offsetY" :flipX="flipX"
-                     :flipY="flipY" :rotation="rotation"/>
+                     :flipY="flipY" :rotation="rotation" :hitX="hitX" :hitY="hitY" :hitW="hitW" :hitH="hitH"/>
       <MotionListControl :storeName="'battleMotion'"/>
       <MotionSaveLoadControl :storeName="'battleMotion'"/>
       <ErrorView/>
@@ -41,6 +41,10 @@ export default {
       flipX: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].flipX,
       flipY: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].flipY,
       rotation: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].rotation,
+      hitX: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].attack.hitX,
+      hitY: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].attack.hitY,
+      hitW: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].attack.hitW,
+      hitH: state => state.battleMotion.motions[state.battleMotion.activeMotionIndex].komas[state.battleMotion.activeKomaIndex].attack.hitH,
     }),
   }
 }

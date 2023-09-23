@@ -7,9 +7,10 @@
                 :bodyX="bodyX" :bodyY="bodyY"
                 :faceX="faceX" :faceY="faceY" :faceZ="faceZ"
                 :flipX="flipX" :flipY="flipY" :rotation="rotation"
-                />
+      />
       <ItemView :itemAngle="itemAngle" :itemZ="itemZ" :itemX="itemX" :itemY="itemY" :flipX="flipX" :flipY="flipY"
                 :rotation="rotation"/>
+      <HitBoxView :hitX="hitX" :hitY="hitY" :hitW="hitW" :hitH="hitH"/>
     </div>
   </CrossLineView>
 </template>
@@ -20,6 +21,7 @@ import CrossLineView from './CrossLineView.vue'
 import BodyView from './BodyView.vue'
 import FaceView from './FaceView.vue'
 import ItemView from './ItemView.vue'
+import HitBoxView from './HitBoxView.vue'
 import {computed} from "vue";
 
 export default {
@@ -48,12 +50,29 @@ export default {
       type: Number,
       default: 0,
     },
+    hitX: {
+      type: Number,
+      default: 0,
+    },
+    hitY: {
+      type: Number,
+      default: 0,
+    },
+    hitW: {
+      type: Number,
+      default: 0,
+    },
+    hitH: {
+      type: Number,
+      default: 0,
+    },
   },
   components: {
     CrossLineView,
     BodyView,
     FaceView,
     ItemView,
+    HitBoxView,
   },
   setup(props) {
     const store = useStore()
@@ -68,7 +87,6 @@ export default {
     const itemZ = computed(() => store.state.charaCell.cells[props.activeCellIndex].itemZ);
     const itemX = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyX + store.state.charaCell.cells[props.activeCellIndex].itemX + props.offsetX);
     const itemY = computed(() => store.state.charaCell.cells[props.activeCellIndex].bodyY + store.state.charaCell.cells[props.activeCellIndex].itemY + props.offsetY);
-
     return {
       bodyX,
       bodyY,
