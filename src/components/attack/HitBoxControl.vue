@@ -4,7 +4,7 @@
 </template>
 
 <script lang="ts">
-import {defineComponent, ref, SetupContext, computed} from "vue";
+import {defineComponent, ref} from "vue";
 import {useStore} from 'vuex';
 
 export default defineComponent({
@@ -30,9 +30,8 @@ export default defineComponent({
       initialY.value = e.clientY + offsetY;
 
       const hitX = Math.floor(initialX.value / scale);
-      const hitY = Math.floor(initialY.value / scale);
+      const hitY = Math.floor(-initialY.value / scale);
 
-      // Storeにデータを保存
       store.commit(`${props.storeName}/setHitX`, hitX);
       store.commit(`${props.storeName}/setHitY`, hitY);
       store.commit(`${props.storeName}/setHitW`, 0);

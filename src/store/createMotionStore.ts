@@ -5,7 +5,7 @@ import {createDir, exists, readTextFile, writeFile} from "@tauri-apps/api/fs";
 import {documentDir} from "@tauri-apps/api/path";
 import {store} from "./index.ts";
 
-export function createMotionStore<T extends Motion>(saveFileName: string, hasAttack: boolean) {
+export function createMotionStore<T extends Motion>(storeName: string, saveFileName: string, hasAttack: boolean) {
     const initialAttack: Attack = {
         hitX: 0,
         hitY: 0,
@@ -94,13 +94,13 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
         },
         // モーションインデックス
         changeMotionIndex(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             state.activeMotionIndex = amount >= 0 ? amount : 0;
             state.activeKomaIndex = 0;
         },
         // モーション追加削除
         addMotion(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             state.motions.splice(state.activeMotionIndex, 0, {initialBaseMotion});
             state.activeMotionIndex += 1;
             state.activeKomaIndex = 0;
@@ -109,7 +109,7 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
             if (state.motions.length <= 1) {
                 return;
             }
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             state.motions.splice(state.activeMotionIndex, 1);
             const motionsLength = state.motions.length;
             state.activeMotionIndex = Math.min(Math.max(0, state.activeKomaIndex), motionsLength - 1);
@@ -117,19 +117,19 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
         },
         // モーション名
         changeMotionName(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const motion = state.motions[state.activeMotionIndex];
             motion.name = amount;
         },
         // コマインデックス
         changeKomaIndex(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const komasLength = state.motions[state.activeMotionIndex].komas.length;
             state.activeKomaIndex = Math.min(Math.max(0, amount), komasLength - 1);
         },
         // コマ追加削除
         addKoma(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const komas = state.motions[state.activeMotionIndex].komas;
             komas.splice(state.activeKomaIndex + 1, 0, initialKoma);
         },
@@ -138,7 +138,7 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
             if (komas.length <= 1) {
                 return;
             }
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             komas.splice(state.activeKomaIndex, 1);
             const komasLength = state.motions[state.activeMotionIndex].komas.length;
             state.activeKomaIndex = Math.min(Math.max(0, state.activeKomaIndex), komasLength - 1);
@@ -151,74 +151,74 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
             if (state.clipKoma === null) {
                 return;
             }
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             state.motions[state.activeMotionIndex].komas[state.activeKomaIndex] = state.clipKoma;
         },
         // コマ編集
         changeCellNo(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.cellNo += amount;
             if (koma.cellNo < 0) koma.cellNo = 0;
         },
         changeOffsetX(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.offsetX += amount;
         },
         changeOffsetY(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.offsetY += amount;
         },
         toggleFlipX(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.flipX = koma.flipX === 0 ? 1 : 0;
         },
         toggleFlipY(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.flipY = koma.flipY === 0 ? 1 : 0;
         },
         changeRotation(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.rotation = (koma.rotation + Rotation90.Rotation90Count + amount) % Rotation90.Rotation90Count;
         },
         // 効果音
         changeSeNo(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.seNo += amount;
             if (koma.seNo < 0) koma.seNo = 0;
         },
         toggleLoopSe(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.isLoopSe = koma.isLoopSe === 0 ? 1 : 0;
         },
         // ループ
         changeLoopPoint(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.loopPoint = (koma.loopPoint + LoopPoint.LoopPointCount + amount) % LoopPoint.LoopPointCount;
         },
         changeLoopCount(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.loopCount += amount;
             if (koma.loopCount < 0) koma.loopCount = 0;
         },
         // フレーム数
         changeFrame(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.frame += amount;
             if (koma.frame < 0) koma.frame = 0;
         },
         changeFrameAll(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const frame = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex].frame;
             state.motions[state.activeMotionIndex].komas.forEach((koma) => {
                 koma.frame = frame;
@@ -226,59 +226,59 @@ export function createMotionStore<T extends Motion>(saveFileName: string, hasAtt
         },
         // アクションポイント
         toggleAction(state) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.isAction = koma.isAction === 0 ? 1 : 0;
         },
 
         // Attack
         changeHitX(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitX += amount;
         },
 
         changeHitY(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitY += amount;
         },
 
         changeHitW(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitW += amount;
             if (koma.attack.hitW < 0) koma.attack.hitW = 0;
         },
 
         changeHitH(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitH += amount;
             if (koma.attack.hitH < 0) koma.attack.hitH = 0;
         },
 
         setHitX(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitX = amount;
         },
 
         setHitY(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitY = amount;
         },
 
         setHitW(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitW = amount;
             if (koma.attack.hitW < 0) koma.attack.hitW = 0;
         },
 
         setHitH(state, amount) {
-            this.commit('pushToPast');
+            this.commit(`${storeName}/pushToPast`);
             const koma = state.motions[state.activeMotionIndex].komas[state.activeKomaIndex];
             koma.attack.hitH = amount;
             if (koma.attack.hitH < 0) koma.attack.hitH = 0;
